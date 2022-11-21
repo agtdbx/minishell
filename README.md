@@ -9,3 +9,7 @@ CTRL D -> EOF
 
 CTRL \ -> SIG_QUIT
 	(Ne fais rien)
+
+
+readline("> ")
+	retourne ce que tu écris, sans le \n pour entrer

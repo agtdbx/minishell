@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+         #
+#    By: aderouba <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 14:20:53 by ngrenoux          #+#    #+#              #
-#    Updated: 2022/11/21 15:20:56 by ngrenoux         ###   ########.fr        #
+#    Updated: 2022/11/21 17:11:34 by aderouba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ all:	$(NAME)
 	@$(CC) $(FLAGS) -c $< -o $@
 
 $(NAME):	$(OBJS)
-	@make -sC $(LIBFT)
+	@make -j -sC $(LIBFT)
 	@echo "$(BLUE)Compilation...$(NOC)"
 	@cp $(LIBFT)/libft.a ./libft.a
 	@echo "$(BLUE)Création de l'executable...$(NOC)"

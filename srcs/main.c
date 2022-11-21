@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/21 16:31:19 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/11/21 17:16:05 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,18 @@ int main(void)
 {
 	char *buf;
 
-	buf = readline("> ");
-	if (buf != NULL)
+	while (1)
 	{
+		buf = readline("> ");
+		if (buf == NULL)
+		{
+			ft_printf("exit\n");
+			break ;
+		}
+			break ;
+		if (ft_strcmp(buf, "exit") == 0)
+			break ;
 		free(buf);
-		return (0);
 	}
+	return (0);
 }
