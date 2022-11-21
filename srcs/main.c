@@ -6,15 +6,15 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/21 17:16:05 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/21 17:26:10 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int main(void)
+int	main(void)
 {
-	char *buf;
+	char	*buf;
 
 	while (1)
 	{
@@ -24,7 +24,6 @@ int main(void)
 			ft_printf("exit\n");
 			break ;
 		}
-			break ;
 		if (ft_strcmp(buf, "exit") == 0)
 			break ;
 		free(buf);

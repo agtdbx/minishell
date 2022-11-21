@@ -6,7 +6,7 @@
 #    By: aderouba <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/26 12:24:51 by aderouba          #+#    #+#              #
-#    Updated: 2022/11/21 16:37:10 by aderouba         ###   ########.fr        #
+#    Updated: 2022/11/21 17:22:29 by aderouba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,6 +75,7 @@ SRC =	ft_atof.c \
 		ft_tolower.c \
 		ft_toupper.c \
 		gnl.c \
+		printf_fd.c \
 		printf.c
 
 OBJ = ${SRC:.c=.o}

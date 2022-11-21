@@ -1,26 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   signal.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/21 17:25:14 by aderouba         ###   ########.fr       */
+/*   Created: 2022/11/21 17:23:26 by aderouba          #+#    #+#             */
+/*   Updated: 2022/11/21 17:23:47 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-
-# include <stdio.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-
-# include "../libft/libft.h"
-
-# include "signal.h"
-# include "parsing.h"
+#ifndef SIGNAL_H
+# define SIGNAL_H
 
 #endif

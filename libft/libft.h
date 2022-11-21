@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:33:14 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/21 11:51:16 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/21 17:21:12 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,6 @@ char	*get_next_line(int fd);
 
 // printf
 void	ft_printf(const char *str, ...);
+void	ft_printf_fd(const char *str, int fd, ...);
 
 #endif
