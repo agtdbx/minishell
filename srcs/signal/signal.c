@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 17:27:16 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/22 14:30:20 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/11/22 15:04:16 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/mini_signal.h"
-
+/*
 struct sigaction	ft_init_signals(void)
 {
 	struct sigaction	sigact;
@@ -33,3 +33,4 @@ void	ft_signals(void)
 	if (signal(SIGINT, signals_management) == SIG_ERR)
 		perror("SIGINT");
 }
+*/
