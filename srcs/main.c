@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/22 14:44:44 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/11/22 16:56:34 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int main(int argc, char **argv, char **envp)
 	paths = get_paths(envp);
 	while (1)
 	{
+		ft_signals();
 		buf = readline("> ");
 		if (buf == NULL)
 		{
@@ -30,7 +31,10 @@ int main(int argc, char **argv, char **envp)
 			break;
 		}
 		if (ft_strcmp(buf, "exit") == 0)
+		{
+			ft_printf("exit\n");
 			break;
+		}
 		commands = parse_buf(buf, paths);
 		free_commands(commands);
 		free(buf);
