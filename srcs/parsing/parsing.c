@@ -3,11 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 17:27:37 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/21 17:27:45 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/22 09:56:09 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/signal.h"
+#include "../../includes/mini_signal.h"
