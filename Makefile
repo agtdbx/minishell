@@ -6,7 +6,7 @@
 #    By: aderouba <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 14:20:53 by ngrenoux          #+#    #+#              #
-#    Updated: 2022/11/21 17:28:31 by aderouba         ###   ########.fr        #
+#    Updated: 2022/11/22 14:27:35 by aderouba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ LIBFT		= libft
 #=================================SOURCE FILES=================================#
 SRCS		= srcs/main.c \
 			  srcs/parsing/parsing.c \
+			  srcs/parsing/command.c \
+			  srcs/parsing/command_utils.c \
 			  srcs/signal/signal.c
 
 #====================================OBJECTS===================================#
