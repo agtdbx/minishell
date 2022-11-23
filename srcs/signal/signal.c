@@ -6,12 +6,29 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 17:27:16 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/22 15:04:16 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/23 11:53:33 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/mini_signal.h"
-/*
+#include "../../includes/minishell.h"
+
+/* Remplace les actions des signaux ctrl + c && ctrl + \ */
+void	signals_management(int sig, siginfo_t *info, void *context)
+{
+	(void)context;
+	(void)info;
+	if (sig == SIGINT)
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+	if (sig == SIGQUIT)
+		return ;
+}
+
+/* Initialisation de la gestion des signaux */
 struct sigaction	ft_init_signals(void)
 {
 	struct sigaction	sigact;
@@ -21,16 +38,16 @@ struct sigaction	ft_init_signals(void)
 	sigaddset(&sigset, SIGINT);
 	sigaddset(&sigset, SIGQUIT);
 	sigact.sa_flags = SA_SIGINFO;
-}
-
-void	signals_management(int sig)
-{
-	(void)sig;
+	sigact.sa_mask = sigset;
+	sigact.sa_sigaction = &signals_management;
+	return (sigact);
 }
 
 void	ft_signals(void)
 {
-	if (signal(SIGINT, signals_management) == SIG_ERR)
-		perror("SIGINT");
+	t_data	data;
+
+	data.sigact = ft_init_signals();
+	sigaction(SIGINT, &data.sigact, NULL);
+	sigaction(SIGQUIT, &data.sigact, NULL);
 }
-*/
