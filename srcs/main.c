@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/23 16:35:55 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/11/23 16:46:27 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int main(int argc, char **argv, char **envp)
 			break;
 		}
 		commands = parse_buf(buf, paths);
+		print_pwd(commands);
 		free_commands(commands);
 		free(buf);
 	}

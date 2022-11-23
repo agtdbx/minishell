@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/23 16:27:30 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/11/23 16:45:55 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,6 @@ void		interprate_variable(t_command *command);
 void	ft_signals(void);
 
 /*============================bultins.c============================*/
-void	print_pwd(char *cmd);
+void	print_pwd(t_command *cmd);
 
 #endif
