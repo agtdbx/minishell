@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/23 17:14:08 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/11/23 17:16:30 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,6 @@ void		ft_signals(void);
 ===================================================================*/
 
 /*============================bultins.c============================*/
-<<<<<<< HEAD
-void	print_pwd(t_command *cmd);
-=======
-void		print_pwd(char *cmd);
->>>>>>> 5142f23ecbed3dd0c46f6535790625f41a516697
+void		print_pwd(t_command *cmd);
 
 #endif
