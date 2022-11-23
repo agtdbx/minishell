@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:24:06 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/22 14:30:27 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/22 16:15:38 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,3 @@ void	print_command(t_command *command)
 		ft_printf("NULL\n");
 	ft_printf("Fd in : %i, fd out : %i\n\n", command->fd_in, command->fd_out);
 }
-
-/*
-TEST = coucou
-echo $TEST     -> coucou
-echo '$TEST'   -> $TEST
-echo "$TEST"   -> coucou
-echo '"$TEST"' -> "$TEST"
-echo "'$TEST'" -> 'coucou'
-*/

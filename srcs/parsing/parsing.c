@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 17:27:37 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/22 14:44:38 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/11/22 15:46:32 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ t_command *parse_buf(char *buf, char **paths)
 	while (inputs[i] != NULL)
 	{
 		tmp = get_command(inputs[i], paths);
+		interprate_variable(&tmp);
 		print_command(&tmp);
 		commands = add_command(commands, tmp);
 		i++;
