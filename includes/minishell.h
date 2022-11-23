@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/23 14:01:20 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/23 16:43:18 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,14 @@ void		print_command(t_command *command);
 char		*get_command_path(char *name, char **paths);
 char		**get_arg(char **split_res, char **paths);
 
-/* ===========================variable.c========================= */
+/* ===========================variable.c========================== */
 int			get_pos_dollar(char *str);
 void		interprate_variable(t_command *command);
 
 /*=============================signal.c============================*/
 void	ft_signals(void);
+
+/*============================bultins.c============================*/
+void	print_pwd(char *cmd);
 
 #endif

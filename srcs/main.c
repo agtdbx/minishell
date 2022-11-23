@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/22 16:56:34 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/11/23 16:35:55 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@ int main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		ft_signals();
-		buf = readline("> ");
+		buf = readline("minishell > ");
 		if (buf == NULL)
 		{
 			ft_printf("exit\n");
 			break;
 		}
+		if (ft_strlen(buf) > 0)
+			add_history(buf);
 		if (ft_strcmp(buf, "exit") == 0)
 		{
 			ft_printf("exit\n");
@@ -39,6 +41,7 @@ int main(int argc, char **argv, char **envp)
 		free_commands(commands);
 		free(buf);
 	}
+	rl_clear_history();
 	ft_lstr_free(paths);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 17:27:16 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/23 11:56:28 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/11/23 13:58:32 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	signals_management(int sig, siginfo_t *info, void *context)
 {
 	(void)context;
 	(void)info;
+	signal(SIGQUIT, SIG_IGN);
 	if (sig == SIGINT)
 	{
 		printf("\n");
@@ -25,7 +26,7 @@ void	signals_management(int sig, siginfo_t *info, void *context)
 		rl_redisplay();
 	}
 	if (sig == SIGQUIT)
-		return ;
+		signal(sig, SIG_IGN);
 }
 
 /* Initialisation de la gestion des signaux */
@@ -49,5 +50,5 @@ void	ft_signals(void)
 
 	data.sigact = ft_init_signals();
 	sigaction(SIGINT, &data.sigact, NULL);
-	sigaction(SIGQUIT, &data.sigact, NULL);
+	signal(SIGQUIT, SIG_IGN);
 }
