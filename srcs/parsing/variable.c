@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:55:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/23 16:40:27 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/23 16:56:55 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*add_value_variable(char *res, char *str, int *i)
 	(*i)++;
 	j = 0;
 	while (str[*i + j] != '\0' && str[*i + j] != ' ' && str[*i + j] != '"'
-		&& str[*i + j] != '\'')
+		&& str[*i + j] != '\'' && str[*i + j] != '$')
 		j++;
 	tmp = ft_substr(str, *i, j);
 	value = get_variable_value(tmp);
@@ -107,20 +107,6 @@ char	*replace_variable_to_value(char *str)
 	return (res);
 }
 
-void	interprate_variable(t_command *command)
-{
-	int		i;
-
-	if (!command)
-		return ;
-	i = 0;
-	while (command->arg && command->arg[i])
-	{
-		command->arg[i] = replace_variable_to_value(command->arg[i]);
-		i++;
-	}
-}
-
 /*
 FAIT
 echo $TEST					-> coucou
@@ -133,6 +119,7 @@ echo 'test $TEST test'		-> test $TEST test
 echo "'test $TEST test'"	-> 'test coucou test'
 echo '"test $TEST test"'	-> "test $TEST test"
 echo "$TEST t $TEST" 		-> coucou t coucou
+echo $TEST$TEST				-> coucoucoucou
 */
 
 /*
