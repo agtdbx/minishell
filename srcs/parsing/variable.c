@@ -6,107 +6,110 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:55:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/23 11:57:20 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/23 16:56:55 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	get_pos_dollar(char *str)
+char	*get_variable_value(char *name)
 {
-	int	i;
+	char	*res;
 
-	i = 0;
-	while (str && str[i])
-	{
-		if (str[i] == '$')
-			return (i);
-		i++;
-	}
-	return (-1);
+	res = getenv(name);
+	if (res == NULL)
+		res = "\0";
+	return (res);
 }
 
-char	*replace_variable_to_value(char *command_str, char *name, char *value)
+int	skip_frist_quote(char *str, int i, int *text)
 {
-	char	*str;
-	int		start;
-	int		end;
-	int		i;
+	while (((str[i] == '\'' && *text != -1) || (str[i] == '"' && *text == 0))
+		&& str[i] != '\0')
+	{
+		if (str[i] == '\'' && *text != -1)
+			*text = !(*text);
+		else if (str[i] == '"' && *text == 0)
+			*text = -1;
+		else if (str[i] == '"' && *text == -1)
+			*text = 0;
+		i++;
+	}
+	return (i);
+}
+
+char	*get_substr(char *str, int *i, int *text)
+{
+	int		j;
+	int		remove_quote;
+	char	*res;
+
+	j = 0;
+	remove_quote = 0;
+	while (str[*i + j] != '\0' && (str[*i + j] != '$' || *text == 1))
+	{
+		j++;
+		if (str[*i + j] == '\'' && *text != -1)
+		{
+			*text = !(*text);
+			remove_quote = !(*text);
+		}
+	}
+	if (str[*i + j] == '"' || str[*i + j - 1] == '"')
+		remove_quote += 1;
+	res = ft_substr(str, *i, j - remove_quote);
+	(*i) += j;
+	return (res);
+}
+
+char	*add_value_variable(char *res, char *str, int *i)
+{
+	char	*tmp;
+	char	*value;
 	int		j;
 
-	if (value == NULL)
-		value = "\0";
-	str = malloc(sizeof(char) * (ft_strlen(command_str)
-		- ft_strlen(name) - 1 + ft_strlen(value) + 1));
-	if (str == NULL)
-		return (NULL);
-	start = 0;
-	while (command_str && command_str[start])
-	{
-		if (command_str[start] == '$')
-			break;
-		start++;
-	}
-	end = start + ft_strlen(name) + 1;
-	i = 0;
-	while (i < start)
-	{
-		str[i] = command_str[i];
-		i++;
-	}
+	(*i)++;
 	j = 0;
-	while (value[j] != '\0')
-	{
-		str[i + j] = value[j];
+	while (str[*i + j] != '\0' && str[*i + j] != ' ' && str[*i + j] != '"'
+		&& str[*i + j] != '\'' && str[*i + j] != '$')
 		j++;
-	}
-	i += j;
-	j = end;
-	while (command_str[j] != '\0')
-	{
-		str[i + j] = command_str[j];
-		j++;
-	}
-	free(command_str);
-	return (str);
+	tmp = ft_substr(str, *i, j);
+	value = get_variable_value(tmp);
+	free(tmp);
+	res = ft_strjoin_free_1st_p(res, value);
+	*i += j;
+	return (res);
 }
 
-
-
-void	interprate_variable(t_command *command)
+char	*replace_variable_to_value(char *str)
 {
-	char	*var_res;
+	char	*res;
 	char	*tmp;
-	int		pos;
+	int		text;
 	int		i;
 
-	if (!command)
-		return ;
+	res = ft_calloc(sizeof(char), 1);
+	if (!res)
+		return (str);
 	i = 0;
-	while (command->arg && command->arg[i])
+	text = 0;
+	while (str[i])
 	{
-		pos = get_pos_dollar(command->arg[i]);
-		if (pos != -1)
-		{
-			// PENSER A PRENDRE DU $ AU \0 ou " ou '
-			tmp = ft_substr(command->arg[i], pos + 1, ft_strlen(command->arg[i]));
-			var_res = getenv(tmp);
-			command->arg[i] = replace_variable_to_value(command->arg[i], tmp, var_res);
-			free(tmp);
-		}
-		i++;
+		i = skip_frist_quote(str, i, &text);
+		tmp = get_substr(str, &i, &text);
+		res = ft_strjoin_free_1st_p(res, tmp);
+		free(tmp);
+		if (str[i] == '\0')
+			break ;
+		res = add_value_variable(res, str, &i);
 	}
+	free(str);
+	return (res);
 }
 
 /*
 FAIT
 echo $TEST					-> coucou
-*/
-
-
-/*
-A FAIRE
-TEST = coucou
 echo '$TEST'				-> $TEST
 echo "$TEST"				-> coucou
 echo '"$TEST"'				-> "$TEST"
@@ -115,4 +118,11 @@ echo "test $TEST test"		-> test coucou test
 echo 'test $TEST test'		-> test $TEST test
 echo "'test $TEST test'"	-> 'test coucou test'
 echo '"test $TEST test"'	-> "test $TEST test"
+echo "$TEST t $TEST" 		-> coucou t coucou
+echo $TEST$TEST				-> coucoucoucou
+*/
+
+/*
+A FAIRE
+TEST = coucou
 */

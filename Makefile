@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+         #
+#    By: aderouba <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 14:20:53 by ngrenoux          #+#    #+#              #
-#    Updated: 2022/11/23 16:29:06 by ngrenoux         ###   ########.fr        #
+#    Updated: 2022/11/23 16:45:38 by aderouba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +23,11 @@ LIBFT		= libft
 #=================================SOURCE FILES=================================#
 SRCS		= srcs/main.c \
 			  srcs/parsing/parsing.c \
+			  srcs/parsing/parsing_utils.c \
 			  srcs/parsing/command.c \
 			  srcs/parsing/command_utils.c \
 			  srcs/parsing/variable.c \
+			  srcs/parsing/variable_utils.c \
 			  srcs/signal/signal.c \
 			  srcs/parsing/builtins.c
 

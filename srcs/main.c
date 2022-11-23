@@ -6,17 +6,26 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/23 16:46:27 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/11/23 17:14:18 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int main(int argc, char **argv, char **envp)
+void	exit_minishell(char *buf, char **paths)
 {
-	char *buf;
-	char **paths;
-	t_command *commands;
+	if (buf)
+		free(buf);
+	rl_clear_history();
+	ft_lstr_free(paths);
+	exit(0);
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	char		*buf;
+	char		**paths;
+	t_command	*commands;
 
 	(void)argc;
 	(void)argv;
@@ -26,17 +35,12 @@ int main(int argc, char **argv, char **envp)
 		ft_signals();
 		buf = readline("minishell > ");
 		if (buf == NULL)
-		{
-			ft_printf("exit\n");
-			break;
-		}
+			exit_minishell(buf, paths);
 		if (ft_strlen(buf) > 0)
 			add_history(buf);
 		if (ft_strcmp(buf, "exit") == 0)
-		{
-			ft_printf("exit\n");
-			break;
-		}
+			exit_minishell(buf, paths);
+		buf = replace_variable_to_value(buf);
 		commands = parse_buf(buf, paths);
 		print_pwd(commands);
 		free_commands(commands);
