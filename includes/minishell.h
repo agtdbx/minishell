@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/23 11:54:13 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/23 14:01:20 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_command
 	char **arg;
 	int fd_in;
 	int fd_out;
-} t_command;
+}	t_command;
 
 typedef struct s_data
 {
@@ -45,6 +45,11 @@ char		 **get_paths(char **envp);
 t_command	*add_command(t_command *commands, t_command command);
 t_command	*parse_buf(char *buf, char **paths);
 void		free_commands(t_command *commands);
+
+/* =========================parsing_utils.c======================= */
+char		quote_gestion(char c, char quote);
+int			len_word(char const *s, char c, int i);
+char		**ft_split_quote(char const *s, char c);
 
 /* ============================command.c========================== */
 void		free_command(t_command *command);

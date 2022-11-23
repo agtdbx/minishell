@@ -6,18 +6,18 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 17:27:37 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/22 15:46:32 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/23 15:37:50 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char **get_paths(char **envp)
+char	**get_paths(char **envp)
 {
-	int i;
-	int pos;
-	char *tmp;
-	char **res;
+	int		i;
+	int		pos;
+	char	*tmp;
+	char	**res;
 
 	i = 0;
 	pos = -1;
@@ -26,7 +26,7 @@ char **get_paths(char **envp)
 		if (ft_strncmp(envp[i], "PATH", 4) == 0)
 		{
 			pos = i;
-			break;
+			break ;
 		}
 		i++;
 	}
@@ -38,10 +38,10 @@ char **get_paths(char **envp)
 	return (res);
 }
 
-t_command *add_command(t_command *commands, t_command command)
+t_command	*add_command(t_command *commands, t_command command)
 {
-	t_command *res;
-	int i;
+	t_command	*res;
+	int			i;
 
 	i = 0;
 	while (commands != NULL && commands[i].input != NULL)
@@ -61,18 +61,18 @@ t_command *add_command(t_command *commands, t_command command)
 	return (res);
 }
 
-t_command *parse_buf(char *buf, char **paths)
+t_command	*parse_buf(char *buf, char **paths)
 {
-	t_command *commands;
-	t_command tmp;
-	char **inputs;
-	int i;
+	t_command	*commands;
+	t_command	tmp;
+	char		**inputs;
+	int			i;
 
 	commands = malloc(sizeof(t_command));
 	if (commands == NULL)
 		return (NULL);
 	commands[0].input = NULL;
-	inputs = ft_split(buf, '|');
+	inputs = ft_split_quote(buf, '|');
 	if (inputs == NULL)
 	{
 		free(commands);
@@ -83,7 +83,6 @@ t_command *parse_buf(char *buf, char **paths)
 	{
 		tmp = get_command(inputs[i], paths);
 		interprate_variable(&tmp);
-		print_command(&tmp);
 		commands = add_command(commands, tmp);
 		i++;
 	}
@@ -91,13 +90,14 @@ t_command *parse_buf(char *buf, char **paths)
 	return (commands);
 }
 
-void free_commands(t_command *commands)
+void	free_commands(t_command *commands)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (commands && commands[i].input != NULL)
 	{
+		print_command(&commands[i]);
 		free_command(&commands[i]);
 		i++;
 	}
