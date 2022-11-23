@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/23 13:51:17 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/11/23 14:03:30 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		ft_signals();
-		buf = readline("> ");
+		buf = readline("minishell > ");
 		if (buf == NULL)
 		{
 			ft_printf("exit\n");
