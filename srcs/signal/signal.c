@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 17:27:16 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/22 16:48:07 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/11/23 10:56:43 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@
 void	signals_management(int sig, siginfo_t *info, void *context)
 {
 	(void)context;
+	(void)info;
 	if (sig == SIGINT)
 	{
 		printf("\n");
-		if (info->si_pid == getpid())
-			rl_on_new_line();
+		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
-	if (sig == SIGQUIT && info->si_pid != getpid())
-		ft_putstr_fd("Quit (core dumped)\n", 2);
+	if (sig == SIGQUIT)
+		return ;
 }
 
 /* Initialisation de la gestion des signaux */
@@ -45,8 +45,9 @@ struct sigaction	ft_init_signals(void)
 
 void	ft_signals(void)
 {
-	struct sigaction	sigact;
+	t_data	data;
 
-	sigact = ft_init_signals();
-	sigaction(SIGINT, &sigact, NULL);
+	data.sigact = ft_init_signals();
+	sigaction(SIGINT, &data.sigact, NULL);
+	sigaction(SIGQUIT, &data.sigact, NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/22 16:45:42 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/11/23 09:34:35 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ typedef struct s_command
 	int fd_in;
 	int fd_out;
 } t_command;
+
+typedef struct s_data
+{
+	struct sigaction	sigact;
+}	t_data;
 
 /* ============================parsing.c========================== */
 char **get_paths(char **envp);
