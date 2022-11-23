@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:55:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/22 16:14:24 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/22 16:18:06 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,3 +95,16 @@ void	interprate_variable(t_command *command)
 		i++;
 	}
 }
+
+/*
+TEST = coucou
+echo $TEST					-> coucou
+echo '$TEST'				-> $TEST
+echo "$TEST"				-> coucou
+echo '"$TEST"'				-> "$TEST"
+echo "'$TEST'"				-> 'coucou'
+echo "test $TEST test"		-> test coucou test
+echo 'test $TEST test'		-> test $TEST test
+echo "'test $TEST test'"	-> 'test coucou test'
+echo '"test $TEST test"'	-> "test $TEST test"
+*/
