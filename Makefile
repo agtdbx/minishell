@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aderouba <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 14:20:53 by ngrenoux          #+#    #+#              #
-#    Updated: 2022/11/22 15:27:24 by aderouba         ###   ########.fr        #
+#    Updated: 2022/11/23 16:29:06 by ngrenoux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SRCS		= srcs/main.c \
 			  srcs/parsing/command.c \
 			  srcs/parsing/command_utils.c \
 			  srcs/parsing/variable.c \
-			  srcs/signal/signal.c
+			  srcs/signal/signal.c \
+			  srcs/parsing/builtins.c
 
 #====================================OBJECTS===================================#
 OBJS		= $(SRCS:.c=.o)
