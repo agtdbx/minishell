@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:25:30 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/22 14:27:05 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/24 11:08:23 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_command_path(char *name, char **paths)
 
 	if (name == NULL || paths == NULL || paths[0] == NULL)
 		return (NULL);
-	if (access(name, F_OK) == 0)
+	if (access(name, F_OK) == 0 || ft_strcmp(name, "cd") == 0)
 		return (ft_strdup(name));
 	i = 0;
 	while (paths[i] != NULL)
