@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:24:06 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/24 10:22:39 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/24 10:53:27 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_cmd	empty_command(char *input)
 t_cmd	get_cmd(char *input, char **paths)
 {
 	t_cmd	command;
-	char		**split_res;
+	char	**split_res;
 
 	if (input == NULL)
 		return (empty_command(input));

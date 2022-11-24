@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
+/*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 16:19:57 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/24 10:45:25 by aderouba         ###   ########.fr       */
+/*   Created: 2022/11/24 10:33:10 by aderouba          #+#    #+#             */
+/*   Updated: 2022/11/24 10:53:33 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	print_pwd(t_cmd *cmd)
+void	interprete_cmds(t_cmd *cmds)
 {
-	char	*cwd;
-	size_t	size;
+	int	i;
 
-	if (!cmd || !cmd->name)
-		return ;
-	size = sizeof(char) * 1024;
-	cwd = (char *)malloc(size);
-	if (!cwd)
-		perror("cwd malloc error");
-	if (getcwd(cwd, size) == NULL)
-		perror("getcwd error");
-	else
-		printf("%s\n", cwd);
-	free(cwd);
+	i = 0;
+	while (cmds && cmds[i].input != NULL)
+	{
+		if (cmds[i].name && ft_strcmp(cmds[i].name, "pwd") == 0)
+			print_pwd(&cmds[i]);
+		i++;
+	}
 }

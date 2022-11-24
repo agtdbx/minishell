@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/24 10:22:46 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/24 10:48:27 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	exit_minishell(char *buf, char **paths)
 
 int	main(int argc, char **argv, char **envp)
 {
-	char		*buf;
-	char		**paths;
-	t_cmd	*commands;
+	char	*buf;
+	char	**paths;
+	t_cmd	*cmds;
 
 	(void)argc;
 	(void)argv;
@@ -40,9 +40,9 @@ int	main(int argc, char **argv, char **envp)
 			add_history(buf);
 		if (ft_strcmp(buf, "exit") == 0)
 			exit_minishell(buf, paths);
-		commands = parse_buf(buf, paths);
-		print_pwd(commands);
-		free_commands(commands);
+		cmds = parse_buf(buf, paths);
+		interprete_cmds(cmds);
+		free_commands(cmds);
 		free(buf);
 	}
 	rl_clear_history();

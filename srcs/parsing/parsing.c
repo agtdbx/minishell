@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 17:27:37 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/24 10:22:53 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/24 10:53:15 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	**get_paths(char **envp)
 t_cmd	*add_command(t_cmd *commands, t_cmd command)
 {
 	t_cmd	*res;
-	int			i;
+	int		i;
 
 	i = 0;
 	while (commands != NULL && commands[i].input != NULL)
@@ -65,8 +65,8 @@ t_cmd	*parse_buf(char *buf, char **paths)
 {
 	t_cmd	*commands;
 	t_cmd	tmp;
-	char		**inputs;
-	int			i;
+	char	**inputs;
+	int		i;
 
 	commands = malloc(sizeof(t_cmd));
 	if (commands == NULL)

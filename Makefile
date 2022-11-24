@@ -6,7 +6,7 @@
 #    By: aderouba <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 14:20:53 by ngrenoux          #+#    #+#              #
-#    Updated: 2022/11/24 10:04:29 by aderouba         ###   ########.fr        #
+#    Updated: 2022/11/24 10:43:15 by aderouba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRCS		= srcs/main.c \
 			  srcs/parsing/variable.c \
 			  srcs/parsing/variable_utils.c \
 			  srcs/signal/signal.c \
+			  srcs/execution/execution.c \
 			  srcs/execution/builtins.c
 
 #====================================OBJECTS===================================#
