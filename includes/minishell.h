@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/24 11:47:40 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/24 12:04:02 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,6 @@ void	interprete_cmds(t_cmd *cmds);
 
 /*============================bultins.c============================*/
 void	print_pwd(t_cmd *cmd);
+void	cd_implement(t_cmd *cmd);
 
 #endif
