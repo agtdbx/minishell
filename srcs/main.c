@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/23 17:14:18 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/11/24 09:45:25 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	main(int argc, char **argv, char **envp)
 			add_history(buf);
 		if (ft_strcmp(buf, "exit") == 0)
 			exit_minishell(buf, paths);
-		buf = replace_variable_to_value(buf);
 		commands = parse_buf(buf, paths);
 		print_pwd(commands);
 		free_commands(commands);

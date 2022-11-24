@@ -6,21 +6,11 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:55:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/23 16:56:55 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/24 10:17:56 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-char	*get_variable_value(char *name)
-{
-	char	*res;
-
-	res = getenv(name);
-	if (res == NULL)
-		res = "\0";
-	return (res);
-}
 
 int	skip_frist_quote(char *str, int i, int *text)
 {
@@ -105,6 +95,18 @@ char	*replace_variable_to_value(char *str)
 	}
 	free(str);
 	return (res);
+}
+
+void	replace_variables_to_values(t_command *cmd)
+{
+	int		i;
+
+	i = 0;
+	while (cmd->arg && cmd->arg[i])
+	{
+		cmd->arg[i] = replace_variable_to_value(cmd->arg[i]);
+		i++;
+	}
 }
 
 /*
