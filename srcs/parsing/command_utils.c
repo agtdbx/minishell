@@ -6,11 +6,22 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:25:30 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/24 12:04:13 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/24 16:50:13 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	is_bultin(char *name)
+{
+	if (!ft_strcmp(name, "cd") || !ft_strcmp(name, "~"))
+		return (1);
+	if (!ft_strcmp(name, "unset"))
+		return (1);
+	if (!ft_strcmp(name, "env"))
+		return (1);
+	return (0);
+}
 
 char	*get_command_path(char *name, char **paths)
 {
@@ -19,8 +30,7 @@ char	*get_command_path(char *name, char **paths)
 
 	if (name == NULL || paths == NULL || paths[0] == NULL)
 		return (NULL);
-	if (access(name, F_OK) == 0 || ft_strcmp(name, "cd") == 0
-		|| ft_strcmp(name, "~") == 0)
+	if (access(name, F_OK) == 0 || is_bultin(name))
 		return (ft_strdup(name));
 	i = 0;
 	while (paths[i] != NULL)

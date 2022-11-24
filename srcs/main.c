@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/24 14:18:51 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/24 17:02:49 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,6 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	env = create_env(envp);
 	paths = get_paths(env);
-	set_variable_value(env, "TEST", "coucou");
-	set_variable_value(env, "LOGNAME", "moi");
-	remove_variable(env, "HOME");
 	while (1)
 	{
 		ft_signals();
@@ -52,8 +49,5 @@ int	main(int argc, char **argv, char **envp)
 		free_commands(cmds);
 		free(buf);
 	}
-	ft_lstclear(&env, free_var);
-	rl_clear_history();
-	ft_lstr_free(paths);
 	return (0);
 }

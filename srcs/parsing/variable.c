@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:55:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/24 13:54:12 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/24 17:25:28 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ char	*get_substr(char *str, int *i, int *text)
 			remove_quote = !(*text);
 		}
 	}
-	if (str[*i + j] == '"' || (j > 0 && str[*i + j - 1] == '"'))
+	if (str[*i + j] == '$' && (str[*i + j + 1] == '\0' || str[*i + j + 1] == ' '))
+		j++;
+	else if (str[*i + j] == '"' || (j > 0 && str[*i + j - 1] == '"'))
 		remove_quote += 1;
 	res = ft_substr(str, *i, j - remove_quote);
 	(*i) += j;

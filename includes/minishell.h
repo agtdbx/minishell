@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/24 14:16:05 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/24 17:14:04 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ t_cmd	get_cmd(char *input, char **envp);
 void	print_cmd(t_cmd *command);
 
 /* =========================command_utils.c======================= */
+int		is_bultin(char *name);
 char	*get_cmd_path(char *name, char **paths);
 char	**get_arg(char **split_res, char **paths);
 
@@ -80,12 +81,16 @@ void	replace_variables_to_values(t_list *env, t_cmd *cmd);
 
 /* ========================variable_utils.c======================= */
 void	free_var(void *var);
-char	*get_name_envp(char *str);
-t_list	*create_env(char **envp);
-char	*get_value_envp(char *str);
 char	*get_variable_value(t_list *env, char *name);
 void	set_variable_value(t_list *env, char *name, char *value);
 void	remove_variable(t_list *env, char *name);
+
+/* ========================variable_utils2.c====================== */
+char	*get_name_envp(char *str);
+char	*get_value_envp(char *str);
+t_var	*create_var(t_list *env, char **envp, int i);
+t_list	*create_env(char **envp);
+t_var	*create_new_var(char *name, char *value);
 
 /*===================================================================
 								SIGNALS
@@ -99,10 +104,15 @@ void	ft_signals(void);
 ===================================================================*/
 
 /*===========================execution.c===========================*/
+int		is_in_str(char *str, char c);
+void	variable_affectation(t_list *env, char *input);
+void	variable_first_cmd(t_list *env, t_cmd *cmd);
 void	interprete_cmds(t_list *env, t_cmd *cmds);
 
 /*============================bultins.c============================*/
 void	print_pwd(t_cmd *cmd);
 void	cd_implement(t_list *env, t_cmd *cmd);
+void	unset_builtin(t_list *env, t_cmd *cmd);
+void	env_builtin(t_list *env);
 
 #endif

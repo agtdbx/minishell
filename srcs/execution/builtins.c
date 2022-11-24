@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:19:57 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/24 13:19:18 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/24 17:01:08 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	print_pwd(t_cmd *cmd)
 
 void	cd_implement(t_list *env, t_cmd *cmd)
 {
-	char *home;
+	char	*home;
 
 	home = get_variable_value(env, "HOME");
 	if (ft_strcmp(cmd->arg[0], "~") == 0 && cmd->arg[1] == NULL)
@@ -42,4 +42,32 @@ void	cd_implement(t_list *env, t_cmd *cmd)
 		chdir(home);
 	else if (ft_strcmp(cmd->arg[0], "cd") == 0 && cmd->arg[1])
 		chdir(cmd->arg[1]);
+}
+
+void	unset_builtin(t_list *env, t_cmd *cmd)
+{
+	int	i;
+
+	if (!cmd->arg || !cmd->arg[0])
+		return ;
+	i = 1;
+	while (cmd->arg[i])
+	{
+		remove_variable(env, cmd->arg[i]);
+		i++;
+	}
+}
+
+void	env_builtin(t_list *env)
+{
+	t_list	*actual;
+	t_var	*tmp;
+
+	actual = env;
+	while (actual)
+	{
+		tmp = (t_var *)actual->content;
+		ft_printf("%s=%s\n", tmp->name, tmp->value);
+		actual = actual->next;
+	}
 }

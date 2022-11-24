@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:24:06 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/24 10:53:27 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/24 17:19:53 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	print_cmd(t_cmd *command)
 
 	if (!command)
 		return ;
-	ft_printf("COMMAND\nINPUT :%s\nNAME : %s\nARG : ",
+	ft_printf("COMMAND\nINPUT : %s\nNAME : %s\nARG : ",
 		command->input, command->name);
 	i = 0;
 	if (command->arg)
