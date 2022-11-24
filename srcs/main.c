@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/24 12:04:19 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/24 12:05:16 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	exit_minishell(char *buf, char **paths, t_list *env)
 	rl_clear_history();
 	ft_lstr_free(paths);
 	ft_lstclear(&env, free_var);
+	ft_printf("exit\n");
 	exit(0);
 }
 
