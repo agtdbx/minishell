@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:55:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/24 12:03:08 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/24 14:17:53 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	free_var(void *var)
 		free(tmp->value);
 	free(tmp);
 }
-
 
 char	*get_name_envp(char *str)
 {
@@ -83,12 +82,75 @@ t_list	*create_env(char **envp)
 	return (env);
 }
 
-char	*get_variable_value(char *name)
+char	*get_variable_value(t_list *env, char *name)
 {
-	char	*res;
+	t_list	*actual;
+	t_var	*tmp;
 
-	res = getenv(name);
-	if (res == NULL)
-		res = "\0";
-	return (res);
+	actual = env;
+	while (actual)
+	{
+		tmp = (t_var *)actual->content;
+		if (ft_strcmp(tmp->name, name) == 0)
+			return (tmp->value);
+		actual = actual->next;
+	}
+	return ("\0");
+}
+
+void	set_variable_value(t_list *env, char *name, char *value)
+{
+	t_list	*actual;
+	t_var	*tmp;
+
+	actual = env;
+	while (actual)
+	{
+		tmp = (t_var *)actual->content;
+		if (ft_strcmp(tmp->name, name) == 0)
+		{
+			free(tmp->value);
+			tmp->value = ft_strdup(value);
+			return ;
+		}
+		actual = actual->next;
+	}
+	tmp = malloc(sizeof(t_var));
+	if (tmp == NULL)
+		return ;
+	tmp->name = ft_strdup(name);
+	tmp->value = ft_strdup(value);
+	actual = ft_lstnew(tmp);
+	if (actual == NULL)
+	{
+		free_var(tmp);
+		return ;
+	}
+	ft_lstadd_back(&env, actual);
+}
+
+void	remove_variable(t_list *env, char *name)
+{
+	t_list	*actual;
+	t_list	*next;
+
+	actual = env;
+	next = actual->next;
+	if (ft_strcmp(((t_var *)actual->content)->name, name) == 0)
+	{
+		ft_lstdelone(actual, free_var);
+		env = next;
+		return ;
+	}
+	while (next)
+	{
+		if (ft_strcmp(((t_var *)next->content)->name, name) == 0)
+		{
+			actual->next = next->next;
+			ft_lstdelone(next, free_var);
+			return ;
+		}
+		actual = next;
+		next = next->next;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/24 12:04:02 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/24 14:16:05 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,9 @@ typedef struct s_data
 ===================================================================*/
 
 /* ============================parsing.c========================== */
-char	**get_paths(char **envp);
-t_cmd	*parse_buf(char *buf, char **paths);
+char	**get_paths(t_list *env);
 t_cmd	*add_command(t_cmd *commands, t_cmd command);
-t_cmd	*parse_buf(char *buf, char **paths);
+t_cmd	*parse_buf(t_list *env, char *buf, char **paths);
 void	free_commands(t_cmd *commands);
 
 /* =========================parsing_utils.c======================= */
@@ -75,16 +74,18 @@ char	**get_arg(char **split_res, char **paths);
 /* ===========================variable.c========================== */
 int		skip_frist_quote(char *str, int i, int *text);
 char	*get_substr(char *str, int *i, int *text);
-char	*add_value_variable(char *res, char *str, int *i);
-char	*replace_variable_to_value(char *str);
-void	replace_variables_to_values(t_cmd *cmd);
+char	*add_value_variable(t_list *env, char *res, char *str, int *i);
+char	*replace_variable_to_value(t_list *env, char *str);
+void	replace_variables_to_values(t_list *env, t_cmd *cmd);
 
 /* ========================variable_utils.c======================= */
 void	free_var(void *var);
 char	*get_name_envp(char *str);
 t_list	*create_env(char **envp);
 char	*get_value_envp(char *str);
-char	*get_variable_value(char *name);
+char	*get_variable_value(t_list *env, char *name);
+void	set_variable_value(t_list *env, char *name, char *value);
+void	remove_variable(t_list *env, char *name);
 
 /*===================================================================
 								SIGNALS
@@ -98,10 +99,10 @@ void	ft_signals(void);
 ===================================================================*/
 
 /*===========================execution.c===========================*/
-void	interprete_cmds(t_cmd *cmds);
+void	interprete_cmds(t_list *env, t_cmd *cmds);
 
 /*============================bultins.c============================*/
 void	print_pwd(t_cmd *cmd);
-void	cd_implement(t_cmd *cmd);
+void	cd_implement(t_list *env, t_cmd *cmd);
 
 #endif

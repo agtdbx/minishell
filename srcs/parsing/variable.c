@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:55:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/24 10:22:49 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/24 13:54:12 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ char	*get_substr(char *str, int *i, int *text)
 			remove_quote = !(*text);
 		}
 	}
-	if (str[*i + j] == '"' || str[*i + j - 1] == '"')
+	if (str[*i + j] == '"' || (j > 0 && str[*i + j - 1] == '"'))
 		remove_quote += 1;
 	res = ft_substr(str, *i, j - remove_quote);
 	(*i) += j;
 	return (res);
 }
 
-char	*add_value_variable(char *res, char *str, int *i)
+char	*add_value_variable(t_list *env, char *res, char *str, int *i)
 {
 	char	*tmp;
 	char	*value;
@@ -64,14 +64,14 @@ char	*add_value_variable(char *res, char *str, int *i)
 		&& str[*i + j] != '\'' && str[*i + j] != '$')
 		j++;
 	tmp = ft_substr(str, *i, j);
-	value = get_variable_value(tmp);
+	value = get_variable_value(env, tmp);
 	free(tmp);
 	res = ft_strjoin_free_1st_p(res, value);
 	*i += j;
 	return (res);
 }
 
-char	*replace_variable_to_value(char *str)
+char	*replace_variable_to_value(t_list *env, char *str)
 {
 	char	*res;
 	char	*tmp;
@@ -91,20 +91,20 @@ char	*replace_variable_to_value(char *str)
 		free(tmp);
 		if (str[i] == '\0')
 			break ;
-		res = add_value_variable(res, str, &i);
+		res = add_value_variable(env, res, str, &i);
 	}
 	free(str);
 	return (res);
 }
 
-void	replace_variables_to_values(t_cmd *cmd)
+void	replace_variables_to_values(t_list *env, t_cmd *cmd)
 {
 	int		i;
 
 	i = 0;
 	while (cmd->arg && cmd->arg[i])
 	{
-		cmd->arg[i] = replace_variable_to_value(cmd->arg[i]);
+		cmd->arg[i] = replace_variable_to_value(env, cmd->arg[i]);
 		i++;
 	}
 }

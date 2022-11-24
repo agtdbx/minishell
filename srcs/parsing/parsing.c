@@ -6,35 +6,19 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 17:27:37 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/24 10:53:15 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/24 13:40:28 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	**get_paths(char **envp)
+char	**get_paths(t_list *env)
 {
-	int		i;
-	int		pos;
 	char	*tmp;
 	char	**res;
 
-	i = 0;
-	pos = -1;
-	while (envp[i] != NULL)
-	{
-		if (ft_strncmp(envp[i], "PATH", 4) == 0)
-		{
-			pos = i;
-			break ;
-		}
-		i++;
-	}
-	if (pos == -1)
-		return (NULL);
-	tmp = ft_substr(envp[pos], 5, ft_strlen(envp[pos]));
+	tmp = get_variable_value(env, "PATH");
 	res = ft_split(tmp, ':');
-	free(tmp);
 	return (res);
 }
 
@@ -61,7 +45,7 @@ t_cmd	*add_command(t_cmd *commands, t_cmd command)
 	return (res);
 }
 
-t_cmd	*parse_buf(char *buf, char **paths)
+t_cmd	*parse_buf(t_list *env, char *buf, char **paths)
 {
 	t_cmd	*commands;
 	t_cmd	tmp;
@@ -82,7 +66,7 @@ t_cmd	*parse_buf(char *buf, char **paths)
 	while (inputs[i] != NULL)
 	{
 		tmp = get_cmd(inputs[i], paths);
-		replace_variables_to_values(&tmp);
+		replace_variables_to_values(env, &tmp);
 		print_cmd(&tmp);
 		commands = add_command(commands, tmp);
 		i++;

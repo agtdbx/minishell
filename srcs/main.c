@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/24 12:05:16 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/24 14:18:51 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	env = create_env(envp);
-	paths = get_paths(envp);
+	paths = get_paths(env);
+	set_variable_value(env, "TEST", "coucou");
+	set_variable_value(env, "LOGNAME", "moi");
+	remove_variable(env, "HOME");
 	while (1)
 	{
 		ft_signals();
@@ -44,8 +47,8 @@ int	main(int argc, char **argv, char **envp)
 			add_history(buf);
 		if (ft_strcmp(buf, "exit") == 0)
 			exit_minishell(buf, paths, env);
-		cmds = parse_buf(buf, paths);
-		interprete_cmds(cmds);
+		cmds = parse_buf(env, buf, paths);
+		interprete_cmds(env, cmds);
 		free_commands(cmds);
 		free(buf);
 	}
