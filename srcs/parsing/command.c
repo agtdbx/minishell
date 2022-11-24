@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:24:06 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/23 14:02:49 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/24 10:17:22 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void	free_command(t_command *command)
 	ft_lstr_free(command->arg);
 }
 
-t_command	empty_command(void)
+t_command	empty_command(char *input)
 {
 	t_command	command;
 
 	command.name = NULL;
-	command.input = NULL;
+	command.input = input;
 	command.arg = NULL;
 	command.fd_in = -1;
 	command.fd_out = -1;
@@ -41,22 +41,19 @@ t_command	get_command(char *input, char **paths)
 	char		**split_res;
 
 	if (input == NULL)
-		return (empty_command());
-	command = empty_command();
-	command.input = input;
+		return (empty_command(input));
+	command = empty_command(input);
 	split_res = ft_split_quote(input, ' ');
 	if (split_res == NULL || split_res[0] == NULL)
-	{
-		free(input);
-		return (empty_command());
-	}
+		return (empty_command(input));
 	command.name = split_res[0];
 	command.arg = get_arg(split_res, paths);
 	if (command.arg == NULL)
 	{
+		command.input = NULL;
 		free(split_res);
 		free_command(&command);
-		return (empty_command());
+		return (empty_command(input));
 	}
 	command.fd_in = 1;
 	command.fd_out = 0;

@@ -6,11 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/11/23 17:16:30 by ngrenoux         ###   ########.fr       */
-=======
-/*   Updated: 2022/11/23 17:16:19 by aderouba         ###   ########.fr       */
->>>>>>> d146c07903ffb64c916dcb0eb5dd9b3cd984790f
+/*   Updated: 2022/11/24 10:19:34 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +45,18 @@ typedef struct s_data
 ===================================================================*/
 
 /* ============================parsing.c========================== */
-char		**get_paths(char **envp);
-t_command	*add_command(t_command *commands, t_command command);
-t_command	*parse_buf(char *buf, char **paths);
-void		free_commands(t_command *commands);
+int			skip_frist_quote(char *str, int i, int *text);
+char		*get_substr(char *str, int *i, int *text);
+char		*add_value_variable(char *res, char *str, int *i);
+char		*replace_variable_to_value(char *str);
+void		replace_variables_to_values(t_command *cmd);
 
 /* =========================parsing_utils.c======================= */
-char		quote_gestion(char c, char quote);
-int			len_word(char const *s, char c, int i);
-char		**ft_split_quote(char const *s, char c);
+char		*get_variable_value(char *name);
 
 /* ============================command.c========================== */
 void		free_command(t_command *command);
-t_command	empty_command(void);
+t_command	empty_command(char *input);
 t_command	get_command(char *input, char **envp);
 void		print_command(t_command *command);
 
@@ -75,6 +70,7 @@ int			skip_frist_quote(char *str, int i, int *text);
 char		*get_substr(char *str, int *i, int *text);
 char		*add_value_variable(char *res, char *str, int *i);
 char		*replace_variable_to_value(char *str);
+void		replace_variables_to_values(t_command *cmd);
 
 /*===================================================================
 								SIGNALS
@@ -84,7 +80,7 @@ char		*replace_variable_to_value(char *str);
 void		ft_signals(void);
 
 /*===================================================================
-								BULTINS
+								EXECUTION
 ===================================================================*/
 
 /*============================bultins.c============================*/
