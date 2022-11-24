@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/24 11:06:26 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/24 11:47:40 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,10 @@ char	*replace_variable_to_value(char *str);
 void	replace_variables_to_values(t_cmd *cmd);
 
 /* ========================variable_utils.c======================= */
+void	free_var(void *var);
+char	*get_name_envp(char *str);
+t_list	*create_env(char **envp);
+char	*get_value_envp(char *str);
 char	*get_variable_value(char *name);
 
 /*===================================================================
