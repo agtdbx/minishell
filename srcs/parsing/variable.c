@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:55:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/24 10:17:56 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/24 10:22:49 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char	*replace_variable_to_value(char *str)
 	return (res);
 }
 
-void	replace_variables_to_values(t_command *cmd)
+void	replace_variables_to_values(t_cmd *cmd)
 {
 	int		i;
 

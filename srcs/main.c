@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/24 09:45:25 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/24 10:22:46 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	char		*buf;
 	char		**paths;
-	t_command	*commands;
+	t_cmd	*commands;
 
 	(void)argc;
 	(void)argv;

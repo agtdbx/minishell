@@ -6,13 +6,13 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:24:06 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/24 10:17:22 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/24 10:22:39 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	free_command(t_command *command)
+void	free_command(t_cmd *command)
 {
 	if (command == NULL)
 		return ;
@@ -23,9 +23,9 @@ void	free_command(t_command *command)
 	ft_lstr_free(command->arg);
 }
 
-t_command	empty_command(char *input)
+t_cmd	empty_command(char *input)
 {
-	t_command	command;
+	t_cmd	command;
 
 	command.name = NULL;
 	command.input = input;
@@ -35,9 +35,9 @@ t_command	empty_command(char *input)
 	return (command);
 }
 
-t_command	get_command(char *input, char **paths)
+t_cmd	get_cmd(char *input, char **paths)
 {
-	t_command	command;
+	t_cmd	command;
 	char		**split_res;
 
 	if (input == NULL)
@@ -61,7 +61,7 @@ t_command	get_command(char *input, char **paths)
 	return (command);
 }
 
-void	print_command(t_command *command)
+void	print_cmd(t_cmd *command)
 {
 	int	i;
 
