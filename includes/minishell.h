@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/24 11:06:26 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/24 11:20:48 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,6 @@ void	interprete_cmds(t_cmd *cmds);
 
 /*============================bultins.c============================*/
 void	print_pwd(t_cmd *cmd);
+void	cd_implement(t_cmd *cmd);
 
 #endif

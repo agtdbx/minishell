@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:33:10 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/24 10:53:33 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/24 11:49:51 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ void	interprete_cmds(t_cmd *cmds)
 	{
 		if (cmds[i].name && ft_strcmp(cmds[i].name, "pwd") == 0)
 			print_pwd(&cmds[i]);
+		else if (cmds[i].name && (!ft_strcmp(cmds[i].name, "~")
+			|| !ft_strcmp(cmds[i].name, "cd")))
+			cd_implement(&cmds[i]);
 		i++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:19:57 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/24 10:45:25 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/24 11:53:09 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,18 @@ void	print_pwd(t_cmd *cmd)
 	else
 		printf("%s\n", cwd);
 	free(cwd);
+}
+
+void	cd_implement(t_cmd *cmd)
+{
+	char *home;
+
+	home = get_variable_value("HOME");
+	if (ft_strcmp(cmd->arg[0], "~") == 0 && cmd->arg[1] == NULL)
+		ft_printf("minishell: %s: Is a directory\n", home);
+	else if (ft_strcmp(cmd->arg[0], "cd") == 0
+		&& (cmd->arg[1] == NULL || ft_strcmp(cmd->arg[1], "~") == 0))
+		chdir(home);
+	else if (ft_strcmp(cmd->arg[0], "cd") == 0 && cmd->arg[1])
+		chdir(cmd->arg[1]);
 }
