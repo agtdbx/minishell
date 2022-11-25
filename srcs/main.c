@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/25 12:06:52 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/25 13:04:07 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ int	main(int argc, char **argv, char **envp)
 	env = create_env(envp);
 	paths = get_paths(env);
 	set_variable_value(env, "TKT", "ls");
+	set_variable_value(env, "TKT1", "ls");
+	set_variable_value(env, "TKT2", "ls");
+	set_variable_value(env, "TKT3", "ls");
 	while (1)
 	{
 		ft_signals();
