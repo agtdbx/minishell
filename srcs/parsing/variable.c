@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:55:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/24 17:25:28 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/25 12:27:24 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,9 +124,4 @@ echo "'test $TEST test'"	-> 'test coucou test'
 echo '"test $TEST test"'	-> "test $TEST test"
 echo "$TEST t $TEST" 		-> coucou t coucou
 echo $TEST$TEST				-> coucoucoucou
-*/
-
-/*
-A FAIRE
-TEST = coucou
 */

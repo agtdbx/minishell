@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:19:57 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/24 17:01:08 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/25 11:43:17 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void	env_builtin(t_list *env)
 	while (actual)
 	{
 		tmp = (t_var *)actual->content;
-		ft_printf("%s=%s\n", tmp->name, tmp->value);
+		if (tmp->value)
+			ft_printf("%s=%s\n", tmp->name, tmp->value);
 		actual = actual->next;
 	}
 }

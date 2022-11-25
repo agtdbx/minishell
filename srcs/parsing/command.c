@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:24:06 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/24 17:19:53 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/25 12:25:32 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,19 @@ t_cmd	empty_command(char *input)
 	return (command);
 }
 
-t_cmd	get_cmd(char *input, char **paths)
+t_cmd	get_cmd(t_list *env, char *input, char **paths)
 {
 	t_cmd	command;
 	char	**split_res;
 
+	(void)env;
 	if (input == NULL)
 		return (empty_command(input));
 	command = empty_command(input);
 	split_res = ft_split_quote(input, ' ');
 	if (split_res == NULL || split_res[0] == NULL)
 		return (empty_command(input));
+	split_res[0] = replace_variable_to_value(env, split_res[0]);
 	command.name = split_res[0];
 	command.arg = get_arg(split_res, paths);
 	if (command.arg == NULL)

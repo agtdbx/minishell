@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:25:30 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/24 16:50:13 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/25 11:44:17 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	is_bultin(char *name)
 {
 	if (!ft_strcmp(name, "cd") || !ft_strcmp(name, "~"))
 		return (1);
-	if (!ft_strcmp(name, "unset"))
+	if (!ft_strcmp(name, "unset") || !ft_strcmp(name, "export"))
 		return (1);
 	if (!ft_strcmp(name, "env"))
 		return (1);

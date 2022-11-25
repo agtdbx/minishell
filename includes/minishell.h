@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/24 17:14:04 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/25 12:09:10 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	**ft_split_quote(char const *s, char c);
 /* ============================command.c========================== */
 void	free_command(t_cmd *command);
 t_cmd	empty_command(char *input);
-t_cmd	get_cmd(char *input, char **envp);
+t_cmd	get_cmd(t_list *env, char *input, char **envp);
 void	print_cmd(t_cmd *command);
 
 /* =========================command_utils.c======================= */
@@ -104,9 +104,6 @@ void	ft_signals(void);
 ===================================================================*/
 
 /*===========================execution.c===========================*/
-int		is_in_str(char *str, char c);
-void	variable_affectation(t_list *env, char *input);
-void	variable_first_cmd(t_list *env, t_cmd *cmd);
 void	interprete_cmds(t_list *env, t_cmd *cmds);
 
 /*============================bultins.c============================*/
@@ -114,5 +111,8 @@ void	print_pwd(t_cmd *cmd);
 void	cd_implement(t_list *env, t_cmd *cmd);
 void	unset_builtin(t_list *env, t_cmd *cmd);
 void	env_builtin(t_list *env);
+
+/*=============================export.c============================*/
+void	export_builtin(t_list *env, t_cmd *cmd);
 
 #endif
