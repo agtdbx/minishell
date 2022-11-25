@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variable.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:55:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/25 14:57:11 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/25 15:10:55 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char	*replace_variable_to_value(t_list *env, char *str)
 	text = 0;
 	while (str[i])
 	{
-		res = add_character_before_variable(res, str, &i, &text);
+		res = add_chars_before_variable(res, str, &i, &text);
 		if (str[i] == '\0')
 			break ;
 		res = add_value_variable(env, res, str, &i);

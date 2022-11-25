@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/25 14:55:19 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/25 15:31:36 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,12 @@ void	ft_signals(void);
 void	interprete_cmds(t_list *env, t_cmd *cmds);
 
 /*============================bultins.c============================*/
-void	print_pwd(t_cmd *cmd);
+char	*ft_pwd(void);
+void	print_pwd(void);
 void	cd_implement(t_list *env, t_cmd *cmd);
 void	unset_builtin(t_list *env, t_cmd *cmd);
 void	env_builtin(t_list *env);
+void	change_pwd_variable(t_list *env, char *home, t_cmd *cmd, char *tmp);
 
 /*=============================export.c============================*/
 void	export_builtin(t_list *env, t_cmd *cmd);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aderouba <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 14:20:53 by ngrenoux          #+#    #+#              #
-#    Updated: 2022/11/25 11:45:58 by aderouba         ###   ########.fr        #
+#    Updated: 2022/11/25 15:28:20 by ngrenoux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCS		= srcs/main.c \
 			  srcs/signal/signal.c \
 			  srcs/execution/execution.c \
 			  srcs/execution/builtins.c \
+			  srcs/execution/builtins_utils.c \
 			  srcs/execution/export.c
 
 

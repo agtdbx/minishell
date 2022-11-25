@@ -3,45 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:19:57 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/25 11:43:17 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/25 15:31:23 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	print_pwd(t_cmd *cmd)
+char	*ft_pwd(void)
 {
 	char	*cwd;
 	size_t	size;
 
-	if (!cmd || !cmd->name)
-		return ;
 	size = sizeof(char) * 1024;
 	cwd = (char *)malloc(size);
 	if (!cwd)
 		perror("cwd malloc error");
 	if (getcwd(cwd, size) == NULL)
 		perror("getcwd error");
-	else
-		printf("%s\n", cwd);
+	return (cwd);
+}
+
+void	print_pwd(void)
+{
+	char	*cwd;
+
+	cwd = ft_pwd();
+	printf("%s\n", cwd);
 	free(cwd);
 }
 
 void	cd_implement(t_list *env, t_cmd *cmd)
 {
 	char	*home;
+	char	*tmp;
 
 	home = get_variable_value(env, "HOME");
+	tmp = ft_pwd();
 	if (ft_strcmp(cmd->arg[0], "~") == 0 && cmd->arg[1] == NULL)
 		ft_printf("minishell: %s: Is a directory\n", home);
-	else if (ft_strcmp(cmd->arg[0], "cd") == 0
-		&& (cmd->arg[1] == NULL || ft_strcmp(cmd->arg[1], "~") == 0))
-		chdir(home);
-	else if (ft_strcmp(cmd->arg[0], "cd") == 0 && cmd->arg[1])
-		chdir(cmd->arg[1]);
+	else if (ft_strcmp(cmd->arg[0], "cd") == 0)
+		change_pwd_variable(env, home, cmd, tmp);
 }
 
 void	unset_builtin(t_list *env, t_cmd *cmd)

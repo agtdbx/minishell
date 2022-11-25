@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:33:10 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/25 11:48:07 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/25 15:05:11 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	interprete_cmds(t_list *env, t_cmd *cmds)
 	while (cmds[i].input != NULL)
 	{
 		if (cmds[i].name && ft_strcmp(cmds[i].name, "pwd") == 0)
-			print_pwd(&cmds[i]);
+			print_pwd();
 		else if (cmds[i].name && (!ft_strcmp(cmds[i].name, "~")
 				|| !ft_strcmp(cmds[i].name, "cd")))
 			cd_implement(env, &cmds[i]);
