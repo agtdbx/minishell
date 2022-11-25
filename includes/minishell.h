@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/25 12:09:10 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/25 14:55:19 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ char	*get_cmd_path(char *name, char **paths);
 char	**get_arg(char **split_res, char **paths);
 
 /* ===========================variable.c========================== */
-int		skip_frist_quote(char *str, int i, int *text);
-char	*get_substr(char *str, int *i, int *text);
+char	*add_char(char *str, char c);
+char	*add_chars_before_variable(char *res, char *str, int *i, int *text);
 char	*add_value_variable(t_list *env, char *res, char *str, int *i);
 char	*replace_variable_to_value(t_list *env, char *str);
 void	replace_variables_to_values(t_list *env, t_cmd *cmd);

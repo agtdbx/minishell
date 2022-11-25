@@ -6,51 +6,46 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:55:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/25 13:27:34 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/25 14:57:11 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	skip_frist_quote(char *str, int i, int *text)
+char	*add_char(char *str, char c)
 {
-	while (((str[i] == '\'' && *text != -1) || (str[i] == '"' && *text == 0))
-		&& str[i] != '\0')
+	char	*res;
+	int		i;
+
+	res = malloc(sizeof(char) * (ft_strlen(str) + 2));
+	if (!res)
+		return (str);
+	i = 0;
+	while (str[i])
 	{
-		if (str[i] == '\'' && *text != -1)
-			*text = !(*text);
-		else if (str[i] == '"' && *text == 0)
-			*text = -1;
-		else if (str[i] == '"' && *text == -1)
-			*text = 0;
+		res[i] = str[i];
 		i++;
 	}
-	return (i);
+	res[i] = c;
+	res[i + 1] = '\0';
+	free(str);
+	return (res);
 }
 
-char	*get_substr(char *str, int *i, int *text)
+char	*add_chars_before_variable(char *res, char *str, int *i, int *text)
 {
-	int		j;
-	int		remove_quote;
-	char	*res;
-
-	j = 0;
-	remove_quote = 0;
-	while (str[*i + j] != '\0' && (str[*i + j] != '$' || *text == 1))
+	while ((str[*i] != '$' || *text == 1) && str[*i] != '\0')
 	{
-		j++;
-		if (str[*i + j] == '\'' && *text != -1)
-		{
+		if (str[*i] == '\'' && *text != -1)
 			*text = !(*text);
-			remove_quote = !(*text);
-		}
+		else if (str[*i] == '"' && *text == 0)
+			*text = -1;
+		else if (str[*i] == '"' && *text == -1)
+			*text = 0;
+		else
+			res = add_char(res, str[*i]);
+		(*i)++;
 	}
-	if (str[*i + j] == '$' && (str[*i + j + 1] == '\0' || str[*i + j + 1] == ' '))
-		j++;
-	else if (str[*i + j] == '"' || (j > 0 && str[*i + j - 1] == '"'))
-		remove_quote += 1;
-	res = ft_substr(str, *i, j - remove_quote);
-	(*i) += j;
 	return (res);
 }
 
@@ -76,7 +71,6 @@ char	*add_value_variable(t_list *env, char *res, char *str, int *i)
 char	*replace_variable_to_value(t_list *env, char *str)
 {
 	char	*res;
-	char	*tmp;
 	int		text;
 	int		i;
 
@@ -87,10 +81,7 @@ char	*replace_variable_to_value(t_list *env, char *str)
 	text = 0;
 	while (str[i])
 	{
-		i = skip_frist_quote(str, i, &text);
-		tmp = get_substr(str, &i, &text);
-		res = ft_strjoin_free_1st_p(res, tmp);
-		free(tmp);
+		res = add_character_before_variable(res, str, &i, &text);
 		if (str[i] == '\0')
 			break ;
 		res = add_value_variable(env, res, str, &i);
@@ -125,7 +116,6 @@ echo "'test $TEST test'"	-> 'test coucou test'
 echo '"test $TEST test"'	-> "test $TEST test"
 echo "$TEST t $TEST" 		-> coucou t coucou
 echo $TEST$TEST				-> coucoucoucou
-
 echo "test"'test'test"test"	-> testtesttesttest
 
 FAIRE UN ADDCHAR
