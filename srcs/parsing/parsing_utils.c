@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 13:42:54 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/23 14:03:22 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/28 15:30:10 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,21 @@ char	quote_gestion(char c, char quote)
 	return (quote);
 }
 
-int	len_word(char const *s, char c, int i)
+int	is_in_char(char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	len_word(char const *s, char *sep, int i)
 {
 	int		len;
 	char	quote;
@@ -31,7 +45,7 @@ int	len_word(char const *s, char c, int i)
 	len = 0;
 	quote = '\0';
 	quote = quote_gestion(s[i], quote);
-	while ((quote != '\0' || s[i + len] != c) && s[i + len] != '\0')
+	while ((quote != '\0' ||  !is_in_char(sep, s[i + len])) && s[i + len] != '\0')
 	{
 		len++;
 		quote = quote_gestion(s[i + len], quote);
@@ -39,7 +53,7 @@ int	len_word(char const *s, char c, int i)
 	return (len);
 }
 
-char	**ft_split_quote(char const *s, char c)
+char	**ft_split_quote(char const *s, char *sep)
 {
 	int		i;
 	int		len;
@@ -54,11 +68,11 @@ char	**ft_split_quote(char const *s, char c)
 	i = 0;
 	while (s[i] != '\0')
 	{
-		while (s[i] == c)
+		while (is_in_char(sep, s[i]))
 			i++;
 		if (s[i] == '\0')
 			break ;
-		len = len_word(s, c, i);
+		len = len_word(s, sep, i);
 		res = ft_add_str(res, ft_substr(s, i, len));
 		i += len;
 	}

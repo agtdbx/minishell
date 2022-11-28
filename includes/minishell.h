@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/25 15:31:36 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/11/28 15:30:48 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,9 @@ void	free_commands(t_cmd *commands);
 
 /* =========================parsing_utils.c======================= */
 char	quote_gestion(char c, char quote);
-int		len_word(char const *s, char c, int i);
-char	**ft_split_quote(char const *s, char c);
+int		is_in_char(char *str, char c);
+int		len_word(char const *s, char *sep, int i);
+char	**ft_split_quote(char const *s, char *sep);
 
 /* ============================command.c========================== */
 void	free_command(t_cmd *command);
