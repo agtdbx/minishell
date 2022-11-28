@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 13:42:54 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/28 15:30:10 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/28 16:39:01 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	len_word(char const *s, char *sep, int i)
 	len = 0;
 	quote = '\0';
 	quote = quote_gestion(s[i], quote);
-	while ((quote != '\0' ||  !is_in_char(sep, s[i + len])) && s[i + len] != '\0')
+	while ((quote != '\0' || !is_in_char(sep, s[i + len])) && s[i + len] != '\0')
 	{
 		len++;
 		quote = quote_gestion(s[i + len], quote);

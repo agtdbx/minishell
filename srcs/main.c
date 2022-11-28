@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/25 14:56:30 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/28 16:54:36 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	env = create_env(envp);
 	paths = get_paths(env);
+	set_variable_value(env, "?", "0");
 	while (1)
 	{
 		ft_signals();
