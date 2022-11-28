@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 17:27:37 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/25 15:39:27 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/11/28 15:31:03 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_cmd	*parse_buf(t_list *env, char *buf, char **paths)
 	if (commands == NULL)
 		return (NULL);
 	commands[0].input = NULL;
-	inputs = ft_split_quote(buf, '|');
+	inputs = ft_split_quote(buf, "|");
 	if (inputs == NULL)
 	{
 		free(commands);
