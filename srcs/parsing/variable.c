@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variable.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:55:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/25 15:10:55 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/11/28 16:40:24 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,4 @@ echo '"test $TEST test"'	-> "test $TEST test"
 echo "$TEST t $TEST" 		-> coucou t coucou
 echo $TEST$TEST				-> coucoucoucou
 echo "test"'test'test"test"	-> testtesttesttest
-
-FAIRE UN ADDCHAR
 */

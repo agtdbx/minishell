@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/28 15:30:48 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/28 16:35:52 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	free_var(void *var);
 char	*get_variable_value(t_list *env, char *name);
 void	set_variable_value(t_list *env, char *name, char *value);
 void	remove_variable(t_list *env, char *name);
+char	**get_tab_env(t_list *env);
 
 /* ========================variable_utils2.c====================== */
 char	*get_name_envp(char *str);

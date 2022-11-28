@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:19:57 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/25 16:06:54 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/11/28 16:47:28 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	env_builtin(t_list *env)
 	while (actual)
 	{
 		tmp = (t_var *)actual->content;
-		if (tmp->value)
+		if (tmp->value && ft_strcmp(tmp->name, "?") != 0)
 			ft_printf("%s=%s\n", tmp->name, tmp->value);
 		actual = actual->next;
 	}
