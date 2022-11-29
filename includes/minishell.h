@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/28 16:35:52 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/29 13:04:40 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,9 @@ char	*get_value_envp(char *str);
 t_var	*create_var(t_list *env, char **envp, int i);
 t_list	*create_env(char **envp);
 t_var	*create_new_var(char *name, char *value);
+
+/* ==========================redirection.c========================= */
+char	*interprete_redirection(t_cmd *cmd, char *input);
 
 /*===================================================================
 								SIGNALS

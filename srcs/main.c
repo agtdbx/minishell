@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/28 16:54:36 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/29 11:02:51 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int	main(int argc, char **argv, char **envp)
 		interprete_cmds(env, cmds);
 		free_commands(cmds);
 		free(buf);
+		ft_lstr_free(paths);
+		paths = get_paths(env);
 	}
 	return (0);
 }

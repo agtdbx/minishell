@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:24:06 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/28 15:31:34 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/29 16:22:37 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ void	free_command(t_cmd *command)
 	if (command->input != NULL)
 		free(command->input);
 	ft_lstr_free(command->arg);
+	if (command->fd_in > 2)
+		close(command->fd_in);
+	if (command->fd_out > 2)
+		close(command->fd_out);
 }
 
 t_cmd	empty_command(char *input)
@@ -38,13 +42,17 @@ t_cmd	empty_command(char *input)
 t_cmd	get_cmd(t_list *env, char *input, char **paths)
 {
 	t_cmd	command;
+	char	*input_clean;
 	char	**split_res;
 
 	(void)env;
 	if (input == NULL)
 		return (empty_command(input));
 	command = empty_command(input);
-	split_res = ft_split_quote(input, " \t");
+	command.fd_in = 1;
+	command.fd_out = 0;
+	input_clean = interprete_redirection(&command, input);
+	split_res = ft_split_quote(input_clean, " \t");
 	if (split_res == NULL || split_res[0] == NULL)
 		return (empty_command(input));
 	split_res[0] = replace_variable_to_value(env, split_res[0]);
@@ -57,9 +65,8 @@ t_cmd	get_cmd(t_list *env, char *input, char **paths)
 		free_command(&command);
 		return (empty_command(input));
 	}
-	command.fd_in = 1;
-	command.fd_out = 0;
 	free(split_res);
+	free(input_clean);
 	return (command);
 }
 

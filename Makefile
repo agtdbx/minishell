@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+         #
+#    By: aderouba <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 14:20:53 by ngrenoux          #+#    #+#              #
-#    Updated: 2022/11/25 15:28:20 by ngrenoux         ###   ########.fr        #
+#    Updated: 2022/11/29 12:52:57 by aderouba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRCS		= srcs/main.c \
 			  srcs/parsing/variable.c \
 			  srcs/parsing/variable_utils.c \
 			  srcs/parsing/variable_utils2.c \
+			  srcs/parsing/redirection.c \
 			  srcs/signal/signal.c \
 			  srcs/execution/execution.c \
 			  srcs/execution/builtins.c \
