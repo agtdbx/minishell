@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 17:27:16 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/24 10:23:04 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/29 12:24:41 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ void	signals_management(int sig, siginfo_t *info, void *context)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
-	if (sig == SIGQUIT)
-		signal(sig, SIG_IGN);
 }
 
 /* Initialisation de la gestion des signaux */
@@ -37,7 +35,6 @@ struct sigaction	ft_init_signals(void)
 
 	sigemptyset(&sigset);
 	sigaddset(&sigset, SIGINT);
-	sigaddset(&sigset, SIGQUIT);
 	sigact.sa_flags = SA_SIGINFO;
 	sigact.sa_mask = sigset;
 	sigact.sa_sigaction = &signals_management;
