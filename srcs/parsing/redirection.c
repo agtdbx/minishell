@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:51:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/29 16:38:35 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/29 16:45:43 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ void	write_in_here_doc_file(int fd, char *limiter)
 		to_write = ft_strjoin_free_1st_p(to_write, tmp);
 		free(tmp);
 	}
-	ft_putstr_fd(to_write, fd);
+	if (fd != -1)
+		ft_putstr_fd(to_write, fd);
 	free(to_write);
 	free(stop);
 	free(tmp);
