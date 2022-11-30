@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/30 14:49:22 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/30 15:11:37 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		ft_signals();
-		buf = readline("minishell > ");
+		buf = readline("Minishell: ");
 		if (buf == NULL)
 			exit_minishell(buf, paths, env);
 		if (ft_strlen(buf) > 0)

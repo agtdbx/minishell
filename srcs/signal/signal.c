@@ -6,46 +6,24 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 17:27:16 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/29 12:24:41 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/11/29 13:34:55 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/* Remplace les actions des signaux ctrl + c && ctrl + \ */
-void	signals_management(int sig, siginfo_t *info, void *context)
+/* Remplace l'action du signal ctrl + c */
+void	ctrlc_management(int sig)
 {
-	(void)context;
-	(void)info;
-	signal(SIGQUIT, SIG_IGN);
-	if (sig == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-}
-
-/* Initialisation de la gestion des signaux */
-struct sigaction	ft_init_signals(void)
-{
-	struct sigaction	sigact;
-	sigset_t			sigset;
-
-	sigemptyset(&sigset);
-	sigaddset(&sigset, SIGINT);
-	sigact.sa_flags = SA_SIGINFO;
-	sigact.sa_mask = sigset;
-	sigact.sa_sigaction = &signals_management;
-	return (sigact);
+	(void)sig;
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
 void	ft_signals(void)
 {
-	t_data	data;
-
-	data.sigact = ft_init_signals();
-	sigaction(SIGINT, &data.sigact, NULL);
+	signal(SIGINT, ctrlc_management);
 	signal(SIGQUIT, SIG_IGN);
 }
