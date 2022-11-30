@@ -6,11 +6,29 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/29 12:26:26 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/11/30 09:20:01 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+char	*concatenate(char *dest, char *src)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (dest[i] != '\0')
+		i++;
+	j = 0;
+	while (src[j] != '\0')
+	{
+		dest[i + j] = src[j];
+		j++;
+	}
+	dest[i + j] = '\0';
+	return (dest);
+}
 
 void	exit_minishell(char *buf, char **paths, t_list *env)
 {
@@ -38,7 +56,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		ft_signals();
-		buf = readline("minishell > ");
+		buf = readline("Minishell: ");
 		if (buf == NULL)
 			exit_minishell(buf, paths, env);
 		if (ft_strlen(buf) > 0)
