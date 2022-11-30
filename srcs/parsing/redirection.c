@@ -6,61 +6,63 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:51:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/29 16:45:43 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/11/30 15:09:00 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		check_file(char *name, int flags)
+int	get_file_next2(char **tmp, char **split_res, int i)
 {
-	int	res;
-
-	res = open(name, flags, 0644);
-	if (res == -1 || open(name, O_DIRECTORY) != -1)
+	if (ft_strstr(split_res[i], ">>") != NULL && split_res[i][0] == '>'
+		&& split_res[i][1] == '>')
 	{
-		ft_printf_fd("minishell: %s: No such file or directory\n", 2, name);
-		return (-1);
+		*tmp = ft_substr(split_res[i], 2, ft_strlen(split_res[i]));
+		return (4);
 	}
-	return (res);
+	else if (is_in_char(split_res[i], '<') && split_res[i][0] == '<')
+	{
+		*tmp = ft_substr(split_res[i], 1, ft_strlen(split_res[i]));
+		return (1);
+	}
+	else if (is_in_char(split_res[i], '>') && split_res[i][0] == '>')
+	{
+		*tmp = ft_substr(split_res[i], 1, ft_strlen(split_res[i]));
+		return (3);
+	}
+	return (10);
 }
 
-void	write_in_here_doc_file(int fd, char *limiter)
+int	get_file_next(char **tmp, char **split_res, int i)
 {
-	char	*to_write;
-	char	*stop;
-	char	*tmp;
-
-	to_write = malloc(sizeof(char));
-	if (!to_write)
-		return ;
-	to_write[0] = '\0';
-	stop = ft_strjoin(limiter, "\n");
-	while (1)
+	if (ft_strcmp(split_res[i], "<") == 0)
+		return (1);
+	else if (ft_strcmp(split_res[i], "<<") == 0)
+		return (2);
+	else if (ft_strcmp(split_res[i], ">") == 0)
+		return (3);
+	else if (ft_strcmp(split_res[i], ">>") == 0)
+		return (4);
+	else if (ft_strstr(split_res[i], "<<") != NULL && split_res[i][0] == '<'
+		&& split_res[i][1] == '<')
 	{
-		tmp = get_next_line(0);
-		if (tmp == NULL || ft_strcmp(tmp, stop) == 0)
-			break ;
-		to_write = ft_strjoin_free_1st_p(to_write, tmp);
-		free(tmp);
+		*tmp = ft_substr(split_res[i], 2, ft_strlen(split_res[i]));
+		return (2);
 	}
-	if (fd != -1)
-		ft_putstr_fd(to_write, fd);
-	free(to_write);
-	free(stop);
-	free(tmp);
+	else
+		return (get_file_next2(tmp, split_res, i));
 }
 
-int	here_doc(char *name)
+char	*final_check_and_return(int file_next, char **split_res, char *res)
 {
-	int	res;
-	int	tmp;
-
-	unlink(".heredoc");
-	tmp = open(".heredoc", O_RDWR | O_TRUNC | O_CREAT, 0644);
-	write_in_here_doc_file(tmp, name);
-	close(tmp);
-	res = open(".heredoc", O_RDONLY);
+	ft_lstr_free(split_res);
+	if (file_next != 0 && file_next != 10)
+	{
+		free(res);
+		ft_printf_fd("Minishell: syntax error near", 2);
+		ft_printf_fd(" unexpected token 'newline'\n", 2);
+		return (NULL);
+	}
 	return (res);
 }
 
@@ -73,159 +75,22 @@ char	*interprete_redirection(t_cmd *cmd, char *input)
 	int		file_next;
 
 	res = ft_calloc(sizeof(char), 1);
-	if (!res)
-		return (NULL);
-	split_res = ft_split_quote(input, " \t");
+	split_res = ft_split_redirection(input);
 	i = 0;
 	file_next = 0;
 	tmp = NULL;
-	while (split_res[i])
+	while (res && split_res && split_res[i])
 	{
-		if (file_next == 1)
-		{
-			if (cmd->fd_in > 2)
-				close(cmd->fd_in);
-			if (tmp)
-			{
-				cmd->fd_in = check_file(tmp, O_RDONLY);
-				free(tmp);
-				tmp = NULL;
-			}
-			else
-				cmd->fd_in = check_file(split_res[i], O_RDONLY);
-			if (cmd->fd_in == -1)
-			{
-				ft_lstr_free(split_res);
-				return (res);
-			}
-			file_next = 0;
-		}
-		else if (file_next == 2)
-		{
-			if (cmd->fd_out > 2)
-				close(cmd->fd_out);
-			if (tmp)
-			{
-				cmd->fd_in = here_doc(tmp);
-				free(tmp);
-				tmp = NULL;
-			}
-			else
-				cmd->fd_out = here_doc(split_res[i]);
-			if (cmd->fd_out == -1)
-			{
-				ft_lstr_free(split_res);
-				return (res);
-			}
-			file_next = 0;
-		}
-		else if (file_next == 3)
-		{
-			if (cmd->fd_out > 2)
-				close(cmd->fd_out);
-			if (tmp)
-			{
-				cmd->fd_in = check_file(tmp, O_RDWR | O_TRUNC | O_CREAT);
-				free(tmp);
-				tmp = NULL;
-			}
-			else
-				cmd->fd_out = check_file(split_res[i], O_RDWR | O_TRUNC | O_CREAT);
-			if (cmd->fd_out == -1)
-			{
-				ft_lstr_free(split_res);
-				return (res);
-			}
-			file_next = 0;
-		}
-		else if (file_next == 4)
-		{
-			if (cmd->fd_out > 2)
-				close(cmd->fd_out);
-			if (tmp)
-			{
-				cmd->fd_in = check_file(tmp, O_RDWR | O_APPEND | O_CREAT);
-				free(tmp);
-				tmp = NULL;
-			}
-			else
-				cmd->fd_out = check_file(split_res[i], O_RDWR | O_APPEND | O_CREAT);
-			if (cmd->fd_out == -1)
-			{
-				ft_lstr_free(split_res);
-				return (res);
-			}
-			file_next = 0;
-		}
-		else if (ft_strcmp(split_res[i], "<") == 0)
-			file_next = 1;
-		else if (ft_strcmp(split_res[i], "<<") == 0)
-			file_next = 2;
-		else if (ft_strcmp(split_res[i], ">") == 0)
-			file_next = 3;
-		else if (ft_strcmp(split_res[i], ">>") == 0)
-			file_next = 4;
-		else if (ft_strstr(split_res[i], "<<") != NULL)
-		{
-			if (split_res[i][0] == '<' && split_res[i][1] == '<')
-			{
-				tmp = ft_substr(split_res[i], 1, ft_strlen(split_res[i]));
-				file_next = 2;
-			}
-			else
-			{
-				ft_printf_fd("Name invalid, change cette erreur !\n", 2);
-				ft_lstr_free(split_res);
-				return (res);
-			}
-		}
-		else if (ft_strstr(split_res[i], ">>") != NULL)
-		{
-			if (split_res[i][0] == '>' && split_res[i][1] == '>')
-			{
-				tmp = ft_substr(split_res[i], 1, ft_strlen(split_res[i]));
-				file_next = 4;
-			}
-			else
-			{
-				ft_printf_fd("Name invalid, change cette erreur !\n", 2);
-				ft_lstr_free(split_res);
-				return (res);
-			}
-		}
-		else if (is_in_char(split_res[i], '<'))
-		{
-			if (split_res[i][0] == '<')
-			{
-				tmp = ft_substr(split_res[i], 1, ft_strlen(split_res[i]));
-				file_next = 1;
-			}
-			else
-			{
-				ft_printf_fd("Name invalid, change cette erreur !\n", 2);
-				ft_lstr_free(split_res);
-				return (res);
-			}
-		}
-		else if (is_in_char(split_res[i], '>'))
-		{
-			if (split_res[i][0] == '>')
-			{
-				tmp = ft_substr(split_res[i], 1, ft_strlen(split_res[i]));
-				file_next = 3;
-			}
-			else
-			{
-				ft_printf_fd("Name invalid, change cette erreur !\n", 2);
-				ft_lstr_free(split_res);
-				return (res);
-			}
-		}
+		if (file_next > 0 && file_next < 10)
+			file_next = get_fd(cmd, &tmp, split_res[i], file_next);
 		else
+			file_next = get_file_next(&tmp, split_res, i);
+		if (cmd->fd_in == -1 || cmd->fd_out == -1)
+			return (error_file(res, split_res));
+		else if (file_next == 10)
 			res = ft_strsuperjoin_free_1st_p(res, split_res[i], " ");
-		if (tmp == NULL)
+		if (tmp == NULL && file_next >= 0)
 			i++;
 	}
-	ft_lstr_free(split_res);
-	return (res);
+	return (final_check_and_return(file_next, split_res, res));
 }

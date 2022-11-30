@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/30 11:17:10 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/11/30 16:04:19 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,21 @@ void	exit_minishell(char *buf, char **paths, t_list *env)
 	exit(0);
 }
 
+void	parse_and_do_commands(t_list *env, char **paths, char *buf)
+{
+	t_cmd	*cmds;
+
+	cmds = parse_buf(env, buf, paths);
+	interprete_cmds(env, cmds);
+	free_commands(cmds);
+	free(buf);
+	ft_lstr_free(paths);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*buf;
 	char	**paths;
-	t_cmd	*cmds;
 	t_list	*env;
 
 	(void)argc;
@@ -46,11 +56,7 @@ int	main(int argc, char **argv, char **envp)
 			add_history(buf);
 		if (ft_strcmp(buf, "exit") == 0)
 			exit_minishell(buf, paths, env);
-		cmds = parse_buf(env, buf, paths);
-		interprete_cmds(env, cmds);
-		free_commands(cmds);
-		free(buf);
-		ft_lstr_free(paths);
+		parse_and_do_commands(env, paths, buf);
 		paths = get_paths(env);
 	}
 	return (0);

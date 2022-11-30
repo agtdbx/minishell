@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/30 11:17:49 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/11/30 16:04:17 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <signal.h>
 # include <fcntl.h>
+# include <wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -100,7 +101,25 @@ t_list	*create_env(char **envp);
 t_var	*create_new_var(char *name, char *value);
 
 /* ==========================redirection.c========================= */
+int		get_file_next2(char **tmp, char **split_res, int i);
+int		get_file_next(char **tmp, char **split_res, int i);
+char	*final_check_and_return(int file_next, char **split_res, char *res);
 char	*interprete_redirection(t_cmd *cmd, char *input);
+
+/* =======================redirection_utils.c====================== */
+int		check_file(char *name, int flags);
+void	input_file(t_cmd *cmd, char **tmp, char *name, int heredoc);
+void	output_file(t_cmd *cmd, char **tmp, char *name, int append);
+char	*error_file(char *res, char **split_res);
+int		get_fd(t_cmd *cmd, char **tmp, char *name, int file_next);
+
+/* =======================redirection_utils2.c===================== */
+int		len_word_redirection(char const *s, char *sep, int *i);
+char	**ft_split_redirection(char *s);
+
+/* ============================here_doc.c========================== */
+void	write_in_here_doc_file(int fd, char *limiter);
+int		here_doc(char *name);
 
 /*===================================================================
 								SIGNALS
