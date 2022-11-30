@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/11/30 09:20:01 by ngrenoux         ###   ########.fr       */
+=======
+/*   Updated: 2022/11/29 16:46:58 by aderouba         ###   ########.fr       */
+>>>>>>> 1d7a62cc9e6416b15e9537b8601440cbdc44fa18
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +42,7 @@ void	exit_minishell(char *buf, char **paths, t_list *env)
 	ft_lstr_free(paths);
 	ft_lstclear(&env, free_var);
 	ft_printf("exit\n");
+	unlink(".heredoc");
 	exit(0);
 }
 
@@ -67,6 +72,8 @@ int	main(int argc, char **argv, char **envp)
 		interprete_cmds(env, cmds);
 		free_commands(cmds);
 		free(buf);
+		ft_lstr_free(paths);
+		paths = get_paths(env);
 	}
 	return (0);
 }
