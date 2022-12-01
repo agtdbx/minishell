@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:51:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/01 16:11:50 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/01 17:21:52 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	*interprete_redirection(t_data *data, t_cmd *cmd, char *input)
 		else
 			file_next = get_file_next(&tmp, split_res, i);
 		if (cmd->fd_in == -1 || cmd->fd_out == -1)
-			return (error_file(res, split_res));
+			return (error_file(cmd, res, split_res));
 		else if (file_next == 10)
 			res = ft_strsuperjoin_free_1st_p(res, split_res[i], " ");
 		if (tmp == NULL && file_next >= 0)

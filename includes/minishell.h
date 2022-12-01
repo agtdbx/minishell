@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/01 17:10:23 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/01 17:22:08 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ char	*interprete_redirection(t_data *data, t_cmd *cmd, char *input);
 int		check_file(char *name, int flags);
 void	input_file(t_data *data, t_cmd *cmd, char **tmp, char *name, int heredoc);
 void	output_file(t_cmd *cmd, char **tmp, char *name, int append);
-char	*error_file(char *res, char **split_res);
+char	*error_file(t_cmd *cmd, char *res, char **split_res);
 int		get_fd(t_data *data, t_cmd *cmd, char **tmp, char *name, int file_next);
 
 /* =======================redirection_utils2.c===================== */
