@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:51:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/30 15:09:00 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/01 16:11:50 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*final_check_and_return(int file_next, char **split_res, char *res)
 	return (res);
 }
 
-char	*interprete_redirection(t_cmd *cmd, char *input)
+char	*interprete_redirection(t_data *data, t_cmd *cmd, char *input)
 {
 	char	**split_res;
 	char	*res;
@@ -82,7 +82,7 @@ char	*interprete_redirection(t_cmd *cmd, char *input)
 	while (res && split_res && split_res[i])
 	{
 		if (file_next > 0 && file_next < 10)
-			file_next = get_fd(cmd, &tmp, split_res[i], file_next);
+			file_next = get_fd(data, cmd, &tmp, split_res[i], file_next);
 		else
 			file_next = get_file_next(&tmp, split_res, i);
 		if (cmd->fd_in == -1 || cmd->fd_out == -1)

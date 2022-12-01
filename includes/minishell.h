@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/01 11:24:24 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/01 16:12:31 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_cmd
 typedef struct s_data
 {
 	char				**paths;
+	char				**heredoc;
 	t_list				*env;
 	t_list				*env_copy;
 	struct sigaction	sigact;
@@ -61,7 +62,7 @@ typedef struct s_data
 /* ============================parsing.c========================== */
 char	**get_paths(t_list *env);
 t_cmd	*add_command(t_cmd *commands, t_cmd command);
-t_cmd	*parse_buf(t_list *env, char *buf, char **paths);
+t_cmd	*parse_buf(t_data *data, char *buf, char **paths);
 void	free_commands(t_cmd *commands);
 
 /* =========================parsing_utils.c======================= */
@@ -73,7 +74,7 @@ char	**ft_split_quote(char const *s, char *sep);
 /* ============================command.c========================== */
 void	free_command(t_cmd *command);
 t_cmd	empty_command(char *input);
-t_cmd	get_cmd(t_list *env, char *input, char **envp);
+t_cmd	get_cmd(t_data *data, char *input, char **envp);
 void	print_cmd(t_cmd *command);
 
 /* =========================command_utils.c======================= */
@@ -106,22 +107,25 @@ t_var	*create_new_var(char *name, char *value);
 int		get_file_next2(char **tmp, char **split_res, int i);
 int		get_file_next(char **tmp, char **split_res, int i);
 char	*final_check_and_return(int file_next, char **split_res, char *res);
-char	*interprete_redirection(t_cmd *cmd, char *input);
+char	*interprete_redirection(t_data *data, t_cmd *cmd, char *input);
 
 /* =======================redirection_utils.c====================== */
 int		check_file(char *name, int flags);
-void	input_file(t_cmd *cmd, char **tmp, char *name, int heredoc);
+void	input_file(t_data *data, t_cmd *cmd, char **tmp, char *name, int heredoc);
 void	output_file(t_cmd *cmd, char **tmp, char *name, int append);
 char	*error_file(char *res, char **split_res);
-int		get_fd(t_cmd *cmd, char **tmp, char *name, int file_next);
+int		get_fd(t_data *data, t_cmd *cmd, char **tmp, char *name, int file_next);
 
 /* =======================redirection_utils2.c===================== */
 int		len_word_redirection(char const *s, char *sep, int *i);
 char	**ft_split_redirection(char *s);
 
 /* ============================here_doc.c========================== */
+char	*write_in_here_doc(char *limiter);
 void	write_in_here_doc_file(int fd, char *limiter);
-int		here_doc(char *name);
+void	parse_heredoc(t_data *data, char *buf);
+char	*get_and_remove_first_heredoc(t_data *data);
+int		here_doc(t_data *data);
 
 /*===================================================================
 								SIGNALS

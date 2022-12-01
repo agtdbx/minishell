@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:51:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/30 15:09:03 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/01 16:13:39 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ int	check_file(char *name, int flags)
 	return (res);
 }
 
-void	input_file(t_cmd *cmd, char **tmp, char *name, int heredoc)
+void	input_file(t_data *data, t_cmd *cmd, char **tmp, char *name, int heredoc)
 {
 	if (cmd->fd_in > 2)
 		close(cmd->fd_in);
 	if (*tmp)
 	{
 		if (heredoc)
-			cmd->fd_in = here_doc(*tmp);
+			cmd->fd_in = here_doc(data);
 		else
 			cmd->fd_in = check_file(*tmp, O_RDONLY);
 		free(*tmp);
@@ -41,7 +41,7 @@ void	input_file(t_cmd *cmd, char **tmp, char *name, int heredoc)
 	else
 	{
 		if (heredoc)
-			cmd->fd_in = here_doc(name);
+			cmd->fd_in = here_doc(data);
 		else
 			cmd->fd_in = check_file(name, O_RDONLY);
 	}
@@ -75,12 +75,12 @@ char	*error_file(char *res, char **split_res)
 	return (res);
 }
 
-int	get_fd(t_cmd *cmd, char **tmp, char *name, int file_next)
+int	get_fd(t_data *data, t_cmd *cmd, char **tmp, char *name, int file_next)
 {
 	if (file_next == 1)
-		input_file(cmd, tmp, name, 0);
+		input_file(data, cmd, tmp, name, 0);
 	else if (file_next == 2)
-		input_file(cmd, tmp, name, 1);
+		input_file(data, cmd, tmp, name, 1);
 	else if (file_next == 3)
 		output_file(cmd, tmp, name, 0);
 	else if (file_next == 4)

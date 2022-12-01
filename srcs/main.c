@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/01 14:11:51 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/01 16:20:35 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	parse_and_do_commands(t_data *data, char *buf)
 {
 	t_cmd	*cmds;
 
-	cmds = parse_buf(data->env, buf, data->paths);
+	parse_heredoc(data, buf);
+	cmds = parse_buf(data, buf, data->paths);
 	interprete_cmds(data, cmds);
 	free_commands(cmds);
 	free(buf);

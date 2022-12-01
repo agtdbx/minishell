@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:24:06 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/01 11:37:22 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/01 16:08:29 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_cmd	command_not_found(t_cmd *command, char *input)
 	return (empty_command(input));
 }
 
-t_cmd	get_cmd(t_list *env, char *input, char **paths)
+t_cmd	get_cmd(t_data *data, char *input, char **paths)
 {
 	t_cmd	command;
 	char	*input_clean;
@@ -58,11 +58,11 @@ t_cmd	get_cmd(t_list *env, char *input, char **paths)
 	command = empty_command(input);
 	command.fd_in = 0;
 	command.fd_out = 1;
-	input_clean = interprete_redirection(&command, input);
+	input_clean = interprete_redirection(data, &command, input);
 	split_res = ft_split_quote(input_clean, " \t");
 	if (split_res == NULL || split_res[0] == NULL)
 		return (empty_command(input));
-	split_res[0] = replace_variable_to_value(env, split_res[0]);
+	split_res[0] = replace_variable_to_value(data->env, split_res[0]);
 	command.name = split_res[0];
 	command.arg = get_arg(split_res, paths);
 	free(split_res);
