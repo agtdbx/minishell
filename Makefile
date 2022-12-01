@@ -6,7 +6,7 @@
 #    By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 14:20:53 by ngrenoux          #+#    #+#              #
-#    Updated: 2022/11/30 16:12:24 by ngrenoux         ###   ########.fr        #
+#    Updated: 2022/12/01 11:16:49 by ngrenoux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,8 @@ SRCS		= srcs/main.c \
 			  srcs/execution/builtins.c \
 			  srcs/execution/builtins_utils.c \
 			  srcs/execution/export.c \
-			  srcs/utils/init.c
+			  srcs/utils/init.c \
+			  srcs/utils/utils.c
 
 
 #====================================OBJECTS===================================#

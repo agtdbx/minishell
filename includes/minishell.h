@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/01 09:24:39 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/01 15:10:15 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,8 +150,13 @@ void	change_pwd_variable(t_list *env, char *home, t_cmd *cmd, char *tmp);
 void	export_builtin(t_data *data, t_cmd *cmd);
 
 /*===================================================================
-								INIT
+								UTILS
 ===================================================================*/
+
+/*==============================init.c=============================*/
 t_data	ft_init(char **envp);
+
+/*==============================utils.c============================*/
+int	check_arg_export(t_data *data, char *str);
 
 #endif
