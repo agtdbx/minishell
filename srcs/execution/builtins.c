@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:19:57 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/28 16:47:28 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/01 10:18:52 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	cd_implement(t_list *env, t_cmd *cmd)
 		change_pwd_variable(env, home, cmd, tmp);
 }
 
-void	unset_builtin(t_list *env, t_cmd *cmd)
+void	unset_builtin(t_data *data, t_cmd *cmd)
 {
 	int	i;
 
@@ -57,7 +57,8 @@ void	unset_builtin(t_list *env, t_cmd *cmd)
 	i = 1;
 	while (cmd->arg[i])
 	{
-		remove_variable(env, cmd->arg[i]);
+		remove_variable(data->env, cmd->arg[i]);
+		remove_variable(data->env_copy, cmd->arg[i]);
 		i++;
 	}
 }

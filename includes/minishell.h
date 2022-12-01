@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/01 09:24:39 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/01 11:24:24 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 /*===================================================================
 						VARIABLE GLOBALE
 ===================================================================*/
-
 
 /*===================================================================
 							STRUCTURES
@@ -136,13 +135,17 @@ void	ft_signals(void);
 ===================================================================*/
 
 /*===========================execution.c===========================*/
+void	close_fds(t_cmd *cmd, int *pipe1, int *pipe2);
+void	execute_cmd(t_list *env, t_cmd *cmd, int *pipe1, int *pipe2);
+void	pipe_gestion(t_cmd *cmds, int i, int *pipe1, int *pipe2);
+void	execute_builtins(t_data *data, t_cmd *cmds, int i);
 void	interprete_cmds(t_data *data, t_cmd *cmds);
 
 /*============================bultins.c============================*/
 char	*ft_pwd(void);
 void	print_pwd(void);
 void	cd_implement(t_list *env, t_cmd *cmd);
-void	unset_builtin(t_list *env, t_cmd *cmd);
+void	unset_builtin(t_data *data, t_cmd *cmd);
 void	env_builtin(t_list *env);
 void	change_pwd_variable(t_list *env, char *home, t_cmd *cmd, char *tmp);
 
