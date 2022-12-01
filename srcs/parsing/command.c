@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:24:06 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/01 17:25:01 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/01 17:30:44 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ t_cmd	empty_command(char *input)
 
 t_cmd	command_not_found(t_cmd *command, char *input)
 {
-	ft_printf_fd("%s: command not found\n", 2, command->name);
+	if (command->name)
+		ft_printf_fd("%s: command not found\n", 2, command->name);
 	if (command->fd_in > 2)
 		close(command->fd_in);
 	if (command->fd_out > 2)
@@ -65,13 +66,7 @@ t_cmd	get_cmd(t_data *data, char *input, char **paths)
 	input_clean = interprete_redirection(data, &command, input);
 	split_res = ft_split_quote(input_clean, " \t");
 	if (split_res == NULL || split_res[0] == NULL)
-	{
-		if (command.fd_in > 2)
-			close(command.fd_in);
-		if (command.fd_out > 2)
-			close(command.fd_out);
-		return (empty_command(input));
-	}
+		return (command_not_found(&command, input));
 	split_res[0] = replace_variable_to_value(data->env, split_res[0]);
 	command.name = split_res[0];
 	command.arg = get_arg(split_res, paths);
