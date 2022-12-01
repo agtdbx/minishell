@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/30 16:04:19 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/01 09:22:37 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,40 +24,40 @@ void	exit_minishell(char *buf, char **paths, t_list *env)
 	exit(0);
 }
 
-void	parse_and_do_commands(t_list *env, char **paths, char *buf)
+void	parse_and_do_commands(t_data *data, char *buf)
 {
 	t_cmd	*cmds;
 
-	cmds = parse_buf(env, buf, paths);
-	interprete_cmds(env, cmds);
+	cmds = parse_buf(data->env, buf, data->paths);
+	interprete_cmds(data, cmds);
 	free_commands(cmds);
 	free(buf);
-	ft_lstr_free(paths);
+	ft_lstr_free(data->paths);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	char	*buf;
-	char	**paths;
-	t_list	*env;
+	t_data	data;
 
-	(void)argc;
 	(void)argv;
-	env = create_env(envp);
-	paths = get_paths(env);
-	set_variable_value(env, "?", "0");
-	while (1)
+	if (argc == 1)
 	{
-		ft_signals();
-		buf = readline("Minishell: ");
-		if (buf == NULL)
-			exit_minishell(buf, paths, env);
-		if (ft_strlen(buf) > 0)
-			add_history(buf);
-		if (ft_strcmp(buf, "exit") == 0)
-			exit_minishell(buf, paths, env);
-		parse_and_do_commands(env, paths, buf);
-		paths = get_paths(env);
+		data = ft_init(envp);
+		set_variable_value(data.env, "?", "0");
+		while (1)
+		{
+			ft_signals();
+			buf = readline("Minishell: ");
+			if (buf == NULL)
+				exit_minishell(buf, data.paths, data.env);
+			if (ft_strlen(buf) > 0)
+				add_history(buf);
+			if (ft_strcmp(buf, "exit") == 0)
+				exit_minishell(buf, data.paths, data.env);
+			parse_and_do_commands(&data, buf);
+			data.paths = get_paths(data.env);
+		}
 	}
 	return (0);
 }

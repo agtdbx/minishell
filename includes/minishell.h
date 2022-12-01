@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/30 16:04:17 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/01 09:24:39 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ typedef struct s_cmd
 
 typedef struct s_data
 {
+	char				**paths;
+	t_list				*env;
+	t_list				*env_copy;
 	struct sigaction	sigact;
 }	t_data;
 
@@ -133,7 +136,7 @@ void	ft_signals(void);
 ===================================================================*/
 
 /*===========================execution.c===========================*/
-void	interprete_cmds(t_list *env, t_cmd *cmds);
+void	interprete_cmds(t_data *data, t_cmd *cmds);
 
 /*============================bultins.c============================*/
 char	*ft_pwd(void);
@@ -144,6 +147,11 @@ void	env_builtin(t_list *env);
 void	change_pwd_variable(t_list *env, char *home, t_cmd *cmd, char *tmp);
 
 /*=============================export.c============================*/
-void	export_builtin(t_list *env, t_cmd *cmd);
+void	export_builtin(t_data *data, t_cmd *cmd);
+
+/*===================================================================
+								INIT
+===================================================================*/
+t_data	ft_init(char **envp);
 
 #endif

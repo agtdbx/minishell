@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:33:10 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/30 16:04:18 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/11/30 16:20:55 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	execute_cmd(t_list *env, t_cmd *cmd)
 	close_fds(cmd);
 }
 
-void	interprete_cmds(t_list *env, t_cmd *cmds)
+void	interprete_cmds(t_data *data, t_cmd *cmds)
 {
 	int	i;
 
@@ -58,15 +58,15 @@ void	interprete_cmds(t_list *env, t_cmd *cmds)
 			print_pwd();
 		else if (cmds[i].name && (!ft_strcmp(cmds[i].name, "~")
 				|| !ft_strcmp(cmds[i].name, "cd")))
-			cd_implement(env, &cmds[i]);
+			cd_implement(data->env, &cmds[i]);
 		else if (cmds[i].name && !ft_strcmp(cmds[i].name, "unset"))
-			unset_builtin(env, &cmds[i]);
+			unset_builtin(data->env, &cmds[i]);
 		else if (cmds[i].name && !ft_strcmp(cmds[i].name, "env"))
-			env_builtin(env);
+			env_builtin(data->env);
 		else if (cmds[i].name && !ft_strcmp(cmds[i].name, "export"))
-			export_builtin(env, &cmds[i]);
+			export_builtin(data, &cmds[i]);
 		else
-			execute_cmd(env, &cmds[i]);
+			execute_cmd(data->env, &cmds[i]);
 		i++;
 	}
 }

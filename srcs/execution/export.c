@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 11:45:16 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/30 15:56:02 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/11/30 16:15:17 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ void	print_export(t_list *env)
 	}
 }
 
-void	export_builtin(t_list *env, t_cmd *cmd)
+void	export_builtin(t_data *data, t_cmd *cmd)
 {
 	if (cmd->arg[1] == NULL)
-		print_export(env);
+		print_export(data->env_copy);
 }
 
 /*
