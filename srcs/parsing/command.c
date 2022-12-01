@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:24:06 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/30 14:40:24 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/01 11:37:22 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,14 @@ t_cmd	empty_command(char *input)
 	return (command);
 }
 
+t_cmd	command_not_found(t_cmd *command, char *input)
+{
+	ft_printf_fd("%s: command not found\n", 2, command->name);
+	command->input = NULL;
+	free_command(command);
+	return (empty_command(input));
+}
+
 t_cmd	get_cmd(t_list *env, char *input, char **paths)
 {
 	t_cmd	command;
@@ -48,8 +56,8 @@ t_cmd	get_cmd(t_list *env, char *input, char **paths)
 	if (input == NULL)
 		return (empty_command(input));
 	command = empty_command(input);
-	command.fd_in = 1;
-	command.fd_out = 0;
+	command.fd_in = 0;
+	command.fd_out = 1;
 	input_clean = interprete_redirection(&command, input);
 	split_res = ft_split_quote(input_clean, " \t");
 	if (split_res == NULL || split_res[0] == NULL)
@@ -60,11 +68,7 @@ t_cmd	get_cmd(t_list *env, char *input, char **paths)
 	free(split_res);
 	free(input_clean);
 	if (command.arg == NULL)
-	{
-		command.input = NULL;
-		free_command(&command);
-		return (empty_command(input));
-	}
+		return (command_not_found(&command, input));
 	return (command);
 }
 
