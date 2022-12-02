@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 11:14:56 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/02 15:45:57 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/02 15:46:34 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	if_char_is_plus(char *str, int i, t_data *data)
 	tmp_val = ft_substr(str, i + 1, ft_strlen(str) - (i + 1));
 	value = ft_strjoin(value, tmp_val);
 	set_variable_value(data->env, name, value);
-	set_variable_value(data->env_copy, name, value);
 	free(value);
 	free(tmp_val);
 }
@@ -39,7 +38,6 @@ void	if_char_is_egal(char *str, int i, t_data *data)
 		variable_name = ft_substr(str, 0, i);
 		variable_value = ft_substr(str, i + 1, ft_strlen(str) - (i + 1));
 		set_variable_value(data->env, variable_name, variable_value);
-		set_variable_value(data->env_copy, variable_name, variable_value);
 		free(variable_name);
 		free(variable_value);
 	}
