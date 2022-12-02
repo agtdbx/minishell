@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:19:57 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/01 10:18:52 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/02 15:39:54 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	unset_builtin(t_data *data, t_cmd *cmd)
 	while (cmd->arg[i])
 	{
 		remove_variable(data->env, cmd->arg[i]);
-		remove_variable(data->env_copy, cmd->arg[i]);
 		i++;
 	}
 }
