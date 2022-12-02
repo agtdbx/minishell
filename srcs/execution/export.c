@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 11:45:16 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/02 15:42:25 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/02 15:45:58 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,15 @@ void	sort_lst(t_list *lst)
 void	print_export(t_list *env)
 {
 	t_list	*actual;
+	t_list	*cpy;
 	t_var	*tmp;
+	char	**env_tmp;
 
-	actual = env;
+	env_tmp = get_tab_env(env);
+	cpy = create_env(env_tmp);
+	ft_lstr_free(env_tmp);
+	sort_lst(cpy);
+	actual = cpy;
 	sort_lst(actual);
 	while (actual)
 	{
@@ -62,12 +68,13 @@ void	print_export(t_list *env)
 			ft_printf("declare -x %s=%s\n", tmp->name, tmp->value);
 		actual = actual->next;
 	}
+	ft_lstclear(&cpy, free_var);
 }
 
 void	export_builtin(t_data *data, t_cmd *cmd)
 {
 	if (cmd->arg[1] == NULL)
-		print_export(data->env_copy);
+		print_export(data->env);
 	else if (cmd->arg[1] != NULL)
 		if (check_arg_export(data, cmd->arg[1]) == 0)
 			ft_printf("Error\n");

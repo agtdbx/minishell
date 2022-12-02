@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/02 15:41:48 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/02 15:45:52 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef struct s_data
 	char				**paths;
 	char				**heredoc;
 	t_list				*env;
-	t_list				*env_copy;
 	struct sigaction	sigact;
 }	t_data;
 

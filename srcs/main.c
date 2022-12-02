@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/01 16:20:35 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/02 15:43:49 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	exit_minishell(char *buf, t_data *data)
 	rl_clear_history();
 	ft_lstr_free(data->paths);
 	ft_lstclear(&data->env, free_var);
-	ft_lstclear(&data->env_copy, free_var);
 	ft_printf("exit\n");
 	unlink(".heredoc");
 	exit(0);
