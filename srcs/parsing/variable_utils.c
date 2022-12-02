@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variable_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:55:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/28 16:51:24 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/02 11:50:03 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,12 @@ void	set_variable_value(t_list *env, char *name, char *value)
 		tmp = (t_var *)actual->content;
 		if (ft_strcmp(tmp->name, name) == 0)
 		{
-			free(tmp->value);
-			tmp->value = ft_strdup(value);
+			if (tmp->value)
+				free(tmp->value);
+			if (value == NULL)
+				tmp->value = NULL;
+			else
+				tmp->value = ft_strdup(value);
 			return ;
 		}
 		actual = actual->next;

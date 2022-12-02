@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variable_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:55:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/24 17:12:23 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/02 11:47:51 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,9 @@ t_var	*create_new_var(char *name, char *value)
 	if (var == NULL)
 		return (NULL);
 	var->name = ft_strdup(name);
-	var->value = ft_strdup(value);
+	if (value == NULL)
+		var->value = NULL;
+	else
+		var->value = ft_strdup(value);
 	return (var);
 }
