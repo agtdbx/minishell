@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 11:14:56 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/02 15:46:34 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/02 15:53:53 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int	check_arg_export(t_data *data, char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (ft_isalnum(str[i]) || str[i] == ' ')
+		if (ft_isalnum(str[i]) || str[i] == ' ' || str[i] == '='
+			|| str[i] == '+')
 		{
 			if (str[i] == '=')
 				if_char_is_egal(str, i, data);

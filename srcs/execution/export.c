@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 11:45:16 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/02 15:45:58 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/02 15:52:38 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	export_builtin(t_data *data, t_cmd *cmd)
 	if (cmd->arg[1] == NULL)
 		print_export(data->env);
 	else if (cmd->arg[1] != NULL)
-		if (check_arg_export(data, cmd->arg[1]) == 0)
+		if (check_arg_export(data, cmd->arg[1]))
 			ft_printf("Error\n");
 }
 
