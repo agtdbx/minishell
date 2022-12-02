@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/02 15:45:52 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/02 16:06:20 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ void	ft_signals(void);
 void	close_fds(t_cmd *cmd, int *pipe1, int *pipe2);
 void	execute_cmd(t_list *env, t_cmd *cmd, int *pipe1, int *pipe2);
 void	pipe_gestion(t_cmd *cmds, int i, int *pipe1, int *pipe2);
-void	execute_builtins(t_data *data, t_cmd *cmds, int i);
+void	execute_builtins(t_data *data, t_cmd *cmd, int *pipe1, int *pipe2);
 void	interprete_cmds(t_data *data, t_cmd *cmds);
 
 /*============================bultins.c============================*/

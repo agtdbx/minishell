@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:33:10 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/01 11:24:48 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/02 16:06:45 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,19 +76,39 @@ void	pipe_gestion(t_cmd *cmds, int i, int *pipe1, int *pipe2)
 	}
 }
 
-void	execute_builtins(t_data *data, t_cmd *cmds, int i)
+void	execute_builtins(t_data *data, t_cmd *cmd, int *pipe1, int *pipe2)
 {
-	if (cmds[i].name && ft_strcmp(cmds[i].name, "pwd") == 0)
-		print_pwd();
-	else if (cmds[i].name && (!ft_strcmp(cmds[i].name, "~")
-			|| !ft_strcmp(cmds[i].name, "cd")))
-		cd_implement(data->env, &cmds[i]);
-	else if (cmds[i].name && !ft_strcmp(cmds[i].name, "unset"))
-		unset_builtin(data, &cmds[i]);
-	else if (cmds[i].name && !ft_strcmp(cmds[i].name, "env"))
-		env_builtin(data->env);
-	else if (cmds[i].name && !ft_strcmp(cmds[i].name, "export"))
-		export_builtin(data, &cmds[i]);
+	int		cpid;
+
+	cpid = fork();
+
+	if (cpid == 0)
+	{
+		if (cmd->fd_in > 2)
+			dup2(cmd->fd_in, STDIN_FILENO);
+		if (cmd->fd_out > 2)
+			dup2(cmd->fd_out, STDOUT_FILENO);
+		if (cmd->name && ft_strcmp(cmd->name, "pwd") == 0)
+			print_pwd();
+		else if (cmd->name && (!ft_strcmp(cmd->name, "~")
+				|| !ft_strcmp(cmd->name, "cd")))
+			cd_implement(data->env, cmd);
+		else if (cmd->name && !ft_strcmp(cmd->name, "unset"))
+			unset_builtin(data, cmd);
+		else if (cmd->name && !ft_strcmp(cmd->name, "env"))
+			env_builtin(data->env);
+		else if (cmd->name && !ft_strcmp(cmd->name, "export"))
+			export_builtin(data, cmd);
+		close_fds(cmd, pipe1, pipe2);
+		free_command(cmd);
+		free(cmd);
+		ft_lstr_free(data->paths);
+		ft_lstclear(&data->env, free_var);
+		ft_lstr_free(data->heredoc);
+		exit(0);
+	}
+	waitpid(cpid, NULL, 0);
+	close_fds(cmd, pipe1, pipe2);
 }
 
 void	interprete_cmds(t_data *data, t_cmd *cmds)
@@ -107,7 +127,7 @@ void	interprete_cmds(t_data *data, t_cmd *cmds)
 	{
 		pipe_gestion(cmds, i, pipe1, pipe2);
 		if (cmds[i].name && is_bultin(cmds[i].name))
-			execute_builtins(data, cmds, i);
+			execute_builtins(data, &cmds[i], pipe1, pipe2);
 		else if (cmds[i].name)
 			execute_cmd(data->env, &cmds[i], pipe1, pipe2);
 		i++;
