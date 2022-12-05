@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 11:14:56 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/02 15:53:53 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/05 10:54:17 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	if_char_is_egal(char *str, int i, t_data *data)
 {
 	char	*variable_name;
 	char	*variable_value;
+
 	if (str[i - 1] == '+')
 		if_char_is_plus(str, i, data);
 	else
