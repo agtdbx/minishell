@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/05 11:07:29 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/05 12:13:56 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,7 @@ void	env_builtin(t_list *env);
 void	change_pwd_variable(t_list *env, char *home, t_cmd *cmd, char *tmp);
 
 /*=============================export.c============================*/
+void	print_export(t_list *env);
 void	export_builtin(t_data *data, t_cmd *cmd);
 
 /*===================================================================

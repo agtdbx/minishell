@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:55:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/05 09:57:32 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/05 12:17:40 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,19 @@ char	*get_variable_value(t_list *env, char *name)
 
 void	add_new_variable(t_list *env, char *name, char *value)
 {
-	t_list	*actual;
+	t_list	*new;
 	t_var	*tmp;
 
 	tmp = create_new_var(name, value);
 	if (!tmp)
 		return ;
-	actual = ft_lstnew(tmp);
-	if (actual == NULL)
+	new = ft_lstnew(tmp);
+	if (new == NULL)
 	{
 		free_var(tmp);
 		return ;
 	}
-	ft_lstadd_back(&env, actual);
+	ft_lstadd_back(&env, new);
 }
 
 void	set_variable_value(t_list *env, char *name, char *value)
@@ -62,6 +62,7 @@ void	set_variable_value(t_list *env, char *name, char *value)
 	t_list	*actual;
 	t_var	*tmp;
 
+	ft_printf("%s = %s\n", name, value);
 	actual = env;
 	while (actual)
 	{
