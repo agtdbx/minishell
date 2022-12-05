@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/02 15:43:49 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/05 09:47:17 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	main(int argc, char **argv, char **envp)
 	if (argc != 1)
 		return (0);
 	data = ft_init(envp);
-	set_variable_value(data.env, "?", "0");
 	while (1)
 	{
 		ft_signals();

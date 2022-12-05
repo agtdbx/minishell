@@ -132,3 +132,22 @@ export a=$a
 
 penser a faire une big commande du genre
 /tmp/../bin/ls
+
+
+/*
+Variables
+TEST=coucou
+
+echo $TEST					-> coucou
+echo '$TEST'				-> $TEST
+echo "$TEST"				-> coucou
+echo '"$TEST"'				-> "$TEST"
+echo "'$TEST'"				-> 'coucou'
+echo "test $TEST test"		-> test coucou test
+echo 'test $TEST test'		-> test $TEST test
+echo "'test $TEST test'"	-> 'test coucou test'
+echo '"test $TEST test"'	-> "test $TEST test"
+echo "$TEST t $TEST" 		-> coucou t coucou
+echo $TEST$TEST				-> coucoucoucou
+echo "test"'test'test"test"	-> testtesttesttest
+*/

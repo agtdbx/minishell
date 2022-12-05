@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/02 16:06:20 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/05 10:00:47 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,16 +91,19 @@ void	replace_variables_to_values(t_list *env, t_cmd *cmd);
 /* ========================variable_utils.c======================= */
 void	free_var(void *var);
 char	*get_variable_value(t_list *env, char *name);
+void	add_new_variable(t_list *env, char *name, char *value);
 void	set_variable_value(t_list *env, char *name, char *value);
 void	remove_variable(t_list *env, char *name);
-char	**get_tab_env(t_list *env);
 
 /* ========================variable_utils2.c====================== */
 char	*get_name_envp(char *str);
 char	*get_value_envp(char *str);
 t_var	*create_var(t_list *env, char **envp, int i);
-t_list	*create_env(char **envp);
 t_var	*create_new_var(char *name, char *value);
+
+/* ===============================env.c============================ */
+t_list	*create_env(char **envp);
+char	**get_tab_env(t_list *env);
 
 /* ==========================redirection.c========================= */
 int		get_file_next2(char **tmp, char **split_res, int i);
@@ -110,7 +113,8 @@ char	*interprete_redirection(t_data *data, t_cmd *cmd, char *input);
 
 /* =======================redirection_utils.c====================== */
 int		check_file(char *name, int flags);
-void	input_file(t_data *data, t_cmd *cmd, char **tmp, char *name, int heredoc);
+void	input_file(t_data *data, t_cmd *cmd, char **tmp, char *name,
+			int heredoc);
 void	output_file(t_cmd *cmd, char **tmp, char *name, int append);
 char	*error_file(t_cmd *cmd, char *res, char **split_res);
 int		get_fd(t_data *data, t_cmd *cmd, char **tmp, char *name, int file_next);
@@ -141,7 +145,8 @@ void	ft_signals(void);
 void	close_fds(t_cmd *cmd, int *pipe1, int *pipe2);
 void	execute_cmd(t_list *env, t_cmd *cmd, int *pipe1, int *pipe2);
 void	pipe_gestion(t_cmd *cmds, int i, int *pipe1, int *pipe2);
-void	execute_builtins(t_data *data, t_cmd *cmd, int *pipe1, int *pipe2);
+void	execute_builtins(t_data *data, t_cmd *cmd);
+void	execute_our_cmd(t_data *data, t_cmd *cmd, int *pipe1, int *pipe2);
 void	interprete_cmds(t_data *data, t_cmd *cmds);
 
 /*============================bultins.c============================*/
@@ -163,6 +168,6 @@ void	export_builtin(t_data *data, t_cmd *cmd);
 t_data	ft_init(char **envp);
 
 /*==============================utils.c============================*/
-int	check_arg_export(t_data *data, char *str);
+int		check_arg_export(t_data *data, char *str);
 
 #endif
