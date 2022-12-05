@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 11:45:16 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/05 11:07:55 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/05 11:27:14 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,24 +70,18 @@ void	print_export(t_list *env)
 
 void	export_builtin(t_data *data, t_cmd *cmd)
 {
+	int	i;
+
+	i = 1;
 	if (cmd->arg[1] == NULL)
 		print_export(data->env);
-	else if (cmd->arg[1] != NULL)
-		if (check_arg_export(data, cmd->arg[1]))
+	while (cmd->arg[i] != NULL)
+	{
+		if (check_arg_export(data, cmd->arg[i]))
+		{
 			ft_printf("Error\n");
+			exit(0);
+		}
+		i++;
+	}
 }
-
-/*
-export
-	-> Print toutes les variables d'environement
-
-export TEST
-	-> Initialise la variable TEST sans valeur
-	(N'apparait pas dans env car pas de valeur)
-
-export TEST=VALUE
-	-> Initialise la variable TEST avec VALUE
-
-export TEST+=VALUE
-	-> Ajout VALUE à la fin de la variable TEST
-*/
