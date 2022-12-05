@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 11:45:16 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/02 15:52:38 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/05 11:07:55 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,8 @@ void	print_export(t_list *env)
 	t_list	*actual;
 	t_list	*cpy;
 	t_var	*tmp;
-	char	**env_tmp;
 
-	env_tmp = get_tab_env(env);
-	cpy = create_env(env_tmp);
-	ft_lstr_free(env_tmp);
+	cpy = dup_env(env);
 	sort_lst(cpy);
 	actual = cpy;
 	sort_lst(actual);

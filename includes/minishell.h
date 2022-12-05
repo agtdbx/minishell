@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/05 10:27:40 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/05 11:07:29 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ t_var	*create_new_var(char *name, char *value);
 /* ===============================env.c============================ */
 t_list	*create_env(char **envp);
 char	**get_tab_env(t_list *env);
+t_list	*dup_env(t_list *env);
 
 /* ==========================redirection.c========================= */
 int		get_file_next2(char **tmp, char **split_res, int i);
