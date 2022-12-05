@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/05 10:00:47 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/05 10:27:40 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,15 +109,15 @@ char	**get_tab_env(t_list *env);
 int		get_file_next2(char **tmp, char **split_res, int i);
 int		get_file_next(char **tmp, char **split_res, int i);
 char	*final_check_and_return(int file_next, char **split_res, char *res);
+char	*tmp_gestion(char *tmp, char *name, int file_next);
 char	*interprete_redirection(t_data *data, t_cmd *cmd, char *input);
 
 /* =======================redirection_utils.c====================== */
 int		check_file(char *name, int flags);
-void	input_file(t_data *data, t_cmd *cmd, char **tmp, char *name,
-			int heredoc);
-void	output_file(t_cmd *cmd, char **tmp, char *name, int append);
+void	input_file(t_data *data, t_cmd *cmd, char **name, int heredoc);
+void	output_file(t_cmd *cmd, char **name, int append);
 char	*error_file(t_cmd *cmd, char *res, char **split_res);
-int		get_fd(t_data *data, t_cmd *cmd, char **tmp, char *name, int file_next);
+int		get_fd(t_data *data, t_cmd *cmd, char **name, int file_next);
 
 /* =======================redirection_utils2.c===================== */
 int		len_word_redirection(char const *s, char *sep, int *i);

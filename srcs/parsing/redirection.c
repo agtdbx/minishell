@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:51:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/01 17:21:52 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/05 10:27:29 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,13 @@ char	*final_check_and_return(int file_next, char **split_res, char *res)
 	return (res);
 }
 
+char	*tmp_gestion(char *tmp, char *name, int file_next)
+{
+	if (!tmp && file_next > 0 && file_next < 10)
+		return (ft_strdup(name));
+	return (tmp);
+}
+
 char	*interprete_redirection(t_data *data, t_cmd *cmd, char *input)
 {
 	char	**split_res;
@@ -81,16 +88,16 @@ char	*interprete_redirection(t_data *data, t_cmd *cmd, char *input)
 	tmp = NULL;
 	while (res && split_res && split_res[i])
 	{
+		tmp = tmp_gestion(tmp, split_res[i], file_next);
 		if (file_next > 0 && file_next < 10)
-			file_next = get_fd(data, cmd, &tmp, split_res[i], file_next);
+			file_next = get_fd(data, cmd, &tmp, file_next);
 		else
 			file_next = get_file_next(&tmp, split_res, i);
 		if (cmd->fd_in == -1 || cmd->fd_out == -1)
 			return (error_file(cmd, res, split_res));
 		else if (file_next == 10)
 			res = ft_strsuperjoin_free_1st_p(res, split_res[i], " ");
-		if (tmp == NULL && file_next >= 0)
-			i++;
+		i += (tmp == NULL && file_next >= 0);
 	}
 	return (final_check_and_return(file_next, split_res, res));
 }
