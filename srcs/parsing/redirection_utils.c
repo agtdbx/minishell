@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:51:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/01 17:21:49 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/05 10:10:02 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,48 +25,28 @@ int	check_file(char *name, int flags)
 	return (res);
 }
 
-void	input_file(t_data *data, t_cmd *cmd, char **tmp, char *name, int heredoc)
+void	input_file(t_data *data, t_cmd *cmd, char **name, int heredoc)
 {
 	if (cmd->fd_in > 2)
 		close(cmd->fd_in);
-	if (*tmp)
-	{
-		if (heredoc)
-			cmd->fd_in = here_doc(data);
-		else
-			cmd->fd_in = check_file(*tmp, O_RDONLY);
-		free(*tmp);
-		*tmp = NULL;
-	}
+	if (heredoc)
+		cmd->fd_in = here_doc(data);
 	else
-	{
-		if (heredoc)
-			cmd->fd_in = here_doc(data);
-		else
-			cmd->fd_in = check_file(name, O_RDONLY);
-	}
+		cmd->fd_in = check_file(*name, O_RDONLY);
+	free(*name);
+	*name = NULL;
 }
 
-void	output_file(t_cmd *cmd, char **tmp, char *name, int append)
+void	output_file(t_cmd *cmd, char **name, int append)
 {
 	if (cmd->fd_out > 2)
 		close(cmd->fd_out);
-	if (*tmp)
-	{
-		if (append)
-			cmd->fd_out = check_file(*tmp, O_RDWR | O_APPEND | O_CREAT);
-		else
-			cmd->fd_out = check_file(*tmp, O_RDWR | O_TRUNC | O_CREAT);
-		free(*tmp);
-		*tmp = NULL;
-	}
+	if (append)
+		cmd->fd_out = check_file(*name, O_RDWR | O_APPEND | O_CREAT);
 	else
-	{
-		if (append)
-			cmd->fd_out = check_file(name, O_RDWR | O_APPEND | O_CREAT);
-		else
-			cmd->fd_out = check_file(name, O_RDWR | O_TRUNC | O_CREAT);
-	}
+		cmd->fd_out = check_file(*name, O_RDWR | O_TRUNC | O_CREAT);
+	free(*name);
+	*name = NULL;
 }
 
 char	*error_file(t_cmd *cmd, char *res, char **split_res)
@@ -79,15 +59,15 @@ char	*error_file(t_cmd *cmd, char *res, char **split_res)
 	return (res);
 }
 
-int	get_fd(t_data *data, t_cmd *cmd, char **tmp, char *name, int file_next)
+int	get_fd(t_data *data, t_cmd *cmd, char **name, int file_next)
 {
 	if (file_next == 1)
-		input_file(data, cmd, tmp, name, 0);
+		input_file(data, cmd, name, 0);
 	else if (file_next == 2)
-		input_file(data, cmd, tmp, name, 1);
+		input_file(data, cmd, name, 1);
 	else if (file_next == 3)
-		output_file(cmd, tmp, name, 0);
+		output_file(cmd, name, 0);
 	else if (file_next == 4)
-		output_file(cmd, tmp, name, 1);
+		output_file(cmd, name, 1);
 	return (0);
 }

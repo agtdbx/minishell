@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 11:14:56 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/05 10:54:17 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/05 11:04:09 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	if_char_is_plus(char *str, int i, t_data *data)
 {
 	char	*tmp_val;
 	char	*name;
-	char 	*value;
+	char	*value;
 
 	name = ft_substr(str, 0, i - 1);
 	value = get_variable_value(data->env, name);
