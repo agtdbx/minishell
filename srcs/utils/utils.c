@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 11:14:56 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/05 12:18:12 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/05 14:22:22 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,30 +49,13 @@ int	check_arg_export(t_data *data, char *str)
 	int		i;
 
 	if (is_in_char(str, '='))
-		{
-			i = 0;
-			while (str[i] != '=' && str[i])
-				i++;
-			if_char_is_egal(str, i, data);
-		}
+	{
+		i = 0;
+		while (str[i] != '=' && str[i])
+			i++;
+		if_char_is_egal(str, i, data);
+	}
 	else
 		set_variable_value(data->env, str, NULL);
-	/*
-	i = 0;
-	while (str[i])
-	{
-		if (ft_isalnum(str[i]) || str[i] == ' ' || str[i] == '='
-			|| str[i] == '+')
-		{
-			if (str[i] == '=')
-				if_char_is_egal(str, i, data);
-			else
-				set_variable_value(data->env, str, NULL);
-		}
-		else
-			return (1);
-		i++;
-	}
-	*/
 	return (0);
 }

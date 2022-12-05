@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:33:10 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/05 12:21:00 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/05 14:31:16 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,9 @@ void	interprete_cmds(t_data *data, t_cmd *cmds)
 	while (cmds[i].input != NULL)
 	{
 		pipe_gestion(cmds, i, pipe1, pipe2);
-		if (cmds[i].name && is_bultin(cmds[i].name))
+		if (cmds[i].name && modify_env(data, &cmds[i]))
+			close_fds(&cmds[i], NULL, NULL);
+		else if (cmds[i].name && is_bultin(cmds[i].name))
 			execute_our_cmd(data, &cmds[i], pipe1, pipe2);
 		else if (cmds[i].name)
 			execute_cmd(data->env, &cmds[i], pipe1, pipe2);

@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/05 14:35:48 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/05 15:17:07 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,11 @@ typedef struct s_data
 
 typedef struct s_signal
 {
-	int		sigint;
-	int		sigquit;
 	int		exit_status;
 	pid_t	pid;
 }	t_signal;
 
-t_signal	g_signal;
+extern t_signal	g_signal;
 
 /*===================================================================
 								PARSING
@@ -152,8 +150,11 @@ void	close_fds(t_cmd *cmd, int *pipe1, int *pipe2);
 void	execute_cmd(t_list *env, t_cmd *cmd, int *pipe1, int *pipe2);
 void	pipe_gestion(t_cmd *cmds, int i, int *pipe1, int *pipe2);
 void	execute_builtins(t_data *data, t_cmd *cmd);
-void	execute_our_cmd(t_data *data, t_cmd *cmd, int *pipe1, int *pipe2);
 void	interprete_cmds(t_data *data, t_cmd *cmds);
+
+/*=========================execution_utils.c========================*/
+void	execute_our_cmd(t_data *data, t_cmd *cmd, int *pipe1, int *pipe2);
+int		modify_env(t_data *data, t_cmd *cmd);
 
 /*============================bultins.c============================*/
 char	*ft_pwd(void);

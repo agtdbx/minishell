@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 11:45:16 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/05 12:18:46 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/05 14:38:10 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ void	print_export(t_list *env)
 	while (actual)
 	{
 		tmp = (t_var *)actual->content;
-		if (tmp->value && ft_strcmp(tmp->name, "?") != 0)
+		if (tmp->value == NULL)
+			ft_printf("declare -x %s\n", tmp->name);
+		else if (ft_strcmp(tmp->name, "?") != 0)
 			ft_printf("declare -x %s=%s\n", tmp->name, tmp->value);
 		actual = actual->next;
 	}

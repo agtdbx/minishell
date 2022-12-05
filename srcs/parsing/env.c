@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 09:50:36 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/05 11:08:28 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/05 14:20:04 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,26 +65,23 @@ char	**get_tab_env(t_list *env)
 t_list	*dup_env(t_list *env)
 {
 	t_list	*actual;
-	t_list	*new;
 	t_list	*cpy;
+	t_list	*new;
 	t_var	*var;
-	t_var	*tmp;
 
 	actual = env;
 	cpy = NULL;
 	while (actual)
 	{
-		tmp = (t_var *)actual->content;
-		var = create_new_var(tmp->name, tmp->value);
-		if (!var)
-		{
-			ft_lstclear(&cpy, free_var);
-			return (NULL);
-		}
+		var = (t_var *)actual->content;
+		var = create_new_var(var->name, var->value);
 		new = ft_lstnew(var);
-		if (!new)
+		if (!var || !new)
 		{
-			free_var(var);
+			if (var)
+				free_var(var);
+			if (new)
+				ft_lstdelone(new, free_var);
 			ft_lstclear(&cpy, free_var);
 			return (NULL);
 		}
