@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:55:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/05 12:17:40 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/05 14:26:02 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	set_variable_value(t_list *env, char *name, char *value)
 	t_list	*actual;
 	t_var	*tmp;
 
-	ft_printf("%s = %s\n", name, value);
 	actual = env;
 	while (actual)
 	{

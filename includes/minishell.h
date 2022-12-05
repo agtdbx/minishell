@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/05 12:13:56 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/05 14:06:32 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,8 +147,11 @@ void	close_fds(t_cmd *cmd, int *pipe1, int *pipe2);
 void	execute_cmd(t_list *env, t_cmd *cmd, int *pipe1, int *pipe2);
 void	pipe_gestion(t_cmd *cmds, int i, int *pipe1, int *pipe2);
 void	execute_builtins(t_data *data, t_cmd *cmd);
-void	execute_our_cmd(t_data *data, t_cmd *cmd, int *pipe1, int *pipe2);
 void	interprete_cmds(t_data *data, t_cmd *cmds);
+
+/*=========================execution_utils.c========================*/
+void	execute_our_cmd(t_data *data, t_cmd *cmd, int *pipe1, int *pipe2);
+int		modify_env(t_data *data, t_cmd *cmd);
 
 /*============================bultins.c============================*/
 char	*ft_pwd(void);
