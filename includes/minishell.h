@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/05 12:13:56 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/05 14:35:48 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,6 @@
 # include <readline/history.h>
 
 # include "../libft/libft.h"
-
-/*===================================================================
-						VARIABLE GLOBALE
-===================================================================*/
 
 /*===================================================================
 							STRUCTURES
@@ -48,11 +44,20 @@ typedef struct s_cmd
 
 typedef struct s_data
 {
-	char				**paths;
-	char				**heredoc;
-	t_list				*env;
-	struct sigaction	sigact;
+	char	**paths;
+	char	**heredoc;
+	t_list	*env;
 }	t_data;
+
+typedef struct s_signal
+{
+	int		sigint;
+	int		sigquit;
+	int		exit_status;
+	pid_t	pid;
+}	t_signal;
+
+t_signal	g_signal;
 
 /*===================================================================
 								PARSING
