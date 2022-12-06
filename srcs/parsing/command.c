@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:24:06 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/06 10:31:13 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/06 16:05:49 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ t_cmd	empty_command(char *input)
 t_cmd	command_not_found(t_cmd *command, char *input)
 {
 	if (command->name && ft_strlen(command->name) > 0)
+	{
+		g_exit_status = 127;
 		ft_printf_fd("%s: command not found\n", 2, command->name);
+	}
 	if (command->fd_in > 2)
 		close(command->fd_in);
 	if (command->fd_out > 2)

@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 18:28:16 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/06 15:43:06 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/06 16:00:01 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,13 @@ long long	ft_atoll(const char *nptr)
 	return (res * neg);
 }
 
-int	is_longlong_overflow(char *str, int start, int len)
+int	is_longlong_overflow(char *str, int start, int len, int neg)
 {
 	char	*tmp;
 
 	tmp = ft_substr(str, start, len);
-	if (ft_strcmp(tmp, "9223372036854775807") > 0)
+	if ((ft_strcmp(tmp, "9223372036854775807") > 0 && neg == 0)
+		|| (ft_strcmp(tmp, "9223372036854775808") > 0 && neg == 1))
 	{
 		free(tmp);
 		return (1);
@@ -71,7 +72,16 @@ int	is_longlong(char *str)
 		len++;
 	if (start + len != ft_strlen(str))
 		return (0);
-	return (!is_longlong_overflow(str, start, len));
+	return (!is_longlong_overflow(str, start, len, str[0] == '-'));
+}
+
+void	change_exit_status(t_data *data, unsigned char status)
+{
+	if (data->exit == -1)
+	{
+		data->exit = (int)status;
+		ft_printf("exit\n");
+	}
 }
 
 void	exit_builtins(t_data *data, t_cmd *cmd)
@@ -79,13 +89,14 @@ void	exit_builtins(t_data *data, t_cmd *cmd)
 	long long		atoll_res;
 	unsigned char	exit_status;
 
-	if (!cmd->arg[1] || !is_longlong(cmd->arg[1]))
+	if (!cmd->arg[1])
 	{
-		if (data->exit == -1)
-		{
-			data->exit = 2;
-			ft_printf("exit\n");
-		}
+		change_exit_status(data, 0);
+		return ;
+	}
+	if (!is_longlong(cmd->arg[1]))
+	{
+		change_exit_status(data, 2);
 		ft_printf_fd("minishell: exit: %s:", 2, cmd->arg[1]);
 		ft_printf_fd(" numeric argument required\n", 2);
 		return ;
@@ -98,9 +109,5 @@ void	exit_builtins(t_data *data, t_cmd *cmd)
 	}
 	atoll_res = ft_atoll(cmd->arg[1]);
 	exit_status = (unsigned char)atoll_res;
-	if (data->exit == -1)
-	{
-		ft_printf("exit\n");
-		data->exit = (int)exit_status;
-	}
+	change_exit_status(data, exit_status);
 }

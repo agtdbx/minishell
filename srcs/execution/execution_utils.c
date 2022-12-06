@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 10:01:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/06 15:45:07 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/06 16:09:23 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ void	execute_builtins(t_data *data, t_cmd *cmd)
 		export_builtin(data, cmd);
 	else if (cmd->name && !ft_strcmp(cmd->name, "echo"))
 		echo_builtin(cmd);
+	else if (cmd->name && !ft_strcmp(cmd->name, "false"))
+		g_exit_status = 1;
+	else if (cmd->name && !ft_strcmp(cmd->name, "true"))
+		g_exit_status = 0;
 }
 
 int	modify_env(t_data *data, t_cmd *cmd)
