@@ -6,11 +6,13 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/06 10:51:27 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/06 10:58:21 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+t_signal	g_signal;
 
 void	exit_minishell(char *buf, t_data *data)
 {
