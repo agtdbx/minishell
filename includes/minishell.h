@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/05 15:17:07 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/06 10:37:35 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,7 @@ typedef struct s_data
 	t_list	*env;
 }	t_data;
 
-typedef struct s_signal
-{
-	int		exit_status;
-	pid_t	pid;
-}	t_signal;
-
-extern t_signal	g_signal;
+extern int	g_exit_status;
 
 /*===================================================================
 								PARSING
@@ -139,7 +133,7 @@ int		here_doc(t_data *data);
 ===================================================================*/
 
 /*=============================signal.c============================*/
-void	ft_signals(void);
+void	ft_signals(int sig);
 
 /*===================================================================
 								EXECUTION

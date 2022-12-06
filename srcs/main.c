@@ -6,13 +6,13 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/05 15:09:31 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/06 10:48:11 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_signal	g_signal;
+int	g_exit_status;
 
 void	exit_minishell(char *buf, t_data *data)
 {
@@ -51,7 +51,7 @@ int	main(int argc, char **argv, char **envp)
 	data = ft_init(envp);
 	while (1)
 	{
-		ft_signals();
+		ft_signals(1);
 		buf = readline("Minishell: ");
 		if (buf == NULL)
 			exit_minishell(buf, &data);
