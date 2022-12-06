@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/05 14:06:32 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/06 10:45:15 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ typedef struct s_data
 	char				**heredoc;
 	t_list				*env;
 	struct sigaction	sigact;
+	int					exit;
+	int					pipe_error;
 }	t_data;
 
 /*===================================================================

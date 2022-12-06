@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:33:10 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/05 14:31:16 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/06 10:53:56 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,16 @@ void	close_fds(t_cmd *cmd, int *pipe1, int *pipe2)
 		close(pipe2[1]);
 }
 
+void	execute_error(t_cmd	*cmd, int status)
+{
+	if (status != 0)
+		ft_printf_fd("%s : status on exit %i\n", 2, cmd->name, status);
+}
+
 void	execute_cmd(t_list *env, t_cmd *cmd, int *pipe1, int *pipe2)
 {
 	int		cpid;
+	int		status;
 	char	**env_tmp;
 
 	cpid = fork();
@@ -49,7 +56,8 @@ void	execute_cmd(t_list *env, t_cmd *cmd, int *pipe1, int *pipe2)
 		env_tmp = get_tab_env(env);
 		execve(cmd->arg[0], cmd->arg, env_tmp);
 	}
-	waitpid(cpid, NULL, 0);
+	waitpid(cpid, &status, 0);
+	execute_error(cmd, status);
 	close_fds(cmd, NULL, NULL);
 }
 
@@ -78,7 +86,8 @@ void	pipe_gestion(t_cmd *cmds, int i, int *pipe1, int *pipe2)
 
 void	execute_our_cmd(t_data *data, t_cmd *cmd, int *pipe1, int *pipe2)
 {
-	int		cpid;
+	int	cpid;
+	int	status;
 
 	cpid = fork();
 	if (cpid == 0)
@@ -96,7 +105,8 @@ void	execute_our_cmd(t_data *data, t_cmd *cmd, int *pipe1, int *pipe2)
 		ft_lstr_free(data->heredoc);
 		exit(0);
 	}
-	waitpid(cpid, NULL, 0);
+	waitpid(cpid, &status, 0);
+	execute_error(cmd, status);
 	close_fds(cmd, pipe1, pipe2);
 }
 
@@ -107,7 +117,7 @@ void	interprete_cmds(t_data *data, t_cmd *cmds)
 	int	pipe2[2];
 
 	i = 0;
-	if (!cmds || !cmds[0].input)
+	if (!cmds || !cmds[0].input || data->pipe_error != -1)
 		return ;
 	pipe(pipe1);
 	pipe2[0] = 0;
