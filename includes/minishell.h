@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/06 11:11:39 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/06 11:13:02 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,7 @@ typedef struct s_data
 	int					pipe_error;
 }	t_data;
 
-typedef struct s_signal
-{
-	int		exit_status;
-	pid_t	pid;
-}	t_signal;
-
-extern t_signal	g_signal;
+extern int	g_exit_status;
 
 /*===================================================================
 								PARSING
@@ -144,7 +138,7 @@ int		here_doc(t_data *data);
 ===================================================================*/
 
 /*=============================signal.c============================*/
-void	ft_signals(void);
+void	ft_signals(int sig);
 
 /*===================================================================
 								EXECUTION

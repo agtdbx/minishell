@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:33:10 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/06 11:11:24 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/06 11:13:08 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	execute_cmd(t_list *env, t_cmd *cmd, int *pipe1, int *pipe2)
 	char	**env_tmp;
 
 	cpid = fork();
+	ft_signals(2);
 	if (cpid == 0)
 	{
 		if (cmd->name == NULL)

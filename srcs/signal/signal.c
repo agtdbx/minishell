@@ -6,32 +6,46 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 17:27:16 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/05 15:41:48 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/06 10:53:25 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	sig_init(void)
+void	prompt_ctrlc_management(int sig)
 {
-	g_signal.exit_status = 0;
-	g_signal.pid = 0;
+	(void)sig;
+	g_exit_status = 130;
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
-void	sig_management(int sig)
+void	ctrlc_management(int sig)
 {
-	if (sig == SIGINT)
+	(void)sig;
+	g_exit_status = 130;
+	printf("\n");
+}
+
+void	backslach_management(int sig)
+{
+	(void)sig;
+	g_exit_status = 131;
+	printf("Quit (core dumped)\n");
+}
+
+void	ft_signals(int sig)
+{
+	if (sig == 1)
 	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-		g_signal.exit_status = 130;
+		signal(SIGINT, prompt_ctrlc_management);
+		signal(SIGQUIT, SIG_IGN);
 	}
-}
-
-void	ft_signals(void)
-{
-	signal(SIGINT, sig_management);
-	signal(SIGQUIT, SIG_IGN);
+	if (sig == 2)
+	{
+		signal(SIGINT, ctrlc_management);
+		signal(SIGQUIT, backslach_management);
+	}
 }
