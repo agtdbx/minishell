@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:25:30 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/06 16:09:58 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/06 16:13:02 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	is_bultin(char *name)
 	if (!ft_strcmp(name, "env"))
 		return (1);
 	if (!ft_strcmp(name, "exit"))
+		return (1);
+	if (!ft_strcmp(name, "echo"))
 		return (1);
 	if (!ft_strcmp(name, "true") || !ft_strcmp(name, "false"))
 		return (1);
