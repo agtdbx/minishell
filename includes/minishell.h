@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/06 10:59:57 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/06 12:48:51 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ typedef struct s_data
 	char				**paths;
 	char				**heredoc;
 	t_list				*env;
-	struct sigaction	sigact;
 	int					exit;
 	int					pipe_error;
 }	t_data;
@@ -69,6 +68,7 @@ char	quote_gestion(char c, char quote);
 int		is_in_char(char *str, char c);
 int		len_word(char const *s, char *sep, int i);
 char	**ft_split_quote(char const *s, char *sep);
+int		quote_error(char *buf);
 
 /* ============================command.c========================== */
 void	free_command(t_cmd *command);
@@ -123,10 +123,11 @@ int		get_fd(t_data *data, t_cmd *cmd, char **name, int file_next);
 /* =======================redirection_utils2.c===================== */
 int		len_word_redirection(char const *s, char *sep, int *i);
 char	**ft_split_redirection(char *s);
+int		is_pipe_error(t_data *data, int only_space, int nb_cmd);
+void	pipe_error(t_data *data, char *buf);
 
 /* ============================here_doc.c========================== */
 char	*write_in_here_doc(char *limiter);
-void	write_in_here_doc_file(int fd, char *limiter);
 void	parse_heredoc(t_data *data, char *buf);
 char	*get_and_remove_first_heredoc(t_data *data);
 int		here_doc(t_data *data);
@@ -152,6 +153,7 @@ void	interprete_cmds(t_data *data, t_cmd *cmds);
 /*=========================execution_utils.c========================*/
 void	execute_our_cmd(t_data *data, t_cmd *cmd, int *pipe1, int *pipe2);
 int		modify_env(t_data *data, t_cmd *cmd);
+void	execute_error(t_cmd	*cmd, int status);
 
 /*============================bultins.c============================*/
 char	*ft_pwd(void);
@@ -164,6 +166,9 @@ void	change_pwd_variable(t_list *env, char *home, t_cmd *cmd, char *tmp);
 /*=============================export.c============================*/
 void	print_export(t_list *env);
 void	export_builtin(t_data *data, t_cmd *cmd);
+
+/*=============================echo.c==============================*/
+void	echo_builtin(t_cmd *cmd);
 
 /*===================================================================
 								UTILS

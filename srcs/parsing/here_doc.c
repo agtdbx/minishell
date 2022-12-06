@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:22:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/06 11:04:17 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/06 12:00:04 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,49 +15,43 @@
 char	*write_in_here_doc(char *limiter)
 {
 	char	*to_write;
-	char	*stop;
 	char	*tmp;
 
 	to_write = malloc(sizeof(char));
 	if (!to_write)
 		return (NULL);
 	to_write[0] = '\0';
-	stop = ft_strjoin(limiter, "\n");
 	while (1)
 	{
-		tmp = get_next_line(0);
-		if (tmp == NULL || ft_strcmp(tmp, stop) == 0)
+		tmp = readline("> ");
+		if (tmp == NULL)
+		{
+			ft_printf_fd("minishell: warning: here-document at line %i", 2, 1);
+			ft_printf_fd(" delimited by end-of-file ", 2);
+			ft_printf_fd("(wanted `%s')\n", 2, limiter);
 			break ;
+		}
+		else if (ft_strcmp(tmp, limiter) == 0)
+			break ;
+		tmp = ft_strjoin_free_1st_p(tmp, "\n");
 		to_write = ft_strjoin_free_1st_p(to_write, tmp);
 		free(tmp);
 	}
 	return (to_write);
 }
 
-void	write_in_here_doc_file(int fd, char *limiter)
+int	get_start_limiter(char *buf, int start)
 {
-	char	*to_write;
-	char	*stop;
-	char	*tmp;
-
-	to_write = malloc(sizeof(char));
-	if (!to_write)
-		return ;
-	to_write[0] = '\0';
-	stop = ft_strjoin(limiter, "\n");
-	while (1)
-	{
-		tmp = get_next_line(0);
-		if (tmp == NULL || ft_strcmp(tmp, stop) == 0)
-			break ;
-		to_write = ft_strjoin_free_1st_p(to_write, tmp);
-		free(tmp);
-	}
-	if (fd != -1)
-		ft_putstr_fd(to_write, fd);
-	free(to_write);
-	free(stop);
-	free(tmp);
+	while (!(buf[start] == '<' && buf[start + 1] == '<') && buf[start + 1])
+		start++;
+	if (buf[start] == '\0' || buf[start + 1] == '\0')
+		return (-1);
+	start += 2;
+	while ((buf[start] == ' ' || buf[start] == '\t') && buf[start])
+		start++;
+	if (buf[start] == '\0')
+		return (-1);
+	return (start);
 }
 
 void	parse_heredoc(t_data *data, char *buf)
@@ -72,16 +66,13 @@ void	parse_heredoc(t_data *data, char *buf)
 	nb_cmd = 0;
 	while (buf[start] && (data->pipe_error == -1 || nb_cmd < data->pipe_error))
 	{
-		while (!(buf[start] == '<' && buf[start + 1] == '<') && buf[start + 1])
-			start++;
-		if (buf[start] == '\0' || buf[start + 1] == '\0')
+		start = get_start_limiter(buf, start);
+		if (start == -1)
 			return ;
-		start += 2;
-		while ((buf[start] == ' ' || buf[start] == '\t') && buf[start])
-			start++;
 		len = 0;
 		while (buf[start + len] != ' ' && buf[start + len] != '\t'
-			&& buf[start + len] != '<' && buf[start + len] != '>' && buf[start])
+			&& buf[start + len] != '<' && buf[start + len] != '>'
+			&& buf[start + len])
 			len++;
 		tmp = ft_substr(buf, start, len);
 		buf_write = write_in_here_doc(tmp);
