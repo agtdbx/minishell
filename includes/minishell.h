@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/06 12:29:15 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/06 15:44:01 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ typedef struct s_data
 	char				**paths;
 	char				**heredoc;
 	t_list				*env;
-	struct sigaction	sigact;
 	int					exit;
 	int					pipe_error;
 }	t_data;
@@ -170,6 +169,9 @@ void	export_builtin(t_data *data, t_cmd *cmd);
 
 /*===============================exit.c============================*/
 void	exit_builtins(t_data *data, t_cmd *cmd);
+
+/*=============================echo.c==============================*/
+void	echo_builtin(t_cmd *cmd);
 
 /*===================================================================
 								UTILS
