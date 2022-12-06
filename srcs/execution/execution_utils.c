@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 10:01:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/05 14:34:27 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/06 11:11:30 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,10 @@ int	modify_env(t_data *data, t_cmd *cmd)
 		return (1);
 	}
 	return (0);
+}
+
+void	execute_error(t_cmd	*cmd, int status)
+{
+	if (status != 0)
+		ft_printf_fd("%s : status on exit %i\n", 2, cmd->name, status);
 }

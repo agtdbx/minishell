@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/06 10:58:41 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/06 11:11:39 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,8 @@ int		get_fd(t_data *data, t_cmd *cmd, char **name, int file_next);
 /* =======================redirection_utils2.c===================== */
 int		len_word_redirection(char const *s, char *sep, int *i);
 char	**ft_split_redirection(char *s);
+int		is_pipe_error(t_data *data, int only_space, int nb_cmd);
+void	pipe_error(t_data *data, char *buf);
 
 /* ============================here_doc.c========================== */
 char	*write_in_here_doc(char *limiter);
@@ -158,6 +160,7 @@ void	interprete_cmds(t_data *data, t_cmd *cmds);
 /*=========================execution_utils.c========================*/
 void	execute_our_cmd(t_data *data, t_cmd *cmd, int *pipe1, int *pipe2);
 int		modify_env(t_data *data, t_cmd *cmd);
+void	execute_error(t_cmd	*cmd, int status);
 
 /*============================bultins.c============================*/
 char	*ft_pwd(void);

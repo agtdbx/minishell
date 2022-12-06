@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:33:10 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/06 10:53:56 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/06 11:11:24 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,6 @@ void	close_fds(t_cmd *cmd, int *pipe1, int *pipe2)
 		close(pipe2[0]);
 	if (pipe2 && pipe2[1] > 2)
 		close(pipe2[1]);
-}
-
-void	execute_error(t_cmd	*cmd, int status)
-{
-	if (status != 0)
-		ft_printf_fd("%s : status on exit %i\n", 2, cmd->name, status);
 }
 
 void	execute_cmd(t_list *env, t_cmd *cmd, int *pipe1, int *pipe2)

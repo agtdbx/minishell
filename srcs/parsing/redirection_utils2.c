@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:51:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/30 15:02:17 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/06 11:10:02 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,42 @@ char	**ft_split_redirection(char *s)
 		i += len;
 	}
 	return (res);
+}
+
+int	is_pipe_error(t_data *data, int only_space, int nb_cmd)
+{
+	if (only_space)
+	{
+		data->pipe_error = nb_cmd;
+		ft_printf_fd("minishell: syntax error near unexpected token `|'\n", 2);
+		return (1);
+	}
+	return (0);
+}
+
+void	pipe_error(t_data *data, char *buf)
+{
+	int	i;
+	int	nb_cmd;
+	int	only_space;
+
+	data->pipe_error = -1;
+	i = 0;
+	nb_cmd = 0;
+	only_space = 1;
+	while (buf[i])
+	{
+		if (buf[i] == '|')
+		{
+			if (is_pipe_error(data, only_space, nb_cmd))
+				return ;
+			nb_cmd++;
+			only_space = 1;
+		}
+		else if (buf[i] != ' ' && buf[i] != '\t')
+			only_space = 0;
+		i++;
+	}
+	if (is_pipe_error(data, only_space, nb_cmd))
+		return ;
 }

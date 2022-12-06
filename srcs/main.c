@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/06 10:58:21 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/06 11:00:37 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,41 +26,6 @@ void	exit_minishell(char *buf, t_data *data)
 	ft_printf("exit\n");
 	unlink(".heredoc");
 	exit(0);
-}
-
-void	pipe_error(t_data *data, char *buf)
-{
-	int	i;
-	int	nb_cmd;
-	int	only_space;
-
-	data->pipe_error = -1;
-	i = 0;
-	nb_cmd = 0;
-	only_space = 1;
-	while (buf[i])
-	{
-		if (buf[i] == '|')
-		{
-			if (only_space)
-			{
-				data->pipe_error = nb_cmd;
-				ft_printf_fd("minishell: syntax error near unexpected token `|'\n", 2);
-				return ;
-			}
-			nb_cmd++;
-			only_space = 1;
-		}
-		else if (buf[i] != ' ' && buf[i] != '\t')
-			only_space = 0;
-		i++;
-	}
-	if (only_space)
-	{
-		data->pipe_error = nb_cmd;
-		ft_printf_fd("minishell: syntax error near unexpected token `|'\n", 2);
-		return ;
-	}
 }
 
 void	parse_and_do_commands(t_data *data, char *buf)

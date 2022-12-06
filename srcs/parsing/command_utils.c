@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:25:30 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/05 20:12:08 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/06 11:11:09 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ char	*get_command_path(char *name, char **paths)
 	char	*res;
 	int		i;
 
-	if (name == NULL || ft_strlen(name) == 0 || paths == NULL || paths[0] == NULL)
+	if (name == NULL || ft_strlen(name) == 0 || paths == NULL
+		|| paths[0] == NULL)
 		return (NULL);
 	if ((access(name, X_OK) == 0) || is_bultin(name))
 		return (ft_strdup(name));
