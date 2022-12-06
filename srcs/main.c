@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/06 15:31:13 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/06 15:49:41 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ void	exit_minishell(char *buf, t_data *data)
 	if (data->exit < 0)
 		ft_printf("exit\n");
 	unlink(".heredoc");
-	exit(data->exit);
+	if (data->exit >= 0)
+		exit(data->exit);
+	exit(0);
 }
 
 void	parse_and_do_commands(t_data *data, char *buf)
@@ -65,8 +67,6 @@ int	main(int argc, char **argv, char **envp)
 			exit_minishell(buf, &data);
 		if (ft_strlen(buf) > 0)
 			add_history(buf);
-		if (ft_strcmp(buf, "exit") == 0)
-			exit_minishell(buf, &data);
 		parse_and_do_commands(&data, buf);
 		data.paths = get_paths(data.env);
 		if (data.exit >= 0)
