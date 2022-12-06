@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:22:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/01 17:04:30 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/06 11:04:17 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,11 @@ void	parse_heredoc(t_data *data, char *buf)
 	char	*buf_write;
 	int		start;
 	int		len;
+	int		nb_cmd;
 
 	start = 0;
-	while (buf[start])
+	nb_cmd = 0;
+	while (buf[start] && (data->pipe_error == -1 || nb_cmd < data->pipe_error))
 	{
 		while (!(buf[start] == '<' && buf[start + 1] == '<') && buf[start + 1])
 			start++;
@@ -86,6 +88,7 @@ void	parse_heredoc(t_data *data, char *buf)
 		free(tmp);
 		data->heredoc = ft_add_str(data->heredoc, buf_write);
 		start += len;
+		nb_cmd++;
 	}
 }
 

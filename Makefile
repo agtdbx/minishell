@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+         #
+#    By: aderouba <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 14:20:53 by ngrenoux          #+#    #+#              #
-#    Updated: 2022/12/05 14:32:52 by ngrenoux         ###   ########.fr        #
+#    Updated: 2022/12/06 10:58:56 by aderouba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS		= srcs/main.c \
 			  srcs/execution/execution.c \
 			  srcs/execution/execution_utils.c \
 			  srcs/execution/builtins.c \
+			  srcs/execution/exit.c \
 			  srcs/execution/builtins_utils.c \
 			  srcs/execution/export.c \
 			  srcs/utils/init.c \

@@ -72,7 +72,7 @@ quand on fait command invalide
 EXIT
 
 exit nb
-	nb entre 0 et 255. Overflow si plus mais marche quand même
+	nb entre 0 et 255. Overflow si plus ou moins mais marche quand même
 
 exit
 	-> on quitte le programme et on met $? à 0
@@ -95,6 +95,9 @@ exit p 152 452
 exit 55 p 323
 	bash: exit: too many arguments
 	-> on quitte pas le programme et on met $? à 130
+
+nb entre -9223372036854775807 et 9223372036854775807 compris
+	sinon c'est du text
 
 
 
@@ -150,4 +153,19 @@ echo '"test $TEST test"'	-> "test $TEST test"
 echo "$TEST t $TEST" 		-> coucou t coucou
 echo $TEST$TEST				-> coucoucoucou
 echo "test"'test'test"test"	-> testtesttesttest
+*/
+
+
+/*
+|
+-> bash: syntax error near unexpected token `|'
+
+$tkt
+-> bash: syntax error near unexpected token `|'
+
+$tkt | $tkt
+-> rien
+
+$tkt |
+-> attend un truc, donc erreur pour nous
 */

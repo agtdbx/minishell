@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/06 10:37:35 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/06 10:59:57 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,12 @@ typedef struct s_cmd
 
 typedef struct s_data
 {
-	char	**paths;
-	char	**heredoc;
-	t_list	*env;
+	char				**paths;
+	char				**heredoc;
+	t_list				*env;
+	struct sigaction	sigact;
+	int					exit;
+	int					pipe_error;
 }	t_data;
 
 extern int	g_exit_status;
