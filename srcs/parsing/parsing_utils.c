@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 13:42:54 by aderouba          #+#    #+#             */
-/*   Updated: 2022/11/30 14:36:57 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/06 12:10:49 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,24 @@ char	**ft_split_quote(char const *s, char *sep)
 		i += len;
 	}
 	return (res);
+}
+
+int	quote_error(char *buf)
+{
+	int		i;
+	char	quote;
+
+	i = 0;
+	quote = '\0';
+	while (buf[i])
+	{
+		if (buf[i] == quote)
+			quote = '\0';
+		else if (buf[i] == '"' && quote == '\0')
+			quote = '"';
+		else if (buf[i] == '\'' && quote == '\0')
+			quote = '\'';
+		i++;
+	}
+	return (quote != '\0');
 }

@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/06 11:13:02 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/06 12:11:03 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ char	quote_gestion(char c, char quote);
 int		is_in_char(char *str, char c);
 int		len_word(char const *s, char *sep, int i);
 char	**ft_split_quote(char const *s, char *sep);
+int		quote_error(char *buf);
 
 /* ============================command.c========================== */
 void	free_command(t_cmd *command);
@@ -128,7 +129,6 @@ void	pipe_error(t_data *data, char *buf);
 
 /* ============================here_doc.c========================== */
 char	*write_in_here_doc(char *limiter);
-void	write_in_here_doc_file(int fd, char *limiter);
 void	parse_heredoc(t_data *data, char *buf);
 char	*get_and_remove_first_heredoc(t_data *data);
 int		here_doc(t_data *data);

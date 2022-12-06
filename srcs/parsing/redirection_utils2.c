@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:51:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/06 11:10:02 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/06 12:11:44 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ void	pipe_error(t_data *data, char *buf)
 	int	only_space;
 
 	data->pipe_error = -1;
+	if (!is_in_char(buf, '|'))
+		return ;
 	i = 0;
 	nb_cmd = 0;
 	only_space = 1;
