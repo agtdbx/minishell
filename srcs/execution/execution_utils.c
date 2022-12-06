@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 10:01:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/06 11:11:30 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/06 12:51:49 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ int	modify_env(t_data *data, t_cmd *cmd)
 		&& cmd->arg[1] != NULL)
 	{
 		export_builtin(data, cmd);
+		return (1);
+	}
+	if (cmd->name && !ft_strcmp(cmd->name, "exit"))
+	{
+		exit_builtins(data, cmd);
 		return (1);
 	}
 	return (0);

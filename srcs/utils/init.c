@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:09:24 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/06 10:46:13 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/06 12:45:12 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_data	ft_init(char **envp)
 	data.env = create_env(envp);
 	data.paths = get_paths(data.env);
 	data.heredoc = ft_calloc(sizeof(char *), 1);
-	data.exit = 0;
+	data.exit = -1;
 	data.pipe_error = -1;
 	return (data);
 }
