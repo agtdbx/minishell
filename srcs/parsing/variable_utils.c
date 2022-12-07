@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:55:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/05 14:26:02 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/07 10:14:34 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,19 @@ char	*get_variable_value(t_list *env, char *name)
 	t_list	*actual;
 	t_var	*tmp;
 
+	if (ft_strlen(name) == 0)
+		return (ft_strdup("$"));
+	if (ft_strcmp(name, "?") == 0)
+		return (ft_itoa(g_exit_status));
 	actual = env;
 	while (actual)
 	{
 		tmp = (t_var *)actual->content;
 		if (ft_strcmp(tmp->name, name) == 0)
-			return (tmp->value);
+			return (ft_strdup(tmp->value));
 		actual = actual->next;
 	}
-	return ("\0");
+	return (ft_strdup("\0"));
 }
 
 void	add_new_variable(t_list *env, char *name, char *value)

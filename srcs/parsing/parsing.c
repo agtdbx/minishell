@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 17:27:37 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/01 16:08:01 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/07 10:10:51 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char	**get_paths(t_list *env)
 
 	tmp = get_variable_value(env, "PATH");
 	res = ft_split(tmp, ':');
+	free(tmp);
 	return (res);
 }
 
