@@ -3,12 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+         #
+#    By: aderouba <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 14:20:53 by ngrenoux          #+#    #+#              #
-#    Updated: 2022/12/07 10:04:52 by ngrenoux         ###   ########.fr        #
+#    Updated: 2022/12/07 13:47:54 by aderouba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+MAKEFLAGS = --no-print-directory
 
 #=================================COMPILATION==================================#
 CC			= clang
@@ -61,16 +63,29 @@ BLUE		= \033[1;34m
 VIOLET		= \033[1;35m
 CYAN		= \033[1;36m
 WHITE		= \033[1;37m
+NOC			= \033[0m
+
+#====================================COUNTER===================================#
+PERCENT = 0
+NB_COMPILE = 0
+TOTAL_COMPILE = $(words $(OBJS))
 
 #=====================================RULES====================================#
-all:	$(NAME)
+all:
+	@echo "$(BLUE)Compilation de minishell...$(NOC)"
+	@echo "0%"
+	@make $(NAME)
 
 .c.o:
+	$(eval NB_COMPILE=$(shell echo $$(($(NB_COMPILE)+1))))
+	$(eval PERCENT=$(shell echo $$(($(NB_COMPILE) * 100 / $(TOTAL_COMPILE)))))
+	@echo -e '\e[1A\e[K$(PERCENT)%'
 	@$(CC) $(FLAGS) -c $< -o $@
 
 $(NAME):	$(OBJS)
-	@make -j -sC $(LIBFT)
-	@echo "$(BLUE)Compilation...$(NOC)"
+	@echo "$(BLUE)Compilation de la libft...$(NOC)"
+	@echo "0%"
+	@make -sC $(LIBFT)
 	@cp $(LIBFT)/libft.a ./libft.a
 	@echo "$(BLUE)Création de l'executable...$(NOC)"
 	@$(CC) -o $(NAME) $(OBJS) libft.a -lreadline
