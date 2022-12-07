@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/06 15:44:01 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/07 09:57:09 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,6 @@ void	interprete_cmds(t_data *data, t_cmd *cmds);
 /*=========================execution_utils.c========================*/
 void	execute_our_cmd(t_data *data, t_cmd *cmd, int *pipe1, int *pipe2);
 int		modify_env(t_data *data, t_cmd *cmd);
-void	execute_error(t_cmd	*cmd, int status);
 
 /*============================bultins.c============================*/
 char	*ft_pwd(void);
