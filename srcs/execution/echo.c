@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 11:31:14 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/06 12:47:32 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/07 10:11:49 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,13 @@ void	no_option_echo(char **arg)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	while (arg[i])
 	{
 		printf("%s", arg[i]);
 		if (arg[i + 1])
 			printf(" ");
+		i++;
 	}
 	printf("\n");
 }
