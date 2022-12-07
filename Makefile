@@ -6,7 +6,7 @@
 #    By: aderouba <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 14:20:53 by ngrenoux          #+#    #+#              #
-#    Updated: 2022/12/07 13:47:54 by aderouba         ###   ########.fr        #
+#    Updated: 2022/12/07 14:19:15 by aderouba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,6 @@ BLUE		= \033[1;34m
 VIOLET		= \033[1;35m
 CYAN		= \033[1;36m
 WHITE		= \033[1;37m
-NOC			= \033[0m
 
 #====================================COUNTER===================================#
 PERCENT = 0
@@ -71,20 +70,19 @@ NB_COMPILE = 0
 TOTAL_COMPILE = $(words $(OBJS))
 
 #=====================================RULES====================================#
-all:
-	@echo "$(BLUE)Compilation de minishell...$(NOC)"
-	@echo "0%"
-	@make $(NAME)
+all: $(NAME)
 
 .c.o:
+	$(if $(filter $(NB_COMPILE),0), @echo "$(BLUE)Compilation de minishell$(NOC)")
+	$(if $(filter $(NB_COMPILE),0), @echo "$(YELLOW)$(NB_COMPILE) 0%$(NOC)")
 	$(eval NB_COMPILE=$(shell echo $$(($(NB_COMPILE)+1))))
 	$(eval PERCENT=$(shell echo $$(($(NB_COMPILE) * 100 / $(TOTAL_COMPILE)))))
-	@echo -e '\e[1A\e[K$(PERCENT)%'
+	@echo -e '\e[1A\e[K$(YELLOW)$(PERCENT)%$(NOC)'
 	@$(CC) $(FLAGS) -c $< -o $@
 
-$(NAME):	$(OBJS)
+$(NAME): $(OBJS)
 	@echo "$(BLUE)Compilation de la libft...$(NOC)"
-	@echo "0%"
+	@echo "$(YELLOW)0%$(NOC)"
 	@make -sC $(LIBFT)
 	@cp $(LIBFT)/libft.a ./libft.a
 	@echo "$(BLUE)Création de l'executable...$(NOC)"
@@ -92,14 +90,18 @@ $(NAME):	$(OBJS)
 	@echo "$(GREEN)Tout est prêt !$(NOC)"
 
 clean:
+	@echo "$(RED)Suppression des objets$(NOC)"
 	@make -sC $(LIBFT) clean
 	@rm -f $(OBJS)
 
 fclean:	clean
+	@echo "$(RED)Suppression des binaires$(NOC)"
 	@make -sC $(LIBFT) fclean
 	@rm -f $(NAME) libft.a
 
-re:	fclean all
+re:
 	@clear
+	@make fclean
+	@make all
 
 .PHONY: all clean fclean re

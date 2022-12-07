@@ -6,7 +6,7 @@
 #    By: aderouba <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/26 12:24:51 by aderouba          #+#    #+#              #
-#    Updated: 2022/12/07 13:34:43 by aderouba         ###   ########.fr        #
+#    Updated: 2022/12/07 13:55:42 by aderouba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,10 +88,13 @@ PERCENT = 0
 NB_COMPILE = 0
 TOTAL_COMPILE = $(words $(OBJ))
 
+YELLOW		= \033[1;33m
+NOC			= \033[0m
+
 %.o : %.c
 	$(eval NB_COMPILE=$(shell echo $$(($(NB_COMPILE)+1))))
 	$(eval PERCENT=$(shell echo $$(($(NB_COMPILE) * 100 / $(TOTAL_COMPILE)))))
-	@echo -e '\e[1A\e[K$(PERCENT)%'
+	@echo -e '\e[1A\e[K$(YELLOW)$(PERCENT)%$(NOC)'
 	@$(CC) $(CFLAGS) -o $@ -c $< $(INCLUDE)
 
 $(NAME) : $(OBJ)
