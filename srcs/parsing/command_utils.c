@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:25:30 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/06 16:13:02 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/07 15:18:49 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	is_bultin(char *name)
 		return (1);
 	if (!ft_strcmp(name, "exit"))
 		return (1);
-	if (!ft_strcmp(name, "echo"))
+	if (!ft_strcmp(name, "echo") || !ft_strcmp(name, "pwd"))
 		return (1);
 	if (!ft_strcmp(name, "true") || !ft_strcmp(name, "false"))
 		return (1);
