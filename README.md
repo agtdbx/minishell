@@ -175,6 +175,31 @@ $tkt |
 								FAIT
 =================================================================
 
+$1lol
+	-> interprete $1 et print juste lol
+
+$9lol
+	-> interprete $9 et print juste lol
+
+$10lol
+	-> interprete $1 et print juste 0lol
+
+echo $$lol
+	-> doit echo juste lol
+
+=================================================================
+								EN COURS
+=================================================================
+AUGUSTE
+
+
+NICOLAS
+
+echo -n test
+	-> marche pas
+
+echo -nnnnnnnnnnnn -n -n test
+	-> marche pas
 
 =================================================================
 								A FAIRE
@@ -239,21 +264,9 @@ export lol = "echo <lol"
 $lol
 	-> print pas <lol
 
-echo $$lol
-	-> doit echo juste lol
-
 cat | ls
 >^C
 	-> $? != 0
-
-$1lol
-	-> interprete $1 et print juste lol
-
-$9lol
-	-> interprete $9 et print juste lol
-
-$10lol
-	-> interprete $1 et print juste 0lol
 
 env -l
 	-> leak + renvois pas erreur option + $? != 125
@@ -276,12 +289,6 @@ cd | ls
 mkdir lol
 ./lol
 	-> leak + fork non quitter car execve retourne -1
-
-echo -n test
-	-> marche pas
-
-echo -nnnnnnnnnnnn -n -n test
-	-> marche pas
 
 export tkt+=oui
 	-> leak

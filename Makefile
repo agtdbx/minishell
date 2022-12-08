@@ -6,7 +6,7 @@
 #    By: aderouba <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 14:20:53 by ngrenoux          #+#    #+#              #
-#    Updated: 2022/12/07 14:19:15 by aderouba         ###   ########.fr        #
+#    Updated: 2022/12/08 10:35:25 by aderouba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,25 +64,29 @@ VIOLET		= \033[1;35m
 CYAN		= \033[1;36m
 WHITE		= \033[1;37m
 
-#====================================COUNTER===================================#
+#==============================PROGRESS BAR UTILS==============================#
 PERCENT = 0
-NB_COMPILE = 0
-TOTAL_COMPILE = $(words $(OBJS))
+NB_COMPIL = 0
+TOTAL_COMPIL = $(words $(OBJS))
+PROGRESS_BAR_DETAIL = 5
 
 #=====================================RULES====================================#
 all: $(NAME)
 
 .c.o:
-	$(if $(filter $(NB_COMPILE),0), @echo "$(BLUE)Compilation de minishell$(NOC)")
-	$(if $(filter $(NB_COMPILE),0), @echo "$(YELLOW)$(NB_COMPILE) 0%$(NOC)")
-	$(eval NB_COMPILE=$(shell echo $$(($(NB_COMPILE)+1))))
-	$(eval PERCENT=$(shell echo $$(($(NB_COMPILE) * 100 / $(TOTAL_COMPILE)))))
-	@echo -e '\e[1A\e[K$(YELLOW)$(PERCENT)%$(NOC)'
+	$(if $(filter $(NB_COMPIL),0), @echo "$(BLUE)Compilation de minishell...$(NOC)")
+	$(if $(filter $(NB_COMPIL),0), @echo "$(YELLOW)$(NB_COMPIL) 0%$(NOC)")
+	$(if $(filter $(NB_COMPIL),0), @make create_progressbar)
+	$(eval NB_COMPIL=$(shell echo $$(($(NB_COMPIL)+1))))
+	$(eval PERCENT=$(shell echo $$(($(NB_COMPIL) * 100 / $(TOTAL_COMPIL)))))
+	@echo -ne '\e[1A\e[K'
+	@./.progressbar $(PERCENT)
+	$(if $(filter $(PERCENT),100), @echo "$(GREEN)$(PERCENT)%$(NOC)", @echo "$(YELLOW)$(PERCENT)%$(NOC)")
 	@$(CC) $(FLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
+	@rm .progressbar
 	@echo "$(BLUE)Compilation de la libft...$(NOC)"
-	@echo "$(YELLOW)0%$(NOC)"
 	@make -sC $(LIBFT)
 	@cp $(LIBFT)/libft.a ./libft.a
 	@echo "$(BLUE)Création de l'executable...$(NOC)"
@@ -104,4 +108,21 @@ re:
 	@make fclean
 	@make all
 
-.PHONY: all clean fclean re
+create_progressbar:
+	@echo '#!/bin/bash\n' > .progressbar
+	@echo "NOC='\033[0m'" >> .progressbar
+	@echo "RED='\033[1;31m'" >> .progressbar
+	@echo "GREEN='\033[1;32m'\n" >> .progressbar
+	@echo 'for i in {0..100..$(PROGRESS_BAR_DETAIL)}' >> .progressbar
+	@echo 'do' >> .progressbar
+	@echo '	if [ $$i -gt $$1 ]' >> .progressbar
+	@echo '	then' >> .progressbar
+	@echo '		echo -ne "$(RED)█$(NOC)"' >> .progressbar
+	@echo '	else' >> .progressbar
+	@echo '		echo -ne "$(GREEN)█$(NOC)"' >> .progressbar
+	@echo '	fi' >> .progressbar
+	@echo 'done' >> .progressbar
+	@echo 'echo -n " "' >> .progressbar
+	@chmod 777 .progressbar
+
+.PHONY: all clean fclean re create_progressbar
