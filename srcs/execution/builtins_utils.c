@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:20:44 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/11/25 16:07:39 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/08 13:34:30 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	change_pwd_variable(t_list *env, char *home, t_cmd *cmd, char *tmp)
 		if (chdir(cmd->arg[1]) == 0)
 			variables_changement(env, tmp);
 		else
-			ft_printf_fd("minishell: cd: %s: No such file or directory\n", 2,
+			ft_printf_fd("Error: cd: %s: No such file or directory\n", 2,
 				cmd->arg[1]);
 	}
 }

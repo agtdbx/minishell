@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 18:28:16 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/06 16:00:01 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/08 13:35:58 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,14 +97,14 @@ void	exit_builtins(t_data *data, t_cmd *cmd)
 	if (!is_longlong(cmd->arg[1]))
 	{
 		change_exit_status(data, 2);
-		ft_printf_fd("minishell: exit: %s:", 2, cmd->arg[1]);
+		ft_printf_fd("Error: exit: %s:", 2, cmd->arg[1]);
 		ft_printf_fd(" numeric argument required\n", 2);
 		return ;
 	}
 	if (cmd->arg[1] && cmd->arg[2])
 	{
 		ft_printf("exit\n");
-		ft_printf_fd("minishell: exit: too many arguments\n", 2);
+		ft_printf_fd("Error: exit: too many arguments\n", 2);
 		return ;
 	}
 	atoll_res = ft_atoll(cmd->arg[1]);

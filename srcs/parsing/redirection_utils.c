@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:51:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/08 11:32:22 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/08 13:37:05 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	check_file(char *name, int flags)
 	res = open(name, flags, 0644);
 	if (res == -1 || open(name, O_DIRECTORY) != -1)
 	{
-		ft_printf_fd("minishell: %s: No such file or directory\n", 2, name);
+		ft_printf_fd("Error: %s: No such file or directory\n", 2, name);
 		return (-1);
 	}
 	return (res);

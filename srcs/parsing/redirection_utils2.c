@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_utils2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:51:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/08 10:53:09 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/08 13:37:16 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	is_pipe_error(t_data *data, int only_space, int nb_cmd)
 	{
 		data->pipe_error = nb_cmd;
 		g_exit_status = 2;
-		ft_printf_fd("minishell: syntax error near unexpected token `|'\n", 2);
+		ft_printf_fd("Error: syntax error near unexpected token `|'\n", 2);
 		return (1);
 	}
 	return (0);
