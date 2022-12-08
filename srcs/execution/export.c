@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 11:45:16 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/08 11:19:43 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/08 15:17:14 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	print_export(t_list *env)
 		if (tmp->value == NULL)
 			ft_printf("declare -x %s\n", tmp->name);
 		else if (ft_strcmp(tmp->name, "?") != 0)
-			ft_printf("declare -x %s=\"%s\n\"", tmp->name, tmp->value);
+			ft_printf("declare -x %s=\"%s\"\n", tmp->name, tmp->value);
 		actual = actual->next;
 	}
 	ft_lstclear(&cpy, free_var);

@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 10:01:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/08 13:25:56 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/08 15:34:16 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,26 @@ int	error_arg(t_cmd *cmd)
 	return (0);
 }
 
+int	export_error(t_cmd *cmd)
+{
+	if (cmd->arg[1] != NULL)
+	{
+		if (cmd->arg[1][0] == '-')
+		{
+			g_exit_status = 2;
+			ft_printf_fd("Error: export: %s: invalid option", 2, cmd->arg[1]);
+		}
+		else if (!ft_isalpha(cmd->arg[1][0]) && cmd->arg[1][0] != '_')
+		{
+			g_exit_status = 1;
+			ft_printf_fd("Error: export: `%s\': not a valid identifier",
+				2, cmd->arg[1]);
+		}
+		return (1);
+	}
+	return (0);
+}
+
 void	execute_builtins(t_data *data, t_cmd *cmd)
 {
 	if (cmd->name && !ft_strcmp(cmd->name, "pwd") && !error_arg(cmd))
@@ -49,7 +69,8 @@ void	execute_builtins(t_data *data, t_cmd *cmd)
 		cd_implement(data->env, cmd);
 	else if (cmd->name && !ft_strcmp(cmd->name, "env") && !error_arg(cmd))
 		env_builtin(data->env);
-	else if (cmd->name && !ft_strcmp(cmd->name, "export"))
+	else if (cmd->name && !ft_strcmp(cmd->name, "export")
+		&& !export_error(cmd))
 		export_builtin(data, cmd);
 	else if (cmd->name && !ft_strcmp(cmd->name, "echo"))
 		echo_builtin(cmd);
