@@ -169,3 +169,140 @@ $tkt | $tkt
 $tkt |
 -> attend un truc, donc erreur pour nous
 */
+
+
+=================================================================
+								FAIT
+=================================================================
+
+
+=================================================================
+								A FAIRE
+=================================================================
+>|
+	-> 2 messages d'erreur, $? != 2
+
+lol | |
+	-> check de command alors aue erreur pipe prioritaire + leak
+
+<lol ||
+	-> 2 messages d'erreurs
+
+<lol
+	-> leak + $? != 1
+
+<lol | <lol
+	-> leak + $? != 0
+
+>>>
+	-> pas de syntax error
+
+><
+	-> pas de syntax error
+
+<>
+	-> pas de syntax error
+
+''
+	-> y'a pas command not found
+
+""
+	-> y'a pas command not found
+
+echo lol | lol | lol
+	-> leak
+
+cat | ls
+	->	une seule ligne de cat
+
+wc | ls
+grep | ls
+	->	plus ligne catch mais marche pas
+
+faire 2 boules d'executions
+	-> 1 pour lancer les fork
+	-> 2 pour faire les waitpid
+
+""ec""oui""ho"" lol
+	-> leak
+
+"" ls
+	-> leak
+
+"coucou" ls
+	-> leak
+
+> "lol"
+	-> create le fichier "lol" a la place de lol
+
+export lol = "echo <lol"
+$lol
+	-> print pas <lol
+
+echo $$lol
+	-> doit echo juste lol
+
+cat | ls
+>^C
+	-> $? != 0
+
+$1lol
+	-> interprete $1 et print juste lol
+
+$9lol
+	-> interprete $9 et print juste lol
+
+$10lol
+	-> interprete $1 et print juste 0lol
+
+env -l
+	-> leak + renvois pas erreur option + $? != 125
+
+env coucou
+	-> renvois pas erreur argument + $? != 127
+
+pwd coucou
+	-> Ca doit juste ingorer le coucou
+
+pwd -l
+	-> renvois pas erreur option + $? != 2
+
+cd
+	-> leak + marche pas car pas a faire dans un fork
+
+cd | ls
+	->	ne dois pas marcher car pipe et donc il est dans un fork
+
+mkdir lol
+./lol
+	-> leak + fork non quitter car execve retourne -1
+
+echo -n test
+	-> marche pas
+
+echo -nnnnnnnnnnnn -n -n test
+	-> marche pas
+
+export tkt+=oui
+	-> leak
+
+export | grep
+	-> marche pas + leak
+
+export +=tkt
+	-> ne dois pas marcher + leak
+
+export lol-=tkt
+	-> ne renvois pas invalid identifier + leak
+
+export name=value
+	-> name ne peux pas commencer par 0123456789, ne dois pas contenir `~!@#$%^&*()-[]{};:,./?
+
+unset name
+	-> name ne peux pas commencer par 0123456789, ne dois pas contenir `~!@#$%^&*()-[]{};:,./?
+
+export -lol
+	-> ne revois pas invalid option + $? != 2
+
+export oui
+	-> ne revois pas invalid identifier + $? != 1
