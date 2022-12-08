@@ -3,53 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 11:31:14 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/07 10:11:49 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/08 10:19:03 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	option_echo(char **arg)
+int	only_n_option(char *str)
 {
 	int	i;
 
 	i = 1;
-	while (arg[i])
-	{
-		printf("%s", arg[i]);
-		if (arg[i + 1])
-			printf(" ");
+	while (str && str[0] && str[0] == '-' && str[i] == 'n')
 		i++;
-	}
+	if (!str[0] || (str && (str[i] || i == 1)))
+		return (0);
+	return (1);
 }
 
-void	no_option_echo(char **arg)
+void	echo_print(char **arg)
 {
 	int	i;
+	int	j;
 
 	i = 1;
-	while (arg[i])
-	{
-		printf("%s", arg[i]);
-		if (arg[i + 1])
-			printf(" ");
+	while (arg[i] && only_n_option(arg[i]) == 1)
 		i++;
+	j = i;
+	while (arg[j])
+	{
+		printf("%s", arg[j]);
+		if (arg[j + 1] != NULL)
+			printf(" ");
+		j++;
 	}
-	printf("\n");
+	if (i == 1)
+		printf("\n");
 }
 
 void	echo_builtin(t_cmd *cmd)
 {
 	if (cmd->arg[1])
-	{
-		if (ft_strcmp(cmd->arg[1], "-n") == 0)
-			option_echo(cmd->arg);
-		else
-			no_option_echo(cmd->arg);
-	}
+		echo_print(cmd->arg);
 	else
 		printf("\n");
 }
