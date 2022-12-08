@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 10:01:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/08 13:25:56 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/08 15:18:23 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@ int	modify_env(t_data *data, t_cmd *cmd)
 	if (cmd->name && !ft_strcmp(cmd->name, "exit"))
 	{
 		exit_builtins(data, cmd);
+		return (1);
+	}
+	if (cmd->name && !ft_strcmp(cmd->name, "cd"))
+	{
+		cd_implement(data->env, cmd);
 		return (1);
 	}
 	return (0);

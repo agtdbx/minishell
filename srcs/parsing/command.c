@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:24:06 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/08 13:24:57 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/08 16:14:08 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@ t_cmd	empty_command(char *input)
 	return (command);
 }
 
-t_cmd	command_not_found(t_cmd *command, char *input)
+t_cmd	command_not_found(t_cmd *command, char *input, char *input_clean,
+	char **split_res)
 {
-	if (command->name && ft_strlen(command->name) > 0)
+	if (command->name)
 	{
 		g_exit_status = 127;
-		ft_printf_fd("Error: %s: command not found\n", 2, command->name);
+		ft_printf_fd("Error: Command '%s' not found\n", 2, command->name);
 	}
 	if (command->fd_in > 2)
 		close(command->fd_in);
@@ -52,6 +53,9 @@ t_cmd	command_not_found(t_cmd *command, char *input)
 		close(command->fd_out);
 	command->input = NULL;
 	free_command(command);
+	if (input_clean)
+		free(input_clean);
+	ft_lstr_free(split_res);
 	return (empty_command(input));
 }
 
@@ -67,19 +71,21 @@ t_cmd	get_cmd(t_data *data, char *input, char **paths)
 	command.fd_in = 0;
 	command.fd_out = 1;
 	input_clean = interprete_redirection(data, &command, input);
+	if (ft_strlen(input_clean) == 0 && ft_strlen(input) != 0)
+		return (command_not_found(&command, input, input_clean, NULL));
 	split_res = ft_split_quote(input_clean, " \t");
-	free(input_clean);
 	if (split_res == NULL || split_res[0] == NULL)
-	{
-		ft_lstr_free(split_res);
-		return (command_not_found(&command, input));
-	}
+		return (command_not_found(&command, input, input_clean, split_res));
 	split_res[0] = replace_variable_to_value(data->env, split_res[0]);
 	command.name = split_res[0];
 	command.arg = get_arg(split_res, paths);
-	free(split_res);
+	free(input_clean);
 	if (command.arg == NULL)
-		return (command_not_found(&command, input));
+	{
+		command.name = NULL;
+		return (command_not_found(&command, input, NULL, split_res));
+	}
+	free(split_res);
 	return (command);
 }
 

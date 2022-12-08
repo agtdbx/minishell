@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/08 13:23:18 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/08 14:32:26 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,9 @@ char	*get_and_remove_first_heredoc(t_data *data);
 int		here_doc(t_data *data);
 
 /* ==============================error.c=========================== */
-int	test_bad_redirection(char *str);
+int		test_input_bad_redirection(char *str, int *i, int j);
+int		test_output_bad_redirection(char *str, int *i, int j);
+int		test_bad_redirection(char *str);
 
 /*===================================================================
 								SIGNALS

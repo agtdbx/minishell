@@ -222,13 +222,31 @@ env -l
 
 env coucou
 	-> renvois pas erreur argument + $? != 127
+
+''
+	-> y'a pas command not found
+
+""
+	-> y'a pas command not found
+
+"" ls
+	-> leak
+
+""ec""oui""ho"" lol
+	-> leak
+
+"coucou" ls
+	-> leak
+
 =================================================================
 								EN COURS
 =================================================================
 AUGUSTE
 
-NICOLAS
+> "lol"
+	-> create le fichier "lol" a la place de lol
 
+NICOLAS
 
 =================================================================
 								A FAIRE
@@ -236,12 +254,6 @@ NICOLAS
 
 <lol | <lol
 	-> leak + $? != 0
-
-''
-	-> y'a pas command not found
-
-""
-	-> y'a pas command not found
 
 echo lol | lol | lol
 	-> leak
@@ -256,18 +268,6 @@ grep | ls
 faire 2 boules d'executions
 	-> 1 pour lancer les fork
 	-> 2 pour faire les waitpid
-
-""ec""oui""ho"" lol
-	-> leak
-
-"" ls
-	-> leak
-
-"coucou" ls
-	-> leak
-
-> "lol"
-	-> create le fichier "lol" a la place de lol
 
 export lol = "echo <lol"
 $lol
@@ -310,3 +310,6 @@ export -lol
 
 export oui
 	-> ne revois pas invalid identifier + $? != 1
+
+export COUCOU | ls
+	-> COUCOU n'existe pas

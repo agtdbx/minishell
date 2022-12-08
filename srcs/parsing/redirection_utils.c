@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:51:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/08 13:37:05 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/08 16:12:56 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ char	*error_file(t_cmd *cmd, char *res, char **split_res)
 
 int	get_fd(t_data *data, t_cmd *cmd, char **name, int file_next)
 {
+	*name = replace_variable_to_value(data->env, *name);
 	if (file_next == 1)
 		input_file(data, cmd, name, 0);
 	else if (file_next == 2)

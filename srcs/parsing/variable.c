@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:55:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/07 17:00:29 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/08 14:33:32 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*add_value_variable(t_list *env, char *res, char *str, int *i)
 	else
 	{
 		while (str[*i + j] != '\0' && str[*i + j] != ' ' && str[*i + j] != '"'
-		&& str[*i + j] != '\'' && str[*i + j] != '$')
+			&& str[*i + j] != '\'' && str[*i + j] != '$')
 		j++;
 	}
 	tmp = ft_substr(str, *i, j);

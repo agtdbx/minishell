@@ -6,7 +6,7 @@
 #    By: aderouba <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 14:20:53 by ngrenoux          #+#    #+#              #
-#    Updated: 2022/12/08 13:29:32 by aderouba         ###   ########.fr        #
+#    Updated: 2022/12/08 15:55:48 by aderouba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,6 +86,9 @@ all: $(NAME)
 	@$(CC) $(FLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
+	@echo -ne '\e[1A\e[K'
+	@./.progressbar 100
+	@echo "$(GREEN)100%$(NOC)"
 	@rm .progressbar
 	@echo "$(BLUE)Compilation de la libft...$(NOC)"
 	@make -sC $(LIBFT)
