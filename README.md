@@ -208,6 +208,20 @@ lol | |
 <>
 	-> pas de syntax error
 
+echo -n test
+	-> marche pas
+
+echo -nnnnnnnnnnnn -n -n test
+	-> marche pas
+
+pwd -l
+	-> renvois pas erreur option + $? != 2
+
+env -l
+	-> leak + renvois pas erreur option + $? != 125
+
+env coucou
+	-> renvois pas erreur argument + $? != 127
 =================================================================
 								EN COURS
 =================================================================
@@ -215,11 +229,6 @@ AUGUSTE
 
 NICOLAS
 
-echo -n test
-	-> marche pas
-
-echo -nnnnnnnnnnnn -n -n test
-	-> marche pas
 
 =================================================================
 								A FAIRE
@@ -267,18 +276,6 @@ $lol
 cat | ls
 >^C
 	-> $? != 0
-
-env -l
-	-> leak + renvois pas erreur option + $? != 125
-
-env coucou
-	-> renvois pas erreur argument + $? != 127
-
-pwd coucou
-	-> Ca doit juste ingorer le coucou
-
-pwd -l
-	-> renvois pas erreur option + $? != 2
 
 cd
 	-> leak + marche pas car pas a faire dans un fork
