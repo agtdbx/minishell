@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 13:42:54 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/06 12:10:49 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/08 13:24:48 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,10 @@ int	quote_error(char *buf)
 			quote = '\'';
 		i++;
 	}
-	return (quote != '\0');
+	if (quote != '\0')
+	{
+		ft_printf_fd("Error: quote unclosed\n", 2);
+		return (1);
+	}
+	return (0);
 }

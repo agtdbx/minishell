@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:51:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/05 10:27:29 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/08 13:25:03 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ char	*final_check_and_return(int file_next, char **split_res, char *res)
 	if (file_next != 0 && file_next != 10)
 	{
 		free(res);
-		ft_printf_fd("Minishell: syntax error near", 2);
-		ft_printf_fd(" unexpected token 'newline'\n", 2);
+		ft_printf_fd("Error: syntax error near", 2);
+		ft_printf_fd(" unexpected token `newline'\n", 2);
 		return (NULL);
 	}
 	return (res);
@@ -93,7 +93,7 @@ char	*interprete_redirection(t_data *data, t_cmd *cmd, char *input)
 			file_next = get_fd(data, cmd, &tmp, file_next);
 		else
 			file_next = get_file_next(&tmp, split_res, i);
-		if (cmd->fd_in == -1 || cmd->fd_out == -1)
+		if (cmd->fd_in == -1 || cmd->fd_out == -1 || file_next == -1)
 			return (error_file(cmd, res, split_res));
 		else if (file_next == 10)
 			res = ft_strsuperjoin_free_1st_p(res, split_res[i], " ");

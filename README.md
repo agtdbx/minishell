@@ -187,11 +187,31 @@ $10lol
 echo $$lol
 	-> doit echo juste lol
 
+lol | |
+	-> check de command alors aue erreur pipe prioritaire + leak
+
+>|
+	-> 2 messages d'erreur, $? != 2
+
+<lol | |
+	-> 2 messages d'erreurs, $? != 2
+
+<lol
+	-> leak + $? != 1
+
+>>>
+	-> pas de syntax error
+
+><
+	-> pas de syntax error
+
+<>
+	-> pas de syntax error
+
 =================================================================
 								EN COURS
 =================================================================
 AUGUSTE
-
 
 NICOLAS
 
@@ -204,29 +224,9 @@ echo -nnnnnnnnnnnn -n -n test
 =================================================================
 								A FAIRE
 =================================================================
->|
-	-> 2 messages d'erreur, $? != 2
-
-lol | |
-	-> check de command alors aue erreur pipe prioritaire + leak
-
-<lol ||
-	-> 2 messages d'erreurs
-
-<lol
-	-> leak + $? != 1
 
 <lol | <lol
 	-> leak + $? != 0
-
->>>
-	-> pas de syntax error
-
-><
-	-> pas de syntax error
-
-<>
-	-> pas de syntax error
 
 ''
 	-> y'a pas command not found

@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:51:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/05 10:10:02 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/08 11:32:22 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ char	*error_file(t_cmd *cmd, char *res, char **split_res)
 	if (cmd->fd_out > 2)
 		close(cmd->fd_out);
 	ft_lstr_free(split_res);
+	g_exit_status = 1;
 	return (res);
 }
 

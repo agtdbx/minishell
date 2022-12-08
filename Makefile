@@ -6,7 +6,7 @@
 #    By: aderouba <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 14:20:53 by ngrenoux          #+#    #+#              #
-#    Updated: 2022/12/08 10:35:25 by aderouba         ###   ########.fr        #
+#    Updated: 2022/12/08 12:47:49 by aderouba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRCS		= srcs/main.c \
 			  srcs/execution/export_utils.c \
 			  srcs/execution/echo.c \
 			  srcs/utils/init.c \
+			  srcs/utils/error.c \
 
 
 #====================================OBJECTS===================================#
@@ -110,9 +111,6 @@ re:
 
 create_progressbar:
 	@echo '#!/bin/bash\n' > .progressbar
-	@echo "NOC='\033[0m'" >> .progressbar
-	@echo "RED='\033[1;31m'" >> .progressbar
-	@echo "GREEN='\033[1;32m'\n" >> .progressbar
 	@echo 'for i in {0..100..$(PROGRESS_BAR_DETAIL)}' >> .progressbar
 	@echo 'do' >> .progressbar
 	@echo '	if [ $$i -gt $$1 ]' >> .progressbar

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:24:06 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/06 16:05:49 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/08 13:24:57 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_cmd	command_not_found(t_cmd *command, char *input)
 	if (command->name && ft_strlen(command->name) > 0)
 	{
 		g_exit_status = 127;
-		ft_printf_fd("%s: command not found\n", 2, command->name);
+		ft_printf_fd("Error: %s: command not found\n", 2, command->name);
 	}
 	if (command->fd_in > 2)
 		close(command->fd_in);
@@ -70,7 +70,10 @@ t_cmd	get_cmd(t_data *data, char *input, char **paths)
 	split_res = ft_split_quote(input_clean, " \t");
 	free(input_clean);
 	if (split_res == NULL || split_res[0] == NULL)
+	{
+		ft_lstr_free(split_res);
 		return (command_not_found(&command, input));
+	}
 	split_res[0] = replace_variable_to_value(data->env, split_res[0]);
 	command.name = split_res[0];
 	command.arg = get_arg(split_res, paths);

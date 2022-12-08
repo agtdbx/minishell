@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/07 16:48:51 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/08 13:23:18 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,9 @@ char	*write_in_here_doc(char *limiter);
 void	parse_heredoc(t_data *data, char *buf);
 char	*get_and_remove_first_heredoc(t_data *data);
 int		here_doc(t_data *data);
+
+/* ==============================error.c=========================== */
+int	test_bad_redirection(char *str);
 
 /*===================================================================
 								SIGNALS

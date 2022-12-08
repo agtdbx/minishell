@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/07 16:48:09 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/08 12:47:06 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,20 @@ void	parse_and_do_commands(t_data *data, char *buf)
 {
 	t_cmd	*cmds;
 
-	if (!quote_error(buf))
+	if (!quote_error(buf) && !test_bad_redirection(buf))
 	{
 		pipe_error(data, buf);
 		parse_heredoc(data, buf);
-		cmds = parse_buf(data, buf, data->paths);
-		interprete_cmds(data, cmds);
-		if (cmds)
-			free_commands(cmds);
+		if (data->pipe_error == -1)
+		{
+			cmds = parse_buf(data, buf, data->paths);
+			interprete_cmds(data, cmds);
+			if (cmds)
+				free_commands(cmds);
+		}
 	}
 	else
-		ft_printf_fd("minishell: quote unclosed\n", 2);
+		g_exit_status = 2;
 	free(buf);
 	ft_lstr_free(data->paths);
 }

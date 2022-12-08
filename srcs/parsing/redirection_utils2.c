@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:51:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/06 12:11:44 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/08 10:53:09 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int	is_pipe_error(t_data *data, int only_space, int nb_cmd)
 	if (only_space)
 	{
 		data->pipe_error = nb_cmd;
+		g_exit_status = 2;
 		ft_printf_fd("minishell: syntax error near unexpected token `|'\n", 2);
 		return (1);
 	}
