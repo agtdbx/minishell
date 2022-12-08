@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:33:10 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/07 09:56:42 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/08 14:21:22 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ void	interprete_cmds(t_data *data, t_cmd *cmds)
 	data->exit = -1 - (cmds[1].input != NULL);
 	while (cmds[i].input != NULL)
 	{
+		g_exit_status = 0;
 		pipe_gestion(cmds, i, pipe1, pipe2);
 		if (cmds[i].name && modify_env(data, &cmds[i]))
 			close_fds(&cmds[i], NULL, NULL);
