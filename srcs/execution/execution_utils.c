@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 10:01:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/08 16:31:00 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/08 16:55:25 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,7 @@ void	execute_builtins(t_data *data, t_cmd *cmd)
 		cd_implement(data->env, cmd);
 	else if (cmd->name && !ft_strcmp(cmd->name, "env") && !error_arg(cmd))
 		env_builtin(data->env);
-	else if (cmd->name && !ft_strcmp(cmd->name, "export")
-		&& !export_error(cmd))
+	else if (cmd->name && !ft_strcmp(cmd->name, "export"))
 		export_builtin(data, cmd);
 	else if (cmd->name && !ft_strcmp(cmd->name, "echo"))
 		echo_builtin(cmd);
@@ -88,7 +87,7 @@ int	modify_env(t_data *data, t_cmd *cmd)
 		return (1);
 	}
 	if (ft_strcmp(cmd->name, "export") == 0 && cmd->arg[0] != NULL
-		&& cmd->arg[1] != NULL && !export_error(cmd))
+		&& cmd->arg[1] != NULL /*&& !export_error(cmd)*/)
 	{
 		export_builtin(data, cmd);
 		return (1);
