@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 10:01:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/09 10:56:59 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 11:16:05 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,21 +54,21 @@ int	check_minus(char *arg)
 	return (0);
 }
 
-int	export_error(t_cmd *cmd)
+int	unset_error(t_cmd *cmd)
 {
 	if (cmd->arg[1] != NULL)
 	{
 		if (cmd->arg[1][0] == '-' || check_minus(cmd->arg[1]))
 		{
 			g_exit_status = 2;
-			ft_printf_fd("Error: export: %s: invalid option\n",
+			ft_printf_fd("Error: unset: %s: invalid option\n",
 				2, cmd->arg[1]);
 			return (1);
 		}
 		else if (ft_isalpha(cmd->arg[1][0]) == 0 && cmd->arg[1][0] != '_')
 		{
 			g_exit_status = 1;
-			ft_printf_fd("Error: export: `%s\': not a valid identifier\n",
+			ft_printf_fd("Error: unset: `%s\': not a valid identifier\n",
 				2, cmd->arg[1]);
 			return (1);
 		}
@@ -85,8 +85,12 @@ void	execute_builtins(t_data *data, t_cmd *cmd)
 		cd_implement(data->env, cmd);
 	else if (cmd->name && !ft_strcmp(cmd->name, "env") && !error_arg(cmd))
 		env_builtin(data->env);
-	else if (cmd->name && !ft_strcmp(cmd->name, "export"))
+	else if (cmd->name && !ft_strcmp(cmd->name, "export")
+		&& !export_error(cmd))
 		export_builtin(data, cmd);
+	else if (cmd->name && !ft_strcmp(cmd->name, "unset")
+		&& !unset_error(cmd))
+		unset_builtin(data, cmd);
 	else if (cmd->name && !ft_strcmp(cmd->name, "echo"))
 		echo_builtin(cmd);
 	else if (cmd->name && !ft_strcmp(cmd->name, "false"))
@@ -99,7 +103,8 @@ int	modify_env(t_data *data, t_cmd *cmd)
 {
 	if (ft_strcmp(cmd->name, "unset") == 0)
 	{
-		unset_builtin(data, cmd);
+		if (!unset_error(cmd))
+			unset_builtin(data, cmd);
 		return (1);
 	}
 	if (ft_strcmp(cmd->name, "export") == 0 && cmd->arg[0] != NULL

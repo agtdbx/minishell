@@ -295,6 +295,8 @@ cd
 cd | ls
 	->	ne dois pas marcher car pipe et donc il est dans un fork
 
+unset name
+	-> name ne peux pas commencer par 0123456789, ne dois pas contenir `~!@#$%^&*()-[]{};:,./?
 =================================================================
 								EN COURS
 =================================================================
@@ -309,9 +311,6 @@ NICOLAS
 =================================================================
 								A FAIRE
 =================================================================
-
-unset name
-	-> name ne peux pas commencer par 0123456789, ne dois pas contenir `~!@#$%^&*()-[]{};:,./?
 
 export lol="echo <lol"
 $lol

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/09 10:31:21 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 10:52:36 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ void	pipe_gestion(t_cmd *cmds, int i, int *pipe1, int *pipe2);
 void	interprete_cmds(t_data *data, t_cmd *cmds);
 
 /*=========================execution_utils.c========================*/
+int		check_minus(char *arg);
 int		modify_env(t_data *data, t_cmd *cmd);
 void	execute_builtins(t_data *data, t_cmd *cmd);
 
@@ -170,6 +171,7 @@ void	change_pwd_variable(t_list *env, char *home, t_cmd *cmd, char *tmp);
 /*=============================export.c============================*/
 void	print_export(t_list *env);
 void	export_builtin(t_data *data, t_cmd *cmd);
+int		export_error(t_cmd *cmd);
 
 /*===============================exit.c============================*/
 void	exit_builtins(t_data *data, t_cmd *cmd);
