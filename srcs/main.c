@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/09 09:44:57 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 10:24:42 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@ int	g_exit_status = 0;
 
 void	exit_minishell(char *buf, t_data *data)
 {
-	close(0);
-	close(1);
-	close(2);
 	if (buf)
 		free(buf);
 	rl_clear_history();

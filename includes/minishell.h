@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/09 09:47:40 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 10:31:21 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,12 @@ typedef struct s_cmd
 
 typedef struct s_data
 {
-	char				**paths;
-	char				**heredoc;
-	t_list				*env;
-	int					exit;
-	int					pipe_error;
+	char	**paths;
+	char	**heredoc;
+	t_list	*env;
+	int		exit;
+	int		pipe_error;
+	int		*pids;
 }	t_data;
 
 extern int	g_exit_status;

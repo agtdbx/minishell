@@ -264,16 +264,6 @@ export -lol
 
 export oui
 	-> ne revois pas invalid identifier + $? != 1
-=================================================================
-								EN COURS
-=================================================================
-AUGUSTE
-
-NICOLAS
-
-=================================================================
-								A FAIRE
-=================================================================
 
 cat | ls
 	->	une seule ligne de cat
@@ -286,17 +276,31 @@ faire 2 boules d'executions
 	-> 1 pour lancer les fork
 	-> 2 pour faire les waitpid
 
-export lol="echo <lol"
-$lol
-	-> print pas <lol
-
 cat | ls
 >^C
 	-> $? != 0
 
+export COUCOU | ls
+	-> COUCOU n'existe pas
+
+=================================================================
+								EN COURS
+=================================================================
+AUGUSTE
+
 mkdir lol
 ./lol
 	-> leak + fork non quitter car execve retourne -1
+
+NICOLAS
+
+=================================================================
+								A FAIRE
+=================================================================
+
+export lol="echo <lol"
+$lol
+	-> print pas <lol
 
 export tkt+=oui
 	-> leak
@@ -312,6 +316,3 @@ export name=value
 
 unset name
 	-> name ne peux pas commencer par 0123456789, ne dois pas contenir `~!@#$%^&*()-[]{};:,./?
-
-export COUCOU | ls
-	-> COUCOU n'existe pas

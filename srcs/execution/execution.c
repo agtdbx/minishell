@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:33:10 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/09 09:50:54 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 10:22:54 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,16 @@ int	execute_cmd(t_data *data, t_cmd *cmds, int i, int **pipes)
 		{
 			env_tmp = get_tab_env(data->env);
 			execve(cmds[i].arg[0], cmds[i].arg, env_tmp);
+			ft_printf_fd("ERROR !!\n", 2);
 			ft_lstr_free(env_tmp);
+			free_commands(cmds);
 			ft_lstr_free(data->paths);
 			ft_lstclear(&data->env, free_var);
 			ft_lstr_free(data->heredoc);
-			g_exit_status = 127;
+			g_exit_status = 126;
 			exit(1);
 		}
 	}
-	waitpid(cpid, NULL, 0);
 	close_fds(&cmds[i], NULL, 0);
 	return (cpid);
 }
@@ -105,8 +106,8 @@ void	interprete_cmds(t_data *data, t_cmd *cmds)
 	int	pipe1[2];
 	int	pipe2[2];
 	int	*pipes[2];
+	int	*pids;
 
-	i = 0;
 	if (!cmds || !cmds[0].input || data->pipe_error != -1)
 		return ;
 	pipe(pipe1);
@@ -115,17 +116,44 @@ void	interprete_cmds(t_data *data, t_cmd *cmds)
 	pipes[0] = pipe1;
 	pipes[1] = pipe2;
 	data->exit = -1 - (cmds[1].input != NULL);
+	i = 0;
+	while (cmds[i].input != NULL)
+		i++;
+	pids = malloc(sizeof(int) * i);
+	if (pids == NULL)
+	{
+		close_fds(NULL, pipes, 0);
+		return ;
+	}
+	i = 0;
 	while (cmds[i].input != NULL)
 	{
+		pids[i] = -1;
 		g_exit_status = 0;
 		pipe_gestion(cmds, i, pipes[0], pipes[1]);
 		if (data->exit == -1 && cmds[i].name && modify_env(data, &cmds[i]))
 			close_fds(&cmds[i], NULL, 0);
 		else
-			execute_cmd(data, cmds, i, pipes);
+			pids[i] = execute_cmd(data, cmds, i, pipes);
 		i++;
 	}
 	close_fds(NULL, pipes, 0);
+	i = 0;
+	while (cmds[i].input != NULL)
+	{
+		if (pids[i] == -1)
+		{
+			g_exit_status = 127;
+		}
+		else
+		{
+			waitpid(pids[i], NULL, 0);
+			if (data->exit != -1)
+				g_exit_status = 0;
+		}
+		i++;
+	}
 	if (data->exit == -1 && (cmds[0].fd_in == -1 || cmds[0].fd_out == -1))
 		g_exit_status = 1;
+	free(pids);
 }
