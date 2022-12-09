@@ -6,16 +6,19 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/08 12:47:06 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 09:44:57 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	g_exit_status;
+int	g_exit_status = 0;
 
 void	exit_minishell(char *buf, t_data *data)
 {
+	close(0);
+	close(1);
+	close(2);
 	if (buf)
 		free(buf);
 	rl_clear_history();
@@ -43,8 +46,7 @@ void	parse_and_do_commands(t_data *data, char *buf)
 		{
 			cmds = parse_buf(data, buf, data->paths);
 			interprete_cmds(data, cmds);
-			if (cmds)
-				free_commands(cmds);
+			free_commands(cmds);
 		}
 	}
 	else

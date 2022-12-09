@@ -238,6 +238,27 @@ env coucou
 "coucou" ls
 	-> leak
 
+> "lol"
+	-> create le fichier "lol" a la place de lol
+
+export | grep
+	-> marche pas + leak
+
+echo lol | lol | lol
+	-> leak
+
+echo lol | cat
+	-> leak
+
+<lol | <lol
+	-> leak + $? != 0
+
+cd
+	-> leak + marche pas car pas a faire dans un fork
+
+cd | ls
+	->	ne dois pas marcher car pipe et donc il est dans un fork
+
 export -lol
 	-> ne revois pas invalid option + $? != 2
 
@@ -248,20 +269,11 @@ export oui
 =================================================================
 AUGUSTE
 
-> "lol"
-	-> create le fichier "lol" a la place de lol
-
 NICOLAS
 
 =================================================================
 								A FAIRE
 =================================================================
-
-<lol | <lol
-	-> leak + $? != 0
-
-echo lol | lol | lol
-	-> leak
 
 cat | ls
 	->	une seule ligne de cat
@@ -274,7 +286,7 @@ faire 2 boules d'executions
 	-> 1 pour lancer les fork
 	-> 2 pour faire les waitpid
 
-export lol = "echo <lol"
+export lol="echo <lol"
 $lol
 	-> print pas <lol
 
@@ -282,21 +294,12 @@ cat | ls
 >^C
 	-> $? != 0
 
-cd
-	-> leak + marche pas car pas a faire dans un fork
-
-cd | ls
-	->	ne dois pas marcher car pipe et donc il est dans un fork
-
 mkdir lol
 ./lol
 	-> leak + fork non quitter car execve retourne -1
 
 export tkt+=oui
 	-> leak
-
-export | grep
-	-> marche pas + leak
 
 export +=tkt
 	-> ne dois pas marcher + leak

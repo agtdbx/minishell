@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:09:24 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/07 16:59:19 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/08 17:29:57 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,17 @@ t_data	init_data(void)
 
 void	init_all_variable(t_data *data)
 {
-	set_variable_value(data->env, "0", "");
-	set_variable_value(data->env, "1", "");
-	set_variable_value(data->env, "2", "");
-	set_variable_value(data->env, "3", "");
-	set_variable_value(data->env, "4", "");
-	set_variable_value(data->env, "5", "");
-	set_variable_value(data->env, "6", "");
-	set_variable_value(data->env, "7", "");
-	set_variable_value(data->env, "8", "");
-	set_variable_value(data->env, "9", "");
-	set_variable_value(data->env, "$", "");
+	set_variable_value(data->env, "0", NULL);
+	set_variable_value(data->env, "1", NULL);
+	set_variable_value(data->env, "2", NULL);
+	set_variable_value(data->env, "3", NULL);
+	set_variable_value(data->env, "4", NULL);
+	set_variable_value(data->env, "5", NULL);
+	set_variable_value(data->env, "6", NULL);
+	set_variable_value(data->env, "7", NULL);
+	set_variable_value(data->env, "8", NULL);
+	set_variable_value(data->env, "9", NULL);
+	set_variable_value(data->env, "$", NULL);
 }
 
 t_data	ft_init(char **envp)
