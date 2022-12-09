@@ -6,7 +6,7 @@
 #    By: aderouba <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 14:20:53 by ngrenoux          #+#    #+#              #
-#    Updated: 2022/12/08 15:55:48 by aderouba         ###   ########.fr        #
+#    Updated: 2022/12/09 11:52:36 by aderouba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRCS		= srcs/main.c \
 			  srcs/signal/signal.c \
 			  srcs/execution/execution.c \
 			  srcs/execution/execution_utils.c \
+			  srcs/execution/execution_utils2.c \
 			  srcs/execution/builtins.c \
 			  srcs/execution/exit.c \
 			  srcs/execution/builtins_utils.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/09 10:52:36 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/09 11:56:42 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,15 +150,23 @@ void	ft_signals(int sig);
 ===================================================================*/
 
 /*===========================execution.c===========================*/
-void	close_fds(t_cmd *cmd, int **pipes, int in_fork);
+void	exec_and_quit_fork(t_data *data, t_cmd *cmds, int i, char **env_tmp);
 int		execute_cmd(t_data *data, t_cmd *cmds, int i, int **pipes);
-void	pipe_gestion(t_cmd *cmds, int i, int *pipe1, int *pipe2);
+void	execution_loop(t_data *data, t_cmd *cmds, int **pipes);
+void	waitpid_loop(t_data *data, t_cmd *cmds);
 void	interprete_cmds(t_data *data, t_cmd *cmds);
 
 /*=========================execution_utils.c========================*/
+int		error_arg(t_cmd *cmd);
 int		check_minus(char *arg);
-int		modify_env(t_data *data, t_cmd *cmd);
+int		unset_error(t_cmd *cmd);
 void	execute_builtins(t_data *data, t_cmd *cmd);
+int		modify_env(t_data *data, t_cmd *cmd);
+
+/*=========================execution_utils2.c=======================*/
+int		init_pids(t_data *data, t_cmd *cmds, int **pipes);
+void	pipe_gestion(t_cmd *cmds, int i, int *pipe1, int *pipe2);
+void	close_fds(t_cmd *cmd, int **pipes);
 
 /*============================bultins.c============================*/
 char	*ft_pwd(void);
