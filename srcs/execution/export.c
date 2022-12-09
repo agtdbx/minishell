@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 11:45:16 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/09 09:56:26 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/09 10:32:42 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,7 @@ void	print_export(t_list *env)
 		tmp = (t_var *)actual->content;
 		if (tmp->value == NULL)
 			ft_printf("declare -x %s\n", tmp->name);
-		else if (ft_strcmp(tmp->name, "?") != 0
-			&& ft_isdigit(tmp->name[0]) == 0 && ft_strcmp(tmp->name, "$") != 0)
+		else if (ft_strcmp(tmp->name, "?") != 0)
 			ft_printf("declare -x %s=\"%s\"\n", tmp->name, tmp->value);
 		actual = actual->next;
 	}
