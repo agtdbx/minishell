@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 10:01:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/09 09:43:06 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/09 09:46:38 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,13 @@ int	export_error(t_cmd *cmd)
 		if (cmd->arg[1][0] == '-')
 		{
 			g_exit_status = 2;
-			ft_printf_fd("Error: export: %s: invalid option", 2, cmd->arg[1]);
+			ft_printf_fd("Error: export: %s: invalid option\n",
+				2, cmd->arg[1]);
 		}
 		else if (ft_isalpha(cmd->arg[1][0]) == 0 && cmd->arg[1][0] != '_')
 		{
 			g_exit_status = 1;
-			ft_printf_fd("Error: export: `%s\': not a valid identifier",
+			ft_printf_fd("Error: export: `%s\': not a valid identifier\n",
 				2, cmd->arg[1]);
 		}
 		return (1);
@@ -87,7 +88,7 @@ int	modify_env(t_data *data, t_cmd *cmd)
 		return (1);
 	}
 	if (ft_strcmp(cmd->name, "export") == 0 && cmd->arg[0] != NULL
-		&& cmd->arg[1] != NULL /*&& !export_error(cmd)*/)
+		&& cmd->arg[1] != NULL && !export_error(cmd))
 	{
 		export_builtin(data, cmd);
 		return (1);
