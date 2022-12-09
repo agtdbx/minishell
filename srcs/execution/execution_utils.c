@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 10:01:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/09 14:28:52 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 16:22:10 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	error_arg(t_cmd *cmd)
 		{
 			g_exit_status = 2;
 			ft_printf_fd("Error: pwd: %s: invalid option\n", 2, cmd->arg[1]);
+			return (1);
 		}
-		return (1);
 	}
 	if (!ft_strcmp(cmd->name, "env") && cmd->arg[1] != NULL)
 	{
@@ -29,13 +29,14 @@ int	error_arg(t_cmd *cmd)
 		{
 			g_exit_status = 125;
 			ft_printf_fd("Error: env: %s: invalid option\n", 2, cmd->arg[1]);
+			return (1);
 		}
 		else
 		{
-			g_exit_status = 127;
+			g_exit_status = 2;
 			ft_printf_fd("env: \'%s\': unwanted argument\n", 2, cmd->arg[1]);
+			return (1);
 		}
-		return (1);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:22:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/06 12:00:04 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 17:48:10 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	*write_in_here_doc(char *limiter)
 		to_write = ft_strjoin_free_1st_p(to_write, tmp);
 		free(tmp);
 	}
+	free(limiter);
 	return (to_write);
 }
 
@@ -57,9 +58,7 @@ int	get_start_limiter(char *buf, int start)
 void	parse_heredoc(t_data *data, char *buf)
 {
 	char	*tmp;
-	char	*buf_write;
 	int		start;
-	int		len;
 	int		nb_cmd;
 
 	start = 0;
@@ -69,16 +68,8 @@ void	parse_heredoc(t_data *data, char *buf)
 		start = get_start_limiter(buf, start);
 		if (start == -1)
 			return ;
-		len = 0;
-		while (buf[start + len] != ' ' && buf[start + len] != '\t'
-			&& buf[start + len] != '<' && buf[start + len] != '>'
-			&& buf[start + len])
-			len++;
-		tmp = ft_substr(buf, start, len);
-		buf_write = write_in_here_doc(tmp);
-		free(tmp);
-		data->heredoc = ft_add_str(data->heredoc, buf_write);
-		start += len;
+		tmp = get_to_write(&start, buf);
+		data->heredoc = ft_add_str(data->heredoc, tmp);
 		nb_cmd++;
 	}
 }

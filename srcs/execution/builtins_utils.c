@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:20:44 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/09 13:16:03 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 16:00:31 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,14 @@ void	change_pwd_variable(t_list *env, char *home, t_cmd *cmd, char *tmp)
 		if (chdir(cmd->arg[1]) == 0)
 			variables_changement(env, tmp);
 		else
-			ft_printf_fd("Error: cd: %s: No such file or directory\n", 2,
-				cmd->arg[1]);
+		{
+			g_exit_status = 2;
+			if (access(cmd->arg[1], F_OK) == -1)
+				ft_printf_fd("Error: cd: %s: No such file or directory\n", 2,
+					cmd->arg[1]);
+			else
+				ft_printf_fd("cd: permission denied: %s\n", 2,
+					cmd->arg[1]);
+		}
 	}
 }

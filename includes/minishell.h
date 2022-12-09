@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/09 16:03:36 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 17:48:08 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ t_var		*create_var(t_list *env, char **envp, int i);
 t_var		*create_new_var(char *name, char *value);
 
 /* ==============================quote.c=========================== */
-char	*interprete_quote(char *str);
+char		*interprete_quote(char *str);
 
 /* ===============================env.c============================ */
 t_list		*create_env(char **envp);
@@ -137,6 +137,9 @@ int			get_start_limiter(char *buf, int start);
 void		parse_heredoc(t_data *data, char *buf);
 char		*get_and_remove_first_heredoc(t_data *data);
 int			here_doc(t_data *data);
+
+/* =========================here_doc_utils.c======================= */
+char		*get_to_write(int *start, char *buf);
 
 /* ==============================error.c=========================== */
 int			test_input_bad_redirection(char *str, int *i, int j);

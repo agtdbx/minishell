@@ -6,7 +6,7 @@
 #    By: aderouba <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 14:20:53 by ngrenoux          #+#    #+#              #
-#    Updated: 2022/12/09 15:57:11 by aderouba         ###   ########.fr        #
+#    Updated: 2022/12/09 17:47:13 by aderouba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRCS		= srcs/main.c \
 			  srcs/parsing/redirection_utils.c \
 			  srcs/parsing/redirection_utils2.c \
 			  srcs/parsing/here_doc.c \
+			  srcs/parsing/here_doc_utils.c \
 			  srcs/parsing/quote.c \
 			  srcs/signal/signal.c \
 			  srcs/execution/execution.c \

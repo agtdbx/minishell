@@ -321,6 +321,24 @@ export lol="echo lol"
 "$lol"
 	-> 'echo lol' cmd not found + $? != 127
 
+
+mkdir haha
+chmod 000 haha
+cd haha
+	-> pas le bon message d'erreur
+
+pwd lol
+	-> pwd doit s'executer
+
+env lol
+	-> $? != 2
+
+<<'<lol'
+	-> limiter <lol
+
+<<""
+	-> doit quitter au \n
+
 =================================================================
 								EN COURS
 =================================================================
@@ -334,9 +352,6 @@ Bon courage
 								A FAIRE
 =================================================================
 
-<<'<lol'
-	-> limiter <lol
-
 mkdir haha
 ./haha
 	-> $? != 1
@@ -344,16 +359,11 @@ mkdir haha
 mkdir haha
 chmod 000 haha
 cd haha
-	-> pas le bon message d'erreur + $? != 2 + leak
-
-pwd lol
-	-> pwd doit s'executer
-
-env lol
-	-> $? != 2
+	-> $? != 2 + leak
 
 export lol=haha -lol
 	-> mauvais message : invalid identifier $? != 1
+	-> créer lol=haha
 
 export lol++=coucou
 	-> invalid identifier + $? != 1
@@ -367,9 +377,6 @@ env | ls
 
 unset 3 haha 3
 	-> 2 messages + haha unset
-
-<<""
-	-> doit quitter au \n
 
 ls | haha | ls
 	-> segfault
