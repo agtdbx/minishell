@@ -303,6 +303,17 @@ export lol="echo <lol"
 $lol
 	-> print pas <lol
 
+
+mkdir haha
+chmod 000 haha
+cd haha
+	-> pas le bon message d'erreur
+
+pwd lol
+	-> pwd doit s'executer
+
+env lol
+	-> $? != 2
 =================================================================
 								EN COURS
 =================================================================
@@ -343,16 +354,11 @@ mkdir haha
 mkdir haha
 chmod 000 haha
 cd haha
-	-> pas le bon message d'erreur + $? != 2 + leak
-
-pwd lol
-	-> pwd doit s'executer
-
-env lol
-	-> $? != 2
+	-> $? != 2 + leak
 
 export lol=haha -lol
 	-> mauvais message : invalid identifier $? != 1
+	-> créer lol=haha
 
 export lol++=coucou
 	-> invalid identifier + $? != 1
