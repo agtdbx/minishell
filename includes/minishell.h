@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/09 13:16:39 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 16:03:36 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,9 @@ char		*get_name_envp(char *str);
 char		*get_value_envp(char *str);
 t_var		*create_var(t_list *env, char **envp, int i);
 t_var		*create_new_var(char *name, char *value);
+
+/* ==============================quote.c=========================== */
+char	*interprete_quote(char *str);
 
 /* ===============================env.c============================ */
 t_list		*create_env(char **envp);

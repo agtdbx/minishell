@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:24:06 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/09 12:56:58 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 16:33:25 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ t_cmd	empty_command(char *input)
 	command.name = NULL;
 	command.input = input;
 	command.arg = NULL;
-	command.fd_in = -1;
-	command.fd_out = -1;
+	command.fd_in = -2;
+	command.fd_out = -2;
 	return (command);
 }
 
@@ -43,7 +43,10 @@ t_cmd	command_not_found(t_cmd *command, char *input, char *input_clean,
 	char **split_res)
 {
 	if (command->name)
+	{
+		g_exit_status = 127;
 		ft_printf_fd("Error: Command '%s' not found\n", 2, command->name);
+	}
 	if (!input_clean && split_res)
 		command->name = NULL;
 	if (command->fd_in > 2)
@@ -77,6 +80,7 @@ t_cmd	get_cmd(t_data *data, char *input, char **paths)
 		return (command_not_found(&command, input, input_clean, split_res));
 	split_res[0] = replace_variable_to_value(data->env, split_res[0]);
 	split_res = redo_split(split_res);
+	split_res[0] = interprete_quote(split_res[0]);
 	command.name = split_res[0];
 	command.arg = get_arg(split_res, paths);
 	free(input_clean);

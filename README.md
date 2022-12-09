@@ -223,12 +223,6 @@ env -l
 env coucou
 	-> renvois pas erreur argument + $? != 127
 
-''
-	-> y'a pas command not found
-
-""
-	-> y'a pas command not found
-
 "" ls
 	-> leak
 
@@ -303,13 +297,34 @@ export lol="echo <lol"
 $lol
 	-> print pas <lol
 
+exit 1 2
+	-> $? != 1
+
+haha
+	-> $? != 127
+
+env -l | <mdr
+	-> $? != 0
+
+Split pas les espaces entre ""
+
+''
+	-> y'a pas command not found
+
+""
+	-> y'a pas command not found
+
+" "
+	-> cmd not found + $? != 127
+
+export lol="echo lol"
+"$lol"
+	-> 'echo lol' cmd not found + $? != 127
+
 =================================================================
 								EN COURS
 =================================================================
 AUGUSTE
-
-exit 1 2
-	-> $? != 1
 
 NICOLAS
 
@@ -318,23 +333,9 @@ Bon courage
 =================================================================
 								A FAIRE
 =================================================================
-haha
-	-> $? != 127
-
-export lol="echo lol"
-"$lol"
-	-> 'echo lol' cmd not found + $? != 127
-
-" "
-	-> cmd not found + $? != 127
-
-Split pas les espaces entre ""
 
 <<'<lol'
 	-> limiter <lol
-
-env -l | <mdr
-	-> $? != 0
 
 mkdir haha
 ./haha

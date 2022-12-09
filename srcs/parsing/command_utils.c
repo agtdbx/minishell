@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:25:30 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/09 12:49:13 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 16:28:10 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ char	**get_arg(char **split_res, char **paths)
 	i = 1;
 	while (split_res[i] != NULL)
 	{
+		split_res[i] = interprete_quote(split_res[i]);
 		arg = ft_add_str(arg, split_res[i]);
 		i++;
 	}

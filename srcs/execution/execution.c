@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:33:10 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/09 14:32:17 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 16:35:56 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ void	execution_loop(t_data *data, t_cmd *cmds, int **pipes)
 	{
 		data->pids[i] = -2;
 		pipe_gestion(cmds, i, pipes[0], pipes[1]);
-		if (data->exit == -1 && cmds[i].fd_in != -1 && cmds[i].fd_out != -1
+		if (data->exit == -1 && cmds[i].fd_in > -1 && cmds[i].fd_out > -1
 			&& cmds[i].name && modify_env(data, &cmds[i]))
 			close_fds(&cmds[i], NULL);
-		else if (cmds[i].fd_in != -1 && cmds[i].fd_out != -1
+		else if (cmds[i].fd_in > -1 && cmds[i].fd_out > -1
 			&& !error_arg(&cmds[i]))
 			data->pids[i] = execute_cmd(data, cmds, i, pipes);
 		i++;
@@ -106,9 +106,11 @@ void	waitpid_loop(t_data *data, t_cmd *cmds)
 		}
 		i++;
 	}
-	if (data->exit == -1 && (cmds[0].fd_in == -1 || cmds[0].fd_out == -1))
+	if (cmds[i - 1].fd_in == -1 || cmds[i - 1].fd_out == -1)
 		g_exit_status = 1;
-	else if (cmds[0].fd_in == -1 || cmds[0].fd_out == -1)
+	else if (cmds[i - 1].fd_in == -2 || cmds[i - 1].fd_out == -2)
+		g_exit_status = 127;
+	else
 		g_exit_status = 0;
 }
 

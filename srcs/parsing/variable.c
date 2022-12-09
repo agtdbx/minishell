@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:55:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/08 14:33:32 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 15:58:09 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ char	*add_chars_before_variable(char *res, char *str, int *i, int *text)
 			*text = -1;
 		else if (str[*i] == '"' && *text == -1)
 			*text = 0;
-		else
-			res = add_char(res, str[*i]);
+		res = add_char(res, str[*i]);
 		(*i)++;
 	}
 	return (res);

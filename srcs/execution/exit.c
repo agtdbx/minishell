@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 18:28:16 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/08 13:35:58 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/09 15:37:33 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void	exit_builtins(t_data *data, t_cmd *cmd)
 	{
 		ft_printf("exit\n");
 		ft_printf_fd("Error: exit: too many arguments\n", 2);
+		g_exit_status = 1;
 		return ;
 	}
 	atoll_res = ft_atoll(cmd->arg[1]);
