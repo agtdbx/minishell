@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:19:57 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/08 15:23:02 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 09:54:07 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	cd_implement(t_list *env, t_cmd *cmd)
 	else if (ft_strcmp(cmd->arg[0], "cd") == 0)
 		change_pwd_variable(env, home, cmd, tmp);
 	free(home);
-	free(tmp);
 }
 
 void	unset_builtin(t_data *data, t_cmd *cmd)

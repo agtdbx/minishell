@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/08 14:32:26 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 09:47:40 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,15 +149,14 @@ void	ft_signals(int sig);
 ===================================================================*/
 
 /*===========================execution.c===========================*/
-void	close_fds(t_cmd *cmd, int *pipe1, int *pipe2);
-void	execute_cmd(t_list *env, t_cmd *cmd, int *pipe1, int *pipe2);
+void	close_fds(t_cmd *cmd, int **pipes, int in_fork);
+int		execute_cmd(t_data *data, t_cmd *cmds, int i, int **pipes);
 void	pipe_gestion(t_cmd *cmds, int i, int *pipe1, int *pipe2);
-void	execute_builtins(t_data *data, t_cmd *cmd);
 void	interprete_cmds(t_data *data, t_cmd *cmds);
 
 /*=========================execution_utils.c========================*/
-void	execute_our_cmd(t_data *data, t_cmd *cmd, int *pipe1, int *pipe2);
 int		modify_env(t_data *data, t_cmd *cmd);
+void	execute_builtins(t_data *data, t_cmd *cmd);
 
 /*============================bultins.c============================*/
 char	*ft_pwd(void);

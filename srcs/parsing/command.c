@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:24:06 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/08 16:14:08 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 09:31:17 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ t_cmd	empty_command(char *input)
 t_cmd	command_not_found(t_cmd *command, char *input, char *input_clean,
 	char **split_res)
 {
+	g_exit_status = 127;
 	if (command->name)
-	{
-		g_exit_status = 127;
 		ft_printf_fd("Error: Command '%s' not found\n", 2, command->name);
-	}
+	if (!input_clean && split_res)
+		command->name = NULL;
 	if (command->fd_in > 2)
 		close(command->fd_in);
 	if (command->fd_out > 2)
@@ -81,10 +81,7 @@ t_cmd	get_cmd(t_data *data, char *input, char **paths)
 	command.arg = get_arg(split_res, paths);
 	free(input_clean);
 	if (command.arg == NULL)
-	{
-		command.name = NULL;
 		return (command_not_found(&command, input, NULL, split_res));
-	}
 	free(split_res);
 	return (command);
 }
