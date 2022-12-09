@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 11:14:56 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/09 13:18:10 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 13:59:06 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,29 @@
 
 int	export_error(t_cmd *cmd)
 {
-	if (cmd->arg[1] != NULL)
+	int	i;
+
+	i = 0;
+	while (cmd->arg[i])
 	{
-		if (cmd->arg[1][0] == '-' || check_minus(cmd->arg[1]))
+		if (cmd->arg[i] != NULL)
 		{
-			g_exit_status = 2;
-			ft_printf_fd("Error: export: %s: invalid option\n",
-				2, cmd->arg[1]);
-			return (1);
+			if (cmd->arg[i][0] == '-' || check_minus(cmd->arg[i]))
+			{
+				g_exit_status = 2;
+				ft_printf_fd("Error: export: %s: invalid option\n",
+					2, cmd->arg[i]);
+				return (1);
+			}
+			else if (ft_isalpha(cmd->arg[i][0]) == 0 && cmd->arg[i][0] != '_')
+			{
+				g_exit_status = 1;
+				ft_printf_fd("Error: export: `%s\': not a valid identifier\n",
+					2, cmd->arg[i]);
+				return (1);
+			}
 		}
-		else if (ft_isalpha(cmd->arg[1][0]) == 0 && cmd->arg[1][0] != '_')
-		{
-			g_exit_status = 1;
-			ft_printf_fd("Error: export: `%s\': not a valid identifier\n",
-				2, cmd->arg[1]);
-			return (1);
-		}
+		i++;
 	}
 	return (0);
 }
