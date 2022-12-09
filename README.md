@@ -259,9 +259,6 @@ export +=tkt
 export lol-=tkt
 	-> ne renvois pas invalid identifier + leak
 
-export oui
-	-> ne revois pas invalid identifier + $? != 1
-
 export name=value
 	-> name ne peux pas commencer par 0123456789, ne dois pas contenir `~!@#$%^&*()-[]{};:,./?
 
