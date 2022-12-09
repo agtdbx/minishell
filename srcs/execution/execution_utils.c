@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 10:01:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/08 16:55:25 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/09 09:43:06 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	export_error(t_cmd *cmd)
 			g_exit_status = 2;
 			ft_printf_fd("Error: export: %s: invalid option", 2, cmd->arg[1]);
 		}
-		else if (!ft_isalpha(cmd->arg[1][0]) && cmd->arg[1][0] != '_')
+		else if (ft_isalpha(cmd->arg[1][0]) == 0 && cmd->arg[1][0] != '_')
 		{
 			g_exit_status = 1;
 			ft_printf_fd("Error: export: `%s\': not a valid identifier",
