@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:24:06 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/09 11:10:58 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 12:56:58 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ t_cmd	get_cmd(t_data *data, char *input, char **paths)
 	if (split_res == NULL || split_res[0] == NULL)
 		return (command_not_found(&command, input, input_clean, split_res));
 	split_res[0] = replace_variable_to_value(data->env, split_res[0]);
+	split_res = redo_split(split_res);
 	command.name = split_res[0];
 	command.arg = get_arg(split_res, paths);
 	free(input_clean);
@@ -83,30 +84,4 @@ t_cmd	get_cmd(t_data *data, char *input, char **paths)
 		return (command_not_found(&command, input, NULL, split_res));
 	free(split_res);
 	return (command);
-}
-
-void	print_cmd(t_cmd *command)
-{
-	int	i;
-
-	if (!command)
-		return ;
-	ft_printf("COMMAND\nINPUT : %s\nNAME : %s\nARG : ",
-		command->input, command->name);
-	i = 0;
-	if (command->arg)
-	{
-		ft_printf("{");
-		while (command->arg[i])
-		{
-			ft_printf("%s", command->arg[i]);
-			if (command->arg[i + 1])
-				ft_printf(" ,");
-			i++;
-		}
-		ft_printf(" , NULL}\n");
-	}
-	else
-		ft_printf("NULL\n");
-	ft_printf("Fd in : %i, fd out : %i\n\n", command->fd_in, command->fd_out);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_utils2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:51:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/08 13:37:16 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/09 13:17:48 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	len_word_redirection(char const *s, char *sep, int *i)
 		len++;
 		quote = quote_gestion(s[*i + len], quote);
 	}
-	while ((quote != '\0' || !is_in_char(sep, s[*i + len]))
+	while ((quote != '\0' || !is_in_str(sep, s[*i + len]))
 		&& s[*i + len] != '\0')
 	{
 		len++;
@@ -50,7 +50,7 @@ char	**ft_split_redirection(char *s)
 	i = 0;
 	while (s[i] != '\0')
 	{
-		while (is_in_char(" \t", s[i]))
+		while (is_in_str(" \t", s[i]))
 			i++;
 		if (s[i] == '\0')
 			break ;
@@ -80,7 +80,7 @@ void	pipe_error(t_data *data, char *buf)
 	int	only_space;
 
 	data->pipe_error = -1;
-	if (!is_in_char(buf, '|'))
+	if (!is_in_str(buf, '|'))
 		return ;
 	i = 0;
 	nb_cmd = 0;

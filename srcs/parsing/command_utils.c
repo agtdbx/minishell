@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:25:30 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/07 15:18:49 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 12:49:13 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,27 @@ char	**get_arg(char **split_res, char **paths)
 		i++;
 	}
 	return (arg);
+}
+
+char	**redo_split(char **split_res)
+{
+	char	*tmp;
+	char	**res;
+	int		i;
+
+	tmp = ft_calloc(sizeof(char), 1);
+	if (!tmp)
+		return (split_res);
+	i = 0;
+	while (split_res[i])
+	{
+		tmp = ft_strsuperjoin_free_1st_p(tmp, split_res[i], " ");
+		i++;
+	}
+	res = ft_split_quote(tmp, " ");
+	free(tmp);
+	if (!res)
+		return (split_res);
+	ft_lstr_free(split_res);
+	return (res);
 }

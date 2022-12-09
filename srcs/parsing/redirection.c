@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:51:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/08 14:30:08 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 13:17:39 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ int	get_file_next2(char **tmp, char **split_res, int i)
 		*tmp = ft_substr(split_res[i], 2, ft_strlen(split_res[i]));
 		return (4);
 	}
-	else if (is_in_char(split_res[i], '<') && split_res[i][0] == '<')
+	else if (is_in_str(split_res[i], '<') && split_res[i][0] == '<')
 	{
 		*tmp = ft_substr(split_res[i], 1, ft_strlen(split_res[i]));
 		return (1);
 	}
-	else if (is_in_char(split_res[i], '>') && split_res[i][0] == '>')
+	else if (is_in_str(split_res[i], '>') && split_res[i][0] == '>')
 	{
 		*tmp = ft_substr(split_res[i], 1, ft_strlen(split_res[i]));
 		return (3);

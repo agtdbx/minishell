@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 13:42:54 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/08 14:54:52 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 12:53:54 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	quote_gestion(char c, char quote)
 	return (quote);
 }
 
-int	is_in_char(char *str, char c)
+int	is_in_str(char *str, char c)
 {
 	int	i;
 
@@ -45,7 +45,7 @@ int	len_word(char const *s, char *sep, int i)
 	len = 0;
 	quote = '\0';
 	quote = quote_gestion(s[i], quote);
-	while ((quote != '\0' || !is_in_char(sep, s[i + len]))
+	while ((quote != '\0' || !is_in_str(sep, s[i + len]))
 		&& s[i + len] != '\0')
 	{
 		len++;
@@ -69,7 +69,7 @@ char	**ft_split_quote(char const *s, char *sep)
 	i = 0;
 	while (s[i] != '\0')
 	{
-		while (is_in_char(sep, s[i]))
+		while (is_in_str(sep, s[i]))
 			i++;
 		if (s[i] == '\0')
 			break ;

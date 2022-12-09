@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 11:14:56 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/09 10:46:26 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/09 13:18:10 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	check_arg_export(t_data *data, char *str)
 {
 	int		i;
 
-	if (is_in_char(str, '='))
+	if (is_in_str(str, '='))
 	{
 		i = 0;
 		while (str[i] != '=' && str[i])

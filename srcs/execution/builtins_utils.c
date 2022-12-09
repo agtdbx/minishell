@@ -6,13 +6,13 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:20:44 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/08 15:22:21 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 13:16:03 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	variables_changement(t_list *env, char *tmp)
+void	variables_changement(t_list *env, char *tmp)
 {
 	set_variable_value(env, "OLDPWD", tmp);
 	free(tmp);
