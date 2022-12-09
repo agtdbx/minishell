@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:33:10 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/09 11:53:45 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 14:01:07 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	exec_and_quit_fork(t_data *data, t_cmd *cmds, int i, char **env_tmp)
 {
-	ft_signals(2);
 	if (!env_tmp)
 	{
 		execute_builtins(data, &cmds[i]);
@@ -41,6 +40,7 @@ int	execute_cmd(t_data *data, t_cmd *cmds, int i, int **pipes)
 {
 	int		cpid;
 
+	ft_signals(2);
 	if (!cmds[i].name)
 	{
 		close_fds(&cmds[i], NULL);
@@ -96,9 +96,9 @@ void	waitpid_loop(t_data *data, t_cmd *cmds)
 		else if (data->pids[i] != -2)
 		{
 			waitpid(data->pids[i], &status, 0);
-			if (status != 0)
+			if (status == 255)
 				g_exit_status = 126;
-			else
+			else if (status != 2 && status != 131)
 				g_exit_status = 0;
 			if (data->exit != -1)
 				g_exit_status = 0;
