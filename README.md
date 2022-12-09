@@ -259,6 +259,11 @@ cd
 cd | ls
 	->	ne dois pas marcher car pipe et donc il est dans un fork
 
+export -lol
+	-> ne revois pas invalid option + $? != 2
+
+export oui
+	-> ne revois pas invalid identifier + $? != 1
 =================================================================
 								EN COURS
 =================================================================
@@ -307,12 +312,6 @@ export name=value
 
 unset name
 	-> name ne peux pas commencer par 0123456789, ne dois pas contenir `~!@#$%^&*()-[]{};:,./?
-
-export -lol
-	-> ne revois pas invalid option + $? != 2
-
-export oui
-	-> ne revois pas invalid identifier + $? != 1
 
 export COUCOU | ls
 	-> COUCOU n'existe pas

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 11:14:56 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/05 14:22:22 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/08 16:47:44 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 
 void	if_char_is_plus(char *str, int i, t_data *data)
 {
-	char	*tmp_val;
+	char	*tmp;
 	char	*name;
 	char	*value;
+	char	*tmp_val;
 
 	name = ft_substr(str, 0, i - 1);
-	value = get_variable_value(data->env, name);
+	tmp = get_variable_value(data->env, name);
 	tmp_val = ft_substr(str, i + 1, ft_strlen(str) - (i + 1));
-	value = ft_strjoin(value, tmp_val);
+	value = ft_strjoin(tmp, tmp_val);
 	set_variable_value(data->env, name, value);
+	free(tmp);
+	free(name);
 	free(value);
 	free(tmp_val);
 }
