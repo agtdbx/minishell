@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 10:01:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/09 11:16:05 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 14:28:52 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,12 @@ int	unset_error(t_cmd *cmd)
 
 void	execute_builtins(t_data *data, t_cmd *cmd)
 {
-	if (cmd->name && !ft_strcmp(cmd->name, "pwd") && !error_arg(cmd))
+	if (cmd->name && !ft_strcmp(cmd->name, "pwd"))
 		print_pwd();
 	else if (cmd->name && (!ft_strcmp(cmd->name, "~")
 			|| !ft_strcmp(cmd->name, "cd")))
 		cd_implement(data->env, cmd);
-	else if (cmd->name && !ft_strcmp(cmd->name, "env") && !error_arg(cmd))
+	else if (cmd->name && !ft_strcmp(cmd->name, "env"))
 		env_builtin(data->env);
 	else if (cmd->name && !ft_strcmp(cmd->name, "export")
 		&& !export_error(cmd))
