@@ -302,7 +302,7 @@ AUGUSTE
 
 mkdir lol
 ./lol
-	-> leak + fork non quitter car execve retourne -1
+	-> leak + fork non quitter car execve retourne -1 + $? != 126
 
 NICOLAS
 

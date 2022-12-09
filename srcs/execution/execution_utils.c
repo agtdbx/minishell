@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 10:01:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/09 10:22:24 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/09 10:56:59 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,10 @@ int	modify_env(t_data *data, t_cmd *cmd)
 		return (1);
 	}
 	if (ft_strcmp(cmd->name, "export") == 0 && cmd->arg[0] != NULL
-		&& cmd->arg[1] != NULL && !export_error(cmd))
+		&& cmd->arg[1] != NULL)
 	{
-		export_builtin(data, cmd);
+		if (!export_error(cmd))
+			export_builtin(data, cmd);
 		return (1);
 	}
 	if (cmd->name && !ft_strcmp(cmd->name, "exit"))

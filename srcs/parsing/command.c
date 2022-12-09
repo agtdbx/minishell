@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:24:06 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/09 09:31:17 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 11:10:58 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ t_cmd	empty_command(char *input)
 t_cmd	command_not_found(t_cmd *command, char *input, char *input_clean,
 	char **split_res)
 {
-	g_exit_status = 127;
 	if (command->name)
 		ft_printf_fd("Error: Command '%s' not found\n", 2, command->name);
 	if (!input_clean && split_res)
