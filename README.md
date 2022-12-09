@@ -308,8 +308,70 @@ $lol
 =================================================================
 AUGUSTE
 
+exit 1 2
+	-> $? != 1
+
 NICOLAS
+
+Bon courage
 
 =================================================================
 								A FAIRE
 =================================================================
+haha
+	-> $? != 127
+
+export lol="echo lol"
+"$lol"
+	-> 'echo lol' cmd not found + $? != 127
+
+" "
+	-> cmd not found + $? != 127
+
+Split pas les espaces entre ""
+
+<<'<lol'
+	-> limiter <lol
+
+env -l | <mdr
+	-> $? != 0
+
+mkdir haha
+./haha
+	-> $? != 1
+
+mkdir haha
+chmod 000 haha
+cd haha
+	-> pas le bon message d'erreur + $? != 2 + leak
+
+pwd lol
+	-> pwd doit s'executer
+
+env lol
+	-> $? != 2
+
+export lol=haha -lol
+	-> mauvais message : invalid identifier $? != 1
+
+export lol++=coucou
+	-> invalid identifier + $? != 1
+
+export lol
+export lol+=coucou
+	-> segfault
+
+env | ls
+	-> pipe error a enlever (Pas obliger)
+
+unset 3 haha 3
+	-> 2 messages + haha unset
+
+<<""
+	-> doit quitter au \n
+
+ls | haha | ls
+	-> segfault
+
+haha | ls | haha
+	-> $? != 127
