@@ -6,11 +6,33 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 11:14:56 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/08 16:47:44 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/09 10:46:26 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	export_error(t_cmd *cmd)
+{
+	if (cmd->arg[1] != NULL)
+	{
+		if (cmd->arg[1][0] == '-' || check_minus(cmd->arg[1]))
+		{
+			g_exit_status = 2;
+			ft_printf_fd("Error: export: %s: invalid option\n",
+				2, cmd->arg[1]);
+			return (1);
+		}
+		else if (ft_isalpha(cmd->arg[1][0]) == 0 && cmd->arg[1][0] != '_')
+		{
+			g_exit_status = 1;
+			ft_printf_fd("Error: export: `%s\': not a valid identifier\n",
+				2, cmd->arg[1]);
+			return (1);
+		}
+	}
+	return (0);
+}
 
 void	if_char_is_plus(char *str, int i, t_data *data)
 {
