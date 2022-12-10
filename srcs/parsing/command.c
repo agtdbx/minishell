@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:24:06 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/09 16:42:12 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 18:55:35 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,33 @@ void	free_command(t_cmd *command)
 		close(command->fd_out);
 }
 
-t_cmd	empty_command(char *input)
+t_cmd	empty_command(char *input, int fd_int, int fd_out)
 {
 	t_cmd	command;
 
 	command.name = NULL;
 	command.input = input;
 	command.arg = NULL;
-	command.fd_in = -2;
-	command.fd_out = -2;
+	command.fd_in = fd_int;
+	command.fd_out = fd_out;
 	return (command);
 }
 
 t_cmd	command_not_found(t_cmd *command, char *input, char *input_clean,
 	char **split_res)
 {
+	int	fd;
+
+	fd = -2;
 	if (command->name)
 	{
-		g_exit_status = 127;
-		ft_printf_fd("Error: Command '%s' not found\n", 2, command->name);
+		if (ft_strncmp(command->name, "./", 2) == 0)
+		{
+			ft_printf_fd("Error: Permission denied '%s'\n", 2, command->name);
+			fd = -3;
+		}
+		else
+			ft_printf_fd("Error: Command '%s' not found\n", 2, command->name);
 	}
 	if (!input_clean && split_res)
 		command->name = NULL;
@@ -58,7 +66,7 @@ t_cmd	command_not_found(t_cmd *command, char *input, char *input_clean,
 	if (input_clean)
 		free(input_clean);
 	ft_lstr_free(split_res);
-	return (empty_command(input));
+	return (empty_command(input, fd, fd));
 }
 
 t_cmd	get_cmd(t_data *data, char *input, char **paths)
@@ -68,8 +76,8 @@ t_cmd	get_cmd(t_data *data, char *input, char **paths)
 	char	**split_res;
 
 	if (input == NULL)
-		return (empty_command(input));
-	command = empty_command(input);
+		return (empty_command(input, -2, -2));
+	command = empty_command(input, -2, -2);
 	command.fd_in = 0;
 	command.fd_out = 1;
 	input_clean = interprete_redirection(data, &command, input);

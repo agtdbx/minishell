@@ -3,42 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 11:14:56 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/09 16:28:06 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/09 20:33:58 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+int	bad_name(char *str)
+{
+	int	i;
+
+	if ((ft_isalpha(str[0]) == 0 && str[0] != '_')
+		|| check_minus(str))
+		return (1);
+	i = 0;
+	while (str[i] && str[i] != '=')
+	{
+		if (str[i] == '+' && str[i + 1] != '=')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	export_error(t_cmd *cmd)
 {
 	int	i;
 
-	i = -1;
-	while (cmd->arg[++i])
+	i = 1;
+	while (cmd->arg[i])
 	{
-		if (cmd->arg[i] != NULL)
+		if (cmd->arg[i][0] == '-' && i == 1)
 		{
-			if (cmd->arg[i][0] == '-')
-			{
-				g_exit_status = 2;
-				ft_printf_fd("Error: export: %s: invalid option\n",
-					2, cmd->arg[i]);
-				return (1);
-			}
-			else if ((ft_isalpha(cmd->arg[i][0]) == 0 && cmd->arg[i][0] != '_')
-				|| check_minus(cmd->arg[i]))
-			{
-				g_exit_status = 1;
-				ft_printf_fd("Error: export: `%s\': not a valid identifier\n",
-					2, cmd->arg[i]);
-				return (1);
-			}
+			g_exit_status = 2;
+			ft_printf_fd("Error: export: %s: invalid option\n",
+				2, cmd->arg[i]);
+			return (i);
 		}
+		else if (bad_name(cmd->arg[i]))
+		{
+			g_exit_status = 1;
+			ft_printf_fd("Error: export: `%s\': not a valid identifier\n",
+				2, cmd->arg[i]);
+			return (i);
+		}
+		i++;
 	}
-	return (0);
+	return (i);
 }
 
 void	if_char_is_plus(char *str, int i, t_data *data)

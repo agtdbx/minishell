@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 11:52:08 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/09 11:53:33 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/10 09:55:54 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,14 @@ void	close_fds(t_cmd *cmd, int **pipes)
 		close(pipes[1][0]);
 	if (pipes && pipes[1] && pipes[1][1] > 2)
 		close(pipes[1][1]);
+}
+
+void	change_g_status(t_cmd *cmd)
+{
+	if (cmd->fd_in == -1 || cmd->fd_out == -1)
+		g_exit_status = 1;
+	else if (cmd->fd_in == -2 || cmd->fd_out == -2)
+		g_exit_status = 127;
+	else if (cmd->fd_in == -3 || cmd->fd_out == -3)
+		g_exit_status = 126;
 }

@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:55:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/07 10:14:34 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 20:33:26 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,11 @@ char	*get_variable_value(t_list *env, char *name)
 	{
 		tmp = (t_var *)actual->content;
 		if (ft_strcmp(tmp->name, name) == 0)
+		{
+			if (!tmp->value)
+				return (ft_strdup("\0"));
 			return (ft_strdup(tmp->value));
+		}
 		actual = actual->next;
 	}
 	return (ft_strdup("\0"));

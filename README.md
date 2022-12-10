@@ -339,27 +339,17 @@ env lol
 <<""
 	-> doit quitter au \n
 
-=================================================================
-								EN COURS
-=================================================================
-AUGUSTE
-
-NICOLAS
-
-Bon courage
-
-=================================================================
-								A FAIRE
-=================================================================
+mkdir haha (si haha existe deja)
+	-> $? != 1
 
 mkdir haha
 ./haha
-	-> $? != 1
+	-> $? != 126
 
 mkdir haha
 chmod 000 haha
 cd haha
-	-> $? != 2 + leak
+	-> $? != 1 + leak
 
 export lol=haha -lol
 	-> mauvais message : invalid identifier $? != 1
@@ -372,14 +362,26 @@ export lol
 export lol+=coucou
 	-> segfault
 
-env | ls
-	-> pipe error a enlever (Pas obliger)
-
 unset 3 haha 3
 	-> 2 messages + haha unset
+
+haha | ls | haha
+	-> $? != 127
 
 ls | haha | ls
 	-> segfault
 
-haha | ls | haha
-	-> $? != 127
+env | ls
+	-> pipe error a enlever (Pas obliger)
+
+=================================================================
+								EN COURS
+=================================================================
+AUGUSTE
+
+NICOLAS
+
+=================================================================
+								A FAIRE
+=================================================================
+

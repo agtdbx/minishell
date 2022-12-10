@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/09 17:48:08 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/10 09:56:03 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int			quote_error(char *buf);
 
 /* ============================command.c========================== */
 void		free_command(t_cmd *command);
-t_cmd		empty_command(char *input);
+t_cmd		empty_command(char *input, int fd_int, int fd_out);
 t_cmd		get_cmd(t_data *data, char *input, char **envp);
 void		print_cmd(t_cmd *command);
 
@@ -179,6 +179,7 @@ int			modify_env(t_data *data, t_cmd *cmd);
 int			init_pids(t_data *data, t_cmd *cmds, int **pipes);
 void		pipe_gestion(t_cmd *cmds, int i, int *pipe1, int *pipe2);
 void		close_fds(t_cmd *cmd, int **pipes);
+void		change_g_status(t_cmd *cmd);
 
 /*============================bultins.c============================*/
 char		*ft_pwd(void);
@@ -195,9 +196,10 @@ void		change_pwd_variable(t_list *env, char *home, t_cmd *cmd, char *tmp);
 int			is_sort(t_list *elem1, t_list *elem2);
 void		sort_lst(t_list *lst);
 void		print_export(t_list *env);
-void		export_builtin(t_data *data, t_cmd *cmd);
+void		export_builtin(t_data *data, t_cmd *cmd, int i_error);
 
 /*==========================export_utils.c=========================*/
+int			bad_name(char *str);
 int			export_error(t_cmd *cmd);
 void		if_char_is_plus(char *str, int i, t_data *data);
 void		if_char_is_egal(char *str, int i, t_data *data);

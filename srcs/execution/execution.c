@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:33:10 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/09 17:48:49 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/10 09:55:49 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ void	waitpid_loop(t_data *data, t_cmd *cmds)
 			waitpid(data->pids[i], &status, 0);
 			if (status == 255)
 				g_exit_status = 126;
+			else if (status == 256)
+				g_exit_status = 1;
 			else if (status != 2 && status != 131)
 				g_exit_status = 0;
 			if (data->exit != -1)
@@ -106,11 +108,7 @@ void	waitpid_loop(t_data *data, t_cmd *cmds)
 		}
 		i++;
 	}
-	g_exit_status = 0;
-	if (cmds[i - 1].fd_in == -1 || cmds[i - 1].fd_out == -1)
-		g_exit_status = 1;
-	else if (cmds[i - 1].fd_in == -2 || cmds[i - 1].fd_out == -2)
-		g_exit_status = 127;
+	change_g_status(&cmds[i - 1]);
 }
 
 void	interprete_cmds(t_data *data, t_cmd *cmds)

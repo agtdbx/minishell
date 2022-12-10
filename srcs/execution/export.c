@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 11:45:16 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/09 16:20:59 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/09 20:12:59 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,14 @@ void	print_export(t_list *env)
 	ft_lstclear(&cpy, free_var);
 }
 
-void	export_builtin(t_data *data, t_cmd *cmd)
+void	export_builtin(t_data *data, t_cmd *cmd, int i_error)
 {
 	int	i;
 
 	i = 1;
 	if (cmd->arg[1] == NULL)
 		print_export(data->env);
-	while (cmd->arg[i] != NULL)
+	while (cmd->arg[i] != NULL && i < i_error)
 	{
 		if (check_arg_export(data, cmd->arg[i]))
 		{
