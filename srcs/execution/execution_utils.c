@@ -6,40 +6,11 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 10:01:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/10 09:49:20 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/11 18:57:23 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	error_arg(t_cmd *cmd)
-{
-	if (cmd->name && !ft_strcmp(cmd->name, "pwd") && cmd->arg[1] != NULL)
-	{
-		if (cmd->arg[1][0] == '-')
-		{
-			g_exit_status = 2;
-			ft_printf_fd("Error: pwd: %s: invalid option\n", 2, cmd->arg[1]);
-			return (1);
-		}
-	}
-	if (cmd->name && !ft_strcmp(cmd->name, "env") && cmd->arg[1] != NULL)
-	{
-		if (cmd->arg[1][0] == '-')
-		{
-			g_exit_status = 125;
-			ft_printf_fd("Error: env: %s: invalid option\n", 2, cmd->arg[1]);
-			return (1);
-		}
-		else
-		{
-			g_exit_status = 2;
-			ft_printf_fd("env: \'%s\': unwanted argument\n", 2, cmd->arg[1]);
-			return (1);
-		}
-	}
-	return (0);
-}
 
 int	check_minus(char *arg)
 {
@@ -96,10 +67,21 @@ void	execute_builtins(t_data *data, t_cmd *cmd)
 		unset_builtin(data, cmd);
 	else if (cmd->name && !ft_strcmp(cmd->name, "echo"))
 		echo_builtin(cmd);
-	else if (cmd->name && !ft_strcmp(cmd->name, "false"))
+}
+
+int	modify_env2(t_cmd *cmd)
+{
+	if (cmd->name && !ft_strcmp(cmd->name, "false"))
+	{
 		g_exit_status = 1;
+		return (1);
+	}
 	else if (cmd->name && !ft_strcmp(cmd->name, "true"))
+	{
 		g_exit_status = 0;
+		return (1);
+	}
+	return (0);
 }
 
 int	modify_env(t_data *data, t_cmd *cmd)
@@ -126,5 +108,5 @@ int	modify_env(t_data *data, t_cmd *cmd)
 		cd_implement(data->env, cmd);
 		return (1);
 	}
-	return (0);
+	return (modify_env2(cmd));
 }

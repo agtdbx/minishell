@@ -161,7 +161,7 @@ echo "test"'test'test"test"	-> testtesttesttest
 -> bash: syntax error near unexpected token `|'
 
 $tkt
--> bash: syntax error near unexpected token `|'
+-> \n
 
 $tkt | $tkt
 -> rien
@@ -235,7 +235,7 @@ env coucou
 export -lol
 	-> ne revois pas invalid option + $? != 2
 
-export oui
+export 0oui
 	-> ne revois pas invalid identifier + $? != 1
 
 export COUCOU | ls
@@ -244,7 +244,7 @@ export COUCOU | ls
 export tkt+=oui
 	-> leak
 
-export | grep
+export | grep C
 	-> marche pas + leak
 
 export +=tkt
@@ -277,9 +277,6 @@ cat | ls
 >^C
 	-> $? != 0
 
-export COUCOU | ls
-	-> COUCOU n'existe pas
-
 cd
 	-> leak + marche pas car pas a faire dans un fork
 
@@ -304,7 +301,7 @@ haha
 	-> $? != 127
 
 env -l | <mdr
-	-> $? != 0
+	-> $? != 1
 
 Split pas les espaces entre ""
 
@@ -317,7 +314,7 @@ Split pas les espaces entre ""
 " "
 	-> cmd not found + $? != 127
 
-export lol="echo lol"
+
 "$lol"
 	-> 'echo lol' cmd not found + $? != 127
 
@@ -325,13 +322,13 @@ export lol="echo lol"
 mkdir haha
 chmod 000 haha
 cd haha
-	-> pas le bon message d'erreur
+	-> pas le bon message d'erreur + $? != 1 + leak
 
 pwd lol
 	-> pwd doit s'executer
 
 env lol
-	-> $? != 2
+	-> $? != 127
 
 <<'<lol'
 	-> limiter <lol
@@ -346,11 +343,6 @@ mkdir haha
 ./haha
 	-> $? != 126
 
-mkdir haha
-chmod 000 haha
-cd haha
-	-> $? != 1 + leak
-
 export lol=haha -lol
 	-> mauvais message : invalid identifier $? != 1
 	-> créer lol=haha
@@ -362,7 +354,7 @@ export lol
 export lol+=coucou
 	-> segfault
 
-unset 3 haha 3
+export lol+=coucou
 	-> 2 messages + haha unset
 
 haha | ls | haha
@@ -384,4 +376,3 @@ NICOLAS
 =================================================================
 								A FAIRE
 =================================================================
-

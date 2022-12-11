@@ -6,7 +6,7 @@
 #    By: aderouba <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 14:20:53 by ngrenoux          #+#    #+#              #
-#    Updated: 2022/12/10 10:12:14 by aderouba         ###   ########.fr        #
+#    Updated: 2022/12/11 10:12:07 by aderouba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,8 +83,8 @@ all: $(NAME)
 	$(if $(filter $(NB_COMPIL),0), @make create_progressbar)
 	$(eval NB_COMPIL=$(shell echo $$(($(NB_COMPIL)+1))))
 	$(eval PERCENT=$(shell echo $$(($(NB_COMPIL) * 100 / $(TOTAL_COMPIL)))))
-	@./.progressbar $(PERCENT)
 	@$(CC) $(FLAGS) -c $< -o $@
+	@./.progressbar $(PERCENT)
 
 $(NAME): $(OBJS)
 	@./.progressbar 100
@@ -140,7 +140,7 @@ create_progressbar:
 	@echo '		if (i > nb)' >> .progressbar.c
 	@echo '			printf("\\e[48;5;196m ");' >> .progressbar.c
 	@echo '		else' >> .progressbar.c
-	@echo '			print_color(((i / $(PROGRESS_BAR_DETAIL)) + nb) % 10);' >> .progressbar.c
+	@echo '			print_color((nb - (i / $(PROGRESS_BAR_DETAIL))) % 10);' >> .progressbar.c
 	@echo '	}' >> .progressbar.c
 	@echo '	print_color(-1);' >> .progressbar.c
 	@echo '	if (nb == 100)' >> .progressbar.c

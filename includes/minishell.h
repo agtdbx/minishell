@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/10 09:56:03 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/11 18:57:28 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void		print_cmd(t_cmd *command);
 /* =========================command_utils.c======================= */
 int			is_bultin(char *name);
 char		*get_command_path(char *name, char **paths);
-char		**get_arg(char **split_res, char **paths);
+char		**get_arg(char **split_res, char **paths, t_list *env);
 char		**redo_split(char **split_res);
 
 /* ===========================variable.c========================== */
@@ -88,7 +88,6 @@ char		*add_char(char *str, char c);
 char		*add_chars_before_variable(char *res, char *str, int *i, int *text);
 char		*add_value_variable(t_list *env, char *res, char *str, int *i);
 char		*replace_variable_to_value(t_list *env, char *str);
-void		replace_variables_to_values(t_list *env, t_cmd *cmd);
 
 /* ========================variable_utils.c======================= */
 void		free_var(void *var);
@@ -144,7 +143,9 @@ char		*get_to_write(int *start, char *buf);
 /* ==============================error.c=========================== */
 int			test_input_bad_redirection(char *str, int *i, int j);
 int			test_output_bad_redirection(char *str, int *i, int j);
+int			verif_valid_input(char *str, int j);
 int			test_bad_redirection(char *str);
+int			error_arg(t_cmd *cmd);
 
 /*===================================================================
 								SIGNALS
@@ -169,10 +170,10 @@ void		waitpid_loop(t_data *data, t_cmd *cmds);
 void		interprete_cmds(t_data *data, t_cmd *cmds);
 
 /*=========================execution_utils.c========================*/
-int			error_arg(t_cmd *cmd);
 int			check_minus(char *arg);
 int			unset_error(t_cmd *cmd);
 void		execute_builtins(t_data *data, t_cmd *cmd);
+int			modify_env2(t_cmd *cmd);
 int			modify_env(t_data *data, t_cmd *cmd);
 
 /*=========================execution_utils2.c=======================*/

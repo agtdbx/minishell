@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 17:27:37 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/09 09:25:37 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/10 11:10:25 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ t_cmd	*parse_buf(t_data *data, char *buf, char **paths)
 	while (inputs[i] != NULL)
 	{
 		tmp = get_cmd(data, inputs[i], paths);
-		replace_variables_to_values(data->env, &tmp);
 		commands = add_command(commands, tmp);
 		i++;
 	}

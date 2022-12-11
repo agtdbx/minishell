@@ -6,7 +6,7 @@
 #    By: aderouba <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/26 12:24:51 by aderouba          #+#    #+#              #
-#    Updated: 2022/12/10 10:09:39 by aderouba         ###   ########.fr        #
+#    Updated: 2022/12/10 12:55:59 by aderouba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -167,7 +167,7 @@ create_progressbar:
 	@echo '		if (i > nb)' >> .progressbar.c
 	@echo '			printf("\\e[48;5;196m ");' >> .progressbar.c
 	@echo '		else' >> .progressbar.c
-	@echo '			print_color(((i / $(PROGRESS_BAR_DETAIL)) + nb) % 10);' >> .progressbar.c
+	@echo '			print_color((nb - (i / $(PROGRESS_BAR_DETAIL))) % 10);' >> .progressbar.c
 	@echo '	}' >> .progressbar.c
 	@echo '	print_color(-1);' >> .progressbar.c
 	@echo '	if (nb == 100)' >> .progressbar.c

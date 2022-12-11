@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:33:10 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/10 09:55:49 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/11 10:39:34 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	waitpid_loop(t_data *data, t_cmd *cmds)
 			if (status == 255)
 				g_exit_status = 126;
 			else if (status == 256)
-				g_exit_status = 1;
+				g_exit_status = 126;
 			else if (status != 2 && status != 131)
 				g_exit_status = 0;
 			if (data->exit != -1)
@@ -119,7 +119,8 @@ void	interprete_cmds(t_data *data, t_cmd *cmds)
 
 	if (!cmds || !cmds[0].input || data->pipe_error != -1)
 		return ;
-	pipe(pipe1);
+	if (pipe(pipe1) == -1)
+		return ;
 	pipe2[0] = 0;
 	pipe2[1] = 1;
 	pipes[0] = pipe1;

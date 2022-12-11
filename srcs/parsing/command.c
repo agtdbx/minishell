@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:24:06 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/09 18:55:35 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/11 10:34:37 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,12 @@ t_cmd	command_not_found(t_cmd *command, char *input, char *input_clean,
 {
 	int	fd;
 
-	fd = -2;
+	fd = -1;
 	if (command->name)
 	{
+		fd = -2 - (ft_strncmp(command->name, "./", 2) == 0);
 		if (ft_strncmp(command->name, "./", 2) == 0)
-		{
 			ft_printf_fd("Error: Permission denied '%s'\n", 2, command->name);
-			fd = -3;
-		}
 		else
 			ft_printf_fd("Error: Command '%s' not found\n", 2, command->name);
 	}
@@ -69,6 +67,12 @@ t_cmd	command_not_found(t_cmd *command, char *input, char *input_clean,
 	return (empty_command(input, fd, fd));
 }
 
+/*
+TKT = coucou
+
+echo
+coucou toi coucou
+*/
 t_cmd	get_cmd(t_data *data, char *input, char **paths)
 {
 	t_cmd	command;
@@ -77,9 +81,7 @@ t_cmd	get_cmd(t_data *data, char *input, char **paths)
 
 	if (input == NULL)
 		return (empty_command(input, -2, -2));
-	command = empty_command(input, -2, -2);
-	command.fd_in = 0;
-	command.fd_out = 1;
+	command = empty_command(input, 0, 1);
 	input_clean = interprete_redirection(data, &command, input);
 	if (ft_strlen(input_clean) == 0 && ft_strlen(input) != 0)
 		return (command_not_found(&command, input, input_clean, NULL));
@@ -90,7 +92,7 @@ t_cmd	get_cmd(t_data *data, char *input, char **paths)
 	split_res = redo_split(split_res);
 	split_res[0] = interprete_quote(split_res[0]);
 	command.name = split_res[0];
-	command.arg = get_arg(split_res, paths);
+	command.arg = get_arg(split_res, paths, data->env);
 	free(input_clean);
 	if (command.arg == NULL)
 		return (command_not_found(&command, input, NULL, split_res));

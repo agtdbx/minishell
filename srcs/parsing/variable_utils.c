@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:55:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/09 20:33:26 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/10 12:49:53 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void	set_variable_value(t_list *env, char *name, char *value)
 		tmp = (t_var *)actual->content;
 		if (ft_strcmp(tmp->name, name) == 0)
 		{
+			if (tmp->value && value == NULL)
+				return ;
 			if (tmp->value)
 				free(tmp->value);
 			if (value == NULL)
