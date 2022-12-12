@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/11 18:57:28 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/12 14:18:19 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,10 @@ int			test_output_bad_redirection(char *str, int *i, int j);
 int			verif_valid_input(char *str, int j);
 int			test_bad_redirection(char *str);
 int			error_arg(t_cmd *cmd);
+
+/* ===========================error_utils.c======================== */
+int			is_redirection(char *str);
+int			test_bad_redirection2(char *str, int j);
 
 /*===================================================================
 								SIGNALS

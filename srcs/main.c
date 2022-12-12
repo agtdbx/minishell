@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/09 10:24:42 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/12 13:50:10 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,27 @@ void	exit_minishell(char *buf, t_data *data)
 	exit(0);
 }
 
+int	is_empty(char *buf)
+{
+	int	i;
+
+	i = 0;
+	while (buf[i])
+	{
+		if (buf[i] != ' ' && buf[i] != '\t')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 void	parse_and_do_commands(t_data *data, char *buf)
 {
 	t_cmd	*cmds;
 
-	if (!quote_error(buf) && !test_bad_redirection(buf))
+	if (is_empty(buf))
+		return ;
+	if (!quote_error(buf))
 	{
 		pipe_error(data, buf);
 		parse_heredoc(data, buf);

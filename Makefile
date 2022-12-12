@@ -6,7 +6,7 @@
 #    By: aderouba <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 14:20:53 by ngrenoux          #+#    #+#              #
-#    Updated: 2022/12/11 10:12:07 by aderouba         ###   ########.fr        #
+#    Updated: 2022/12/12 13:36:27 by aderouba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ SRCS		= srcs/main.c \
 			  srcs/execution/echo.c \
 			  srcs/utils/init.c \
 			  srcs/utils/error.c \
+			  srcs/utils/error_utils.c \
 
 
 #====================================OBJECTS===================================#
