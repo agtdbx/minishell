@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 12:47:29 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/12 13:28:03 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/12 13:36:03 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,26 +74,8 @@ int	verif_valid_input(char *str, int j)
 	return (1);
 }
 
-int	is_redirection(char *str)
-{
-	int		i;
-	char	quote;
-
-	i = 0;
-	quote = '\0';
-	while (str[i])
-	{
-		quote = quote_gestion(str[i], quote);
-		if (quote == '\0' && (str[i] == '<' || str[i] == '>'))
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 int	test_bad_redirection(char *str)
 {
-	int		i;
 	int		j;
 	char	quote;
 
@@ -113,20 +95,9 @@ int	test_bad_redirection(char *str)
 			return (1);
 		if (str[j] == '\0')
 			return (0);
-		i = 0;
-		if (test_input_bad_redirection(str, &i, j))
+		j = test_bad_redirection2(str, j);
+		if (j == -1)
 			return (1);
-		if (i > 0)
-		{
-			j += i;
-			continue ;
-		}
-		i = 0;
-		if (test_output_bad_redirection(str, &i, j))
-			return (i);
-		j += i;
-		if (i == 0)
-			j++;
 	}
 	return (0);
 }
