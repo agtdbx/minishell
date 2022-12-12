@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 17:27:37 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/12 13:55:28 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/12 14:09:49 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,7 @@ t_cmd	*parse_buf(t_data *data, char *buf, char **paths)
 	i = 0;
 	while (inputs[i] != NULL)
 	{
-		if (test_bad_redirection(inputs[i]))
-			tmp = empty_command(inputs[i], -1, -1);
-		else
-			tmp = get_cmd(data, inputs[i], paths);
+		tmp = get_cmd(data, inputs[i], paths);
 		commands = add_command(commands, tmp);
 		i++;
 	}

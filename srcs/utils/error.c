@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 12:47:29 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/12 13:44:52 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/12 15:25:56 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,23 +50,31 @@ int	test_output_bad_redirection(char *str, int *i, int j)
 	return (0);
 }
 
-int	verif_valid_input(char *str, int j)
+int	verif_valid_input(char *str)
 {
-	int	only_space;
+	int		j;
+	char	quote;
 
-	if (!str[j] || str[j] == '>' || str[j] == '<')
-		return (1);
-	only_space = 1;
-	while (str[j] && str[j] != '<' && str[j] != '>')
+	j = 0;
+	quote = '\0';
+	while (str[j])
 	{
-		if (str[j] != ' ' && str[j] != '\t')
-			only_space = 0;
+		while (str[j] && (quote != '\0' || (str[j] != '>' && str[j] != '<')))
+		{
+			quote = quote_gestion(str[j], quote);
+			j++;
+		}
+		if (str[j] == '\0')
+			return (1);
 		j++;
-	}
-	if (only_space)
-	{
-		ft_printf_fd("Error: invalid redirection\n", 2);
-		return (0);
+		if (str[j] == '\0')
+			return (1);
+		if (str[j] == str[j - 1])
+			j++;
+		while (str[j] != '\0' && (str[j] == ' ' || str[j] == '\t'))
+			j++;
+		if (str[j] == '\0' || str[j] == '>' || str[j] == '<')
+			return (0);
 	}
 	return (1);
 }
@@ -74,24 +82,18 @@ int	verif_valid_input(char *str, int j)
 int	test_bad_redirection(char *str)
 {
 	int		j;
-	char	quote;
 
-	j = 0;
-	quote = '\0';
 	if (!is_redirection(str))
 		return (0);
+	if (!ft_strcmp(str, "<") || !ft_strcmp(str, ">") || !ft_strcmp(str, "<<")
+		|| !ft_strcmp(str, ">>") || !verif_valid_input(str))
+	{
+		ft_printf_fd("Error: invalid redirection\n", 2);
+		return (1);
+	}
+	j = 0;
 	while (str[j])
 	{
-		quote = quote_gestion(str[j], quote);
-		if (quote != '\0')
-		{
-			j++;
-			continue ;
-		}
-		if (!verif_valid_input(str, j))
-			return (1);
-		if (str[j] == '\0')
-			return (0);
 		j = test_bad_redirection2(str, j);
 		if (j == -1)
 			return (1);

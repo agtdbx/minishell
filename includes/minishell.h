@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/12 15:06:53 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/12 15:37:53 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ char		*get_to_write(int *start, char *buf);
 /* ==============================error.c=========================== */
 int			test_input_bad_redirection(char *str, int *i, int j);
 int			test_output_bad_redirection(char *str, int *i, int j);
-int			verif_valid_input(char *str, int j);
+
 int			test_bad_redirection(char *str);
 int			error_arg(t_cmd *cmd);
 
