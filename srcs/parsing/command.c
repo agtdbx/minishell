@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:24:06 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/11 10:34:37 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/12 11:23:18 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,6 @@ t_cmd	command_not_found(t_cmd *command, char *input, char *input_clean,
 	return (empty_command(input, fd, fd));
 }
 
-/*
-TKT = coucou
-
-echo
-coucou toi coucou
-*/
 t_cmd	get_cmd(t_data *data, char *input, char **paths)
 {
 	t_cmd	command;
