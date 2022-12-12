@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 12:47:29 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/12 13:36:03 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/12 13:44:52 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,13 @@ int	verif_valid_input(char *str, int j)
 
 	if (!str[j] || str[j] == '>' || str[j] == '<')
 		return (1);
-	ft_printf("Start : |%c|\n", str[j]);
 	only_space = 1;
 	while (str[j] && str[j] != '<' && str[j] != '>')
 	{
-		ft_printf("|%c|", str[j]);
 		if (str[j] != ' ' && str[j] != '\t')
 			only_space = 0;
 		j++;
 	}
-	ft_printf("\n");
 	if (only_space)
 	{
 		ft_printf_fd("Error: invalid redirection\n", 2);
