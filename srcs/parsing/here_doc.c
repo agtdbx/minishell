@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:22:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/12 13:49:30 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/12 15:33:27 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,15 @@ char	*write_in_here_doc(char *limiter)
 
 int	get_start_limiter(char *buf, int start)
 {
-	while (!(buf[start] == '<' && buf[start + 1] == '<') && buf[start + 1])
+	char	quote;
+
+	quote = '\0';
+	while ((!(buf[start] == '<' && buf[start + 1] == '<') || quote != '\0')
+		&& buf[start + 1])
+	{
+		quote = quote_gestion(buf[start], quote);
 		start++;
+	}
 	if (buf[start] == '\0' || buf[start + 1] == '\0')
 		return (-1);
 	start += 2;
