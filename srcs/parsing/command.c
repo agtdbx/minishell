@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:24:06 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/12 15:12:35 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/12 19:26:12 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ void	free_command(t_cmd *command)
 		free(command->name);
 	if (command->input != NULL)
 		free(command->input);
+	if (command->heredoc)
+	{
+		unlink(command->heredoc);
+		free(command->heredoc);
+	}
 	ft_lstr_free(command->arg);
 	if (command->fd_in > 2)
 		close(command->fd_in);
@@ -33,6 +38,7 @@ t_cmd	empty_command(char *input, int fd_int, int fd_out)
 
 	command.name = NULL;
 	command.input = input;
+	command.heredoc = NULL;
 	command.arg = NULL;
 	command.fd_in = fd_int;
 	command.fd_out = fd_out;
@@ -78,7 +84,7 @@ t_cmd	get_cmd(t_data *data, char *input, char **paths)
 	command = empty_command(input, 0, 1);
 	input_clean = interprete_redirection(data, &command, input);
 	if ((ft_strlen(input_clean) == 0 && ft_strlen(input) != 0)
-		|| (command.fd_in && command.fd_out))
+		|| (command.fd_in == -1 && command.fd_out == -1))
 		return (command_not_found(&command, input, input_clean, NULL));
 	split_res = ft_split_quote(input_clean, " \t");
 	if (split_res == NULL || split_res[0] == NULL)

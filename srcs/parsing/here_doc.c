@@ -6,25 +6,31 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:22:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/12 16:54:16 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/12 20:07:04 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	fork_heredoc(char *limiter, char *to_write, t_data *data)
+int	fork_heredoc(char *limiter, t_data *data, int nb_cmd)
 {
 	int		fd;
 	int		cpid;
 	char	*tmp;
+	char	*name;
+	char	*to_write;
 
+	to_write = malloc(sizeof(char));
+	if (!to_write)
+		return (-1);
+	to_write[0] = '\0';
 	cpid = fork();
 	if (cpid == 0)
 	{
 		ft_lstr_free(data->paths);
 		ft_lstclear(&data->env, free_var);
 		if (data->heredoc)
-			free(data->heredoc);
+			ft_lstr_free(data->heredoc);
 		while (1)
 		{
 			signal(SIGQUIT, SIG_IGN);
@@ -39,7 +45,11 @@ int	fork_heredoc(char *limiter, char *to_write, t_data *data)
 			free(tmp);
 		}
 		free(limiter);
-		fd = open(".heredoc", O_RDWR | O_TRUNC | O_CREAT, 0644);
+		tmp = ft_itoa(nb_cmd);
+		name = ft_strjoin(".heredoc", tmp);
+		free(tmp);
+		fd = open(name, O_RDWR | O_TRUNC | O_CREAT, 0644);
+		free(name);
 		if (fd == -1)
 		{
 			free(to_write);
@@ -50,46 +60,30 @@ int	fork_heredoc(char *limiter, char *to_write, t_data *data)
 		free(to_write);
 		exit(0);
 	}
+	free(to_write);
 	return (cpid);
 }
 
-char	*write_in_here_doc(char *limiter, t_data *data)
+char	*write_in_here_doc(char *limiter, t_data *data, int nb_cmd)
 {
-	char	*to_write;
 	char	*tmp;
+	char	*name;
 	int		cpid;
 	int		status;
-	int		fd;
 
-	to_write = malloc(sizeof(char));
-	if (!to_write)
-		return (NULL);
-	to_write[0] = '\0';
-	cpid = fork_heredoc(limiter, to_write, data);
+	cpid = fork_heredoc(limiter, data, nb_cmd);
 	waitpid(cpid, &status, 0);
-	tmp = ft_calloc(sizeof(char), 1);
-	if (!tmp)
-	{
-		free(to_write);
-		return (NULL);
-	}
+	name = NULL;
 	if (status == 0)
 	{
-		fd = open(".heredoc", O_RDONLY, 0644);
-		while (read(fd, tmp, 1))
-			to_write = add_char(to_write, tmp[0]);
-		close(fd);
+		tmp = ft_itoa(nb_cmd);
+		name = ft_strjoin(".heredoc", tmp);
+		free(tmp);
 	}
 	else
-	{
 		g_exit_status = 130;
-		free(to_write);
-		to_write = NULL;
-	}
-	unlink(".heredoc");
 	free(limiter);
-	free(tmp);
-	return (to_write);
+	return (name);
 }
 
 int	get_start_limiter(char *buf, int start)
@@ -126,7 +120,15 @@ void	parse_heredoc(t_data *data, char *buf)
 		start = get_start_limiter(buf, start);
 		if (start == -1)
 			return ;
-		tmp = get_to_write(&start, buf, data);
+		tmp = get_to_write(&start, buf, data, nb_cmd);
+		if (!tmp)
+		{
+			ft_lstr_free(data->heredoc);
+			data->heredoc = malloc(sizeof(char *));
+			if (data->heredoc)
+				data->heredoc[0] = NULL;
+			return ;
+		}
 		data->heredoc = ft_add_str(data->heredoc, tmp);
 		nb_cmd++;
 	}
@@ -159,18 +161,13 @@ char	*get_and_remove_first_heredoc(t_data *data)
 	return (res);
 }
 
-int	here_doc(t_data *data)
+int	here_doc(t_data *data, t_cmd *cmd)
 {
 	int		res;
-	int		tmp;
 	char	*buf_write;
 
-	unlink(".heredoc");
-	tmp = open(".heredoc", O_RDWR | O_TRUNC | O_CREAT, 0644);
 	buf_write = get_and_remove_first_heredoc(data);
-	ft_putstr_fd(buf_write, tmp);
-	free(buf_write);
-	close(tmp);
-	res = open(".heredoc", O_RDONLY);
+	res = open(buf_write, O_RDONLY);
+	cmd->heredoc = buf_write;
 	return (res);
 }

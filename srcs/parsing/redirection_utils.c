@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:51:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/12 15:09:54 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/12 20:01:48 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,14 @@ void	input_file(t_data *data, t_cmd *cmd, char **name, int heredoc)
 {
 	if (cmd->fd_in > 2)
 		close(cmd->fd_in);
+	if (cmd->heredoc)
+	{
+		unlink(cmd->heredoc);
+		free(cmd->heredoc);
+		cmd->heredoc = NULL;
+	}
 	if (heredoc)
-		cmd->fd_in = here_doc(data);
+		cmd->fd_in = here_doc(data, cmd);
 	else
 		cmd->fd_in = check_file(*name, O_RDONLY);
 	free(*name);
