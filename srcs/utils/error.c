@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 12:47:29 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/12 13:44:52 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/12 14:33:25 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,12 @@ int	test_bad_redirection(char *str)
 	quote = '\0';
 	if (!is_redirection(str))
 		return (0);
+	if (!ft_strcmp(str, "<") || !ft_strcmp(str, ">")
+		|| !ft_strcmp(str, "<<") || !ft_strcmp(str, ">>"))
+	{
+		ft_printf_fd("Error: invalid redirection\n", 2);
+		return (1);
+	}
 	while (str[j])
 	{
 		quote = quote_gestion(str[j], quote);
