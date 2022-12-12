@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:33:10 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/11 10:39:34 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/12 11:30:33 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ void	execution_loop(t_data *data, t_cmd *cmds, int **pipes)
 		data->pids[i] = -2;
 		pipe_gestion(cmds, i, pipes[0], pipes[1]);
 		if (data->exit == -1 && cmds[i].fd_in > -1 && cmds[i].fd_out > -1
-			&& cmds[i].name && modify_env(data, &cmds[i]))
+			&& cmds[i].name && modify_env(data, &cmds[i])
+			&& !error_arg(&cmds[i]))
 			close_fds(&cmds[i], NULL);
 		else if (cmds[i].fd_in > -1 && cmds[i].fd_out > -1
 			&& !error_arg(&cmds[i]))
@@ -101,9 +102,7 @@ void	waitpid_loop(t_data *data, t_cmd *cmds)
 				g_exit_status = 126;
 			else if (status == 256)
 				g_exit_status = 126;
-			else if (status != 2 && status != 131)
-				g_exit_status = 0;
-			if (data->exit != -1)
+			else if (status != 2 && status != 131 && g_exit_status != 125)
 				g_exit_status = 0;
 		}
 		i++;

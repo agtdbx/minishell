@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 11:45:16 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/09 20:12:59 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/12 11:20:52 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,10 @@ void	export_builtin(t_data *data, t_cmd *cmd, int i_error)
 	int	i;
 
 	i = 1;
+	(void)i_error;
 	if (cmd->arg[1] == NULL)
 		print_export(data->env);
-	while (cmd->arg[i] != NULL && i < i_error)
+	while (cmd->arg[i] != NULL)
 	{
 		if (check_arg_export(data, cmd->arg[i]))
 		{
