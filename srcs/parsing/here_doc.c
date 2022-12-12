@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:22:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/12 14:41:07 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/12 15:24:33 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,10 @@ char	*write_in_here_doc(char *limiter)
 	to_write[0] = '\0';
 	while (1)
 	{
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, &exit_heredoc);
 		tmp = readline("> ");
-		if (tmp == NULL)
-		{
-			ft_printf_fd("minishell: warning: here-document at line %i", 2, 1);
-			ft_printf_fd(" delimited by end-of-file ", 2);
-			ft_printf_fd("(wanted `%s')\n", 2, limiter);
-			break ;
-		}
-		else if (ft_strcmp(tmp, limiter) == 0)
+		if (check_buf_heredoc(tmp, limiter) == 1)
 			break ;
 		tmp = ft_strjoin_free_1st_p(tmp, "\n");
 		to_write = ft_strjoin_free_1st_p(to_write, tmp);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 12:47:29 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/12 13:36:18 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/12 15:03:35 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,18 @@ int	test_bad_redirection2(char *str, int j)
 	if (i == 0)
 		j++;
 	return (j);
+}
+
+int	check_buf_heredoc(char *tmp, char *limiter)
+{
+	if (tmp == NULL)
+	{
+		ft_printf_fd("minishell: warning: here-document at line %i", 2, 1);
+		ft_printf_fd(" delimited by end-of-file ", 2);
+		ft_printf_fd("(wanted `%s')\n", 2, limiter);
+		return (1);
+	}
+	else if (ft_strcmp(tmp, limiter) == 0)
+		return (1);
+	return (0);
 }

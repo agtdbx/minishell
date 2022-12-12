@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 17:27:16 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/12 14:41:11 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/12 15:36:18 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ void	backslach_management(int sig)
 	(void)sig;
 	g_exit_status = 131;
 	ft_printf_fd("Quit (core dumped)\n", 2);
+}
+
+void	exit_heredoc(int sig)
+{
+	(void)sig;
+	g_exit_status = 130;
+	printf("\n");
+	close(0);
 }
 
 void	ft_signals(int sig)

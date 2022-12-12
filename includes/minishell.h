@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/12 14:18:19 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/12 15:06:53 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ int			error_arg(t_cmd *cmd);
 /* ===========================error_utils.c======================== */
 int			is_redirection(char *str);
 int			test_bad_redirection2(char *str, int j);
+int			check_buf_heredoc(char *tmp, char *limiter);
 
 /*===================================================================
 								SIGNALS
@@ -160,6 +161,7 @@ void		prompt_ctrlc_management(int sig);
 void		ctrlc_management(int sig);
 void		backslach_management(int sig);
 void		ft_signals(int sig);
+void		exit_heredoc(int sig);
 
 /*===================================================================
 								EXECUTION
