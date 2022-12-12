@@ -6,13 +6,13 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:46:52 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/09 17:47:54 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/12 16:48:13 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*get_to_write(int *start, char *buf)
+char	*get_to_write(int *start, char *buf, t_data *data)
 {
 	int		len;
 	char	quote;
@@ -28,7 +28,7 @@ char	*get_to_write(int *start, char *buf)
 		len++;
 	}
 	tmp = interprete_quote(ft_substr(buf, *start, len));
-	tmp = write_in_here_doc(tmp);
+	tmp = write_in_here_doc(tmp, data);
 	*start += len;
 	return (tmp);
 }

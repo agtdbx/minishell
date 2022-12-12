@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/12 15:37:53 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/12 16:48:59 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,14 +131,14 @@ int			is_pipe_error(t_data *data, int only_space, int nb_cmd);
 void		pipe_error(t_data *data, char *buf);
 
 /* ============================here_doc.c========================== */
-char		*write_in_here_doc(char *limiter);
+char		*write_in_here_doc(char *limiter, t_data *data);
 int			get_start_limiter(char *buf, int start);
 void		parse_heredoc(t_data *data, char *buf);
 char		*get_and_remove_first_heredoc(t_data *data);
 int			here_doc(t_data *data);
 
 /* =========================here_doc_utils.c======================= */
-char		*get_to_write(int *start, char *buf);
+char		*get_to_write(int *start, char *buf, t_data *data);
 
 /* ==============================error.c=========================== */
 int			test_input_bad_redirection(char *str, int *i, int j);
