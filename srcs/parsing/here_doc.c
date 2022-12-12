@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:22:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/09 17:48:10 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/12 13:55:47 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ char	*write_in_here_doc(char *limiter)
 	to_write[0] = '\0';
 	while (1)
 	{
+		ft_signals(2);
 		tmp = readline("> ");
 		if (tmp == NULL)
 		{
