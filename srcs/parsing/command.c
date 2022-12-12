@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:24:06 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/12 11:23:18 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/12 15:12:35 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ t_cmd	get_cmd(t_data *data, char *input, char **paths)
 		return (empty_command(input, -2, -2));
 	command = empty_command(input, 0, 1);
 	input_clean = interprete_redirection(data, &command, input);
-	if (ft_strlen(input_clean) == 0 && ft_strlen(input) != 0)
+	if ((ft_strlen(input_clean) == 0 && ft_strlen(input) != 0)
+		|| (command.fd_in && command.fd_out))
 		return (command_not_found(&command, input, input_clean, NULL));
 	split_res = ft_split_quote(input_clean, " \t");
 	if (split_res == NULL || split_res[0] == NULL)
