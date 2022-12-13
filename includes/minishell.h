@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/13 09:54:58 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/13 12:49:12 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int			get_fd(t_data *data, t_cmd *cmd, char **name, int file_next);
 /* =======================redirection_utils2.c===================== */
 int			len_word_redirection(char const *s, char *sep, int *i);
 char		**ft_split_redirection(char *s);
-int			is_pipe_error(t_data *data, int only_space, int nb_cmd);
+int			is_pipe_error(t_data *data, int *only_space, int *nb_cmd);
 void		pipe_error(t_data *data, char *buf);
 
 /* ============================here_doc.c========================== */

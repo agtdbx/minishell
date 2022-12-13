@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:25:30 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/13 12:24:23 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/13 12:41:33 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ char	**get_arg(char **split_res, char **paths, t_list *env)
 		return (NULL);
 	arg[0] = NULL;
 	command_path = get_command_path(split_res[0], paths);
-	//ft_printf("|%s| -> |%s|\n", split_res[0], command_path);
 	if (command_path == NULL)
 	{
 		free(arg);

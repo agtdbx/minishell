@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:33:10 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/13 12:18:47 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/13 13:03:48 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	exec_and_quit_fork(t_data *data, t_cmd *cmds, int i, char **env_tmp)
 {
 	if (!env_tmp)
 	{
-		execute_builtins(data, &cmds[i]);
+		if (i != -1)
+			execute_builtins(data, &cmds[i]);
 		free_commands(cmds);
 		ft_lstr_free(data->paths);
 		ft_lstclear(&data->env, free_var);
@@ -50,13 +51,7 @@ int	execute_cmd(t_data *data, t_cmd *cmds, int i, int **pipes)
 		close_fds(&cmds[i], pipes);
 		free(data->pids);
 		if (!cmds[i].name)
-		{
-			free_commands(cmds);
-			ft_lstr_free(data->paths);
-			ft_lstclear(&data->env, free_var);
-			ft_lstr_free(data->heredoc);
-			exit(2);
-		}
+			exec_and_quit_fork(data, cmds, -1, NULL);
 		if (is_bultin(cmds[i].name))
 			exec_and_quit_fork(data, cmds, i, NULL);
 		else
@@ -93,8 +88,8 @@ void	waitpid_loop(t_data *data, t_cmd *cmds)
 	int	i;
 	int	status;
 
-	i = 0;
-	while (cmds[i].input != NULL)
+	i = -1;
+	while (cmds[++i].input != NULL)
 	{
 		if (data->pids[i] == -1)
 			g_exit_status = 127;
@@ -113,7 +108,6 @@ void	waitpid_loop(t_data *data, t_cmd *cmds)
 			else if (status != 2 && status != 131 && g_exit_status != 125)
 				g_exit_status = 0;
 		}
-		i++;
 	}
 	change_g_status(&cmds[i - 1]);
 }
