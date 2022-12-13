@@ -82,7 +82,7 @@ exit 55
 
 exit 55 54 323
 	bash: exit: too many arguments
-	-> on quitte pas le programme et on met $? à 130
+	-> on quitte pas le programme et on met $? à 1
 
 exit p
 	bash: exit: p: numeric argument required
@@ -96,7 +96,7 @@ exit 55 p 323
 	bash: exit: too many arguments
 	-> on quitte pas le programme et on met $? à 130
 
-nb entre -9223372036854775807 et 9223372036854775807 compris
+nb entre -9223372036854775808 et 9223372036854775807 compris
 	sinon c'est du text
 
 
@@ -385,10 +385,19 @@ CTRL C
 
 expr $? + $?
 
+mkdir haha
+haha | ls | haha
+
+echo lol | lol | lol
+
 =================================================================
 								EN COURS
 =================================================================
 AUGUSTE
+
+unset PATH
+ls
+	-> command prompt
 
 NICOLAS
 

@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:51:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/09 13:17:48 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/13 11:59:03 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,10 @@ int	is_pipe_error(t_data *data, int only_space, int nb_cmd)
 
 void	pipe_error(t_data *data, char *buf)
 {
-	int	i;
-	int	nb_cmd;
-	int	only_space;
+	int		i;
+	int		nb_cmd;
+	int		only_space;
+	char	quote;
 
 	data->pipe_error = -1;
 	if (!is_in_str(buf, '|'))
@@ -85,9 +86,11 @@ void	pipe_error(t_data *data, char *buf)
 	i = 0;
 	nb_cmd = 0;
 	only_space = 1;
+	quote = '\0';
 	while (buf[i])
 	{
-		if (buf[i] == '|')
+		quote = quote_gestion(buf[i], quote);
+		if (quote == '\0' && buf[i] == '|')
 		{
 			if (is_pipe_error(data, only_space, nb_cmd))
 				return ;

@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:50:47 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/13 08:48:17 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/13 12:29:15 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void	parse_and_do_commands(t_data *data, char *buf)
 	t_cmd	*cmds;
 
 	if (is_empty(buf))
-		return ;
-	if (!quote_error(buf) && !test_bad_redirection(buf))
+		(void)data;
+	else if (!quote_error(buf) && !test_bad_redirection(buf))
 	{
 		pipe_error(data, buf);
 		if (data->pipe_error == -1 && parse_heredoc(data, buf))

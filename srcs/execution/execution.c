@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:33:10 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/13 09:51:35 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/13 12:18:47 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	exec_and_quit_fork(t_data *data, t_cmd *cmds, int i, char **env_tmp)
 	else
 	{
 		execve(cmds[i].arg[0], cmds[i].arg, env_tmp);
-		execution_error(cmds[i].arg[0]);
 		ft_lstr_free(env_tmp);
 		free_commands(cmds);
 		ft_lstr_free(data->paths);
@@ -41,11 +40,6 @@ int	execute_cmd(t_data *data, t_cmd *cmds, int i, int **pipes)
 	int		cpid;
 
 	ft_signals(2);
-	if (!cmds[i].name)
-	{
-		close_fds(&cmds[i], NULL);
-		return (-1);
-	}
 	cpid = fork();
 	if (cpid == 0)
 	{
@@ -55,12 +49,22 @@ int	execute_cmd(t_data *data, t_cmd *cmds, int i, int **pipes)
 			dup2(cmds[i].fd_out, STDOUT_FILENO);
 		close_fds(&cmds[i], pipes);
 		free(data->pids);
+		if (!cmds[i].name)
+		{
+			free_commands(cmds);
+			ft_lstr_free(data->paths);
+			ft_lstclear(&data->env, free_var);
+			ft_lstr_free(data->heredoc);
+			exit(2);
+		}
 		if (is_bultin(cmds[i].name))
 			exec_and_quit_fork(data, cmds, i, NULL);
 		else
 			exec_and_quit_fork(data, cmds, i, get_tab_env(data->env));
 	}
 	close_fds(&cmds[i], NULL);
+	if (!cmds[i].name)
+		return (-1);
 	return (cpid);
 }
 
@@ -77,8 +81,7 @@ void	execution_loop(t_data *data, t_cmd *cmds, int **pipes)
 			&& cmds[i].name && modify_env(data, &cmds[i])
 			&& !error_arg(&cmds[i]))
 			close_fds(&cmds[i], NULL);
-		else if (cmds[i].fd_in > -1 && cmds[i].fd_out > -1
-			&& !error_arg(&cmds[i]))
+		else if (!error_arg(&cmds[i]))
 			data->pids[i] = execute_cmd(data, cmds, i, pipes);
 		i++;
 	}
@@ -103,7 +106,10 @@ void	waitpid_loop(t_data *data, t_cmd *cmds)
 			else if (status == 256)
 				g_exit_status = 1;
 			else if (status == 1280)
+			{
+				execution_error(cmds[i].arg[0]);
 				g_exit_status = 126;
+			}
 			else if (status != 2 && status != 131 && g_exit_status != 125)
 				g_exit_status = 0;
 		}
