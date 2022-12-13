@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 11:45:16 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/12 11:20:52 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/13 11:47:33 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,12 @@ void	export_builtin(t_data *data, t_cmd *cmd, int i_error)
 	int	i;
 
 	i = 1;
-	(void)i_error;
 	if (cmd->arg[1] == NULL)
 		print_export(data->env);
 	while (cmd->arg[i] != NULL)
 	{
-		if (check_arg_export(data, cmd->arg[i]))
-		{
-			ft_printf("Error\n");
-			exit(0);
-		}
+		if (i_error == 0)
+			check_arg_export(data, cmd->arg[i]);
 		i++;
 	}
 }
