@@ -6,7 +6,7 @@
 /*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 11:45:16 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/13 11:47:33 by ngrenoux         ###   ########.fr       */
+/*   Updated: 2022/12/13 12:23:38 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	print_export(t_list *env)
 	ft_lstclear(&cpy, free_var);
 }
 
-void	export_builtin(t_data *data, t_cmd *cmd, int i_error)
+void	export_builtin(t_data *data, t_cmd *cmd)
 {
 	int	i;
 
@@ -79,7 +79,7 @@ void	export_builtin(t_data *data, t_cmd *cmd, int i_error)
 		print_export(data->env);
 	while (cmd->arg[i] != NULL)
 	{
-		if (i_error == 0)
+		if (export_error(cmd->arg[i]) == 0)
 			check_arg_export(data, cmd->arg[i]);
 		i++;
 	}
