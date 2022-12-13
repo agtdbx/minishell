@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 17:27:37 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/12 18:12:37 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/13 09:54:13 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,6 @@ t_cmd	*parse_buf(t_data *data, char *buf, char **paths)
 	while (inputs[i] != NULL)
 	{
 		tmp = get_cmd(data, inputs[i], paths);
-		ft_printf("COMMAND\ninput : %s\nname : %s\narg :", tmp.input, tmp.name);
-		for (int j = 0;  tmp.arg && tmp.arg[j]; j++)
-			ft_printf("|%s| ", tmp.arg[j]);
-		ft_printf("\nin %i\nout : %i\n\n", tmp.fd_in, tmp.fd_out);
 		commands = add_command(commands, tmp);
 		i++;
 	}

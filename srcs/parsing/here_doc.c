@@ -6,68 +6,11 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:22:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/13 08:57:08 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/13 09:22:52 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	fork_heredoc(char *limiter, t_data *data, int nb_cmd)
-{
-	int		fd;
-	int		cpid;
-	char	*tmp;
-	char	*name;
-	char	*to_write;
-
-	to_write = malloc(sizeof(char));
-	if (!to_write)
-		return (-1);
-	to_write[0] = '\0';
-	cpid = fork();
-	if (cpid == 0)
-	{
-		ft_lstr_free(data->paths);
-		ft_lstclear(&data->env, free_var);
-		if (data->heredoc)
-			ft_lstr_free(data->heredoc);
-		while (1)
-		{
-			signal(SIGQUIT, SIG_IGN);
-			signal(SIGINT, &exit_heredoc);
-			tmp = readline("> ");
-			if (g_exit_status == 130)
-				break ;
-			if (check_buf_heredoc(tmp, limiter) == 1)
-				break ;
-			tmp = ft_strjoin_free_1st_p(tmp, "\n");
-			to_write = ft_strjoin_free_1st_p(to_write, tmp);
-			free(tmp);
-		}
-		free(limiter);
-		if (g_exit_status == 130)
-		{
-			free(to_write);
-			exit(1);
-		}
-		tmp = ft_itoa(nb_cmd);
-		name = ft_strjoin(".heredoc", tmp);
-		free(tmp);
-		fd = open(name, O_RDWR | O_TRUNC | O_CREAT, 0644);
-		free(name);
-		if (fd == -1)
-		{
-			free(to_write);
-			exit(1);
-		}
-		ft_printf_fd(to_write, fd);
-		close(fd);
-		free(to_write);
-		exit(0);
-	}
-	free(to_write);
-	return (cpid);
-}
 
 char	*write_in_here_doc(char *limiter, t_data *data, int nb_cmd)
 {
@@ -76,11 +19,12 @@ char	*write_in_here_doc(char *limiter, t_data *data, int nb_cmd)
 	int		cpid;
 	int		status;
 
+	signal(SIGINT, SIG_IGN);
 	cpid = fork_heredoc(limiter, data, nb_cmd);
 	waitpid(cpid, &status, 0);
 	free(limiter);
 	name = NULL;
-	if (status == 0)
+	if (status == 0 && cpid != -1)
 	{
 		tmp = ft_itoa(nb_cmd);
 		name = ft_strjoin(".heredoc", tmp);

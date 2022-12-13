@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 11:52:08 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/10 09:55:54 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/13 09:51:40 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,28 @@ void	change_g_status(t_cmd *cmd)
 		g_exit_status = 127;
 	else if (cmd->fd_in == -3 || cmd->fd_out == -3)
 		g_exit_status = 126;
+}
+
+void	execution_error(char *str)
+{
+	char	*name;
+	int		i;
+	int		fd;
+
+	i = ft_strlen(str) - 1;
+	while (i >= 0 && str[i] != '/')
+		i--;
+	i++;
+	name = ft_substr(str, i, ft_strlen(str));
+	if (!name)
+		return ;
+	fd = open(name, O_DIRECTORY);
+	if (fd != -1)
+	{
+		ft_printf_fd("Error: %s: Is a directory\n", 2, str);
+		close(fd);
+	}
+	else
+		ft_printf_fd("Error: %s: Permission denied\n", 2, str);
+	free(name);
 }

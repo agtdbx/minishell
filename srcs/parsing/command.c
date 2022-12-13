@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:24:06 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/12 19:26:12 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/13 09:34:25 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ t_cmd	get_cmd(t_data *data, char *input, char **paths)
 		|| (command.fd_in == -1 && command.fd_out == -1))
 		return (command_not_found(&command, input, input_clean, NULL));
 	split_res = ft_split_quote(input_clean, " \t");
+	ft_put_lstr_fd(split_res, 1);
 	if (split_res == NULL || split_res[0] == NULL)
 		return (command_not_found(&command, input, input_clean, split_res));
 	split_res[0] = replace_variable_to_value(data->env, split_res[0]);
