@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:22:40 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/12 20:07:04 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/13 08:57:08 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ int	fork_heredoc(char *limiter, t_data *data, int nb_cmd)
 			free(tmp);
 		}
 		free(limiter);
+		if (g_exit_status == 130)
+		{
+			free(to_write);
+			exit(1);
+		}
 		tmp = ft_itoa(nb_cmd);
 		name = ft_strjoin(".heredoc", tmp);
 		free(tmp);
@@ -73,6 +78,7 @@ char	*write_in_here_doc(char *limiter, t_data *data, int nb_cmd)
 
 	cpid = fork_heredoc(limiter, data, nb_cmd);
 	waitpid(cpid, &status, 0);
+	free(limiter);
 	name = NULL;
 	if (status == 0)
 	{
@@ -82,7 +88,6 @@ char	*write_in_here_doc(char *limiter, t_data *data, int nb_cmd)
 	}
 	else
 		g_exit_status = 130;
-	free(limiter);
 	return (name);
 }
 
@@ -107,7 +112,7 @@ int	get_start_limiter(char *buf, int start)
 	return (start);
 }
 
-void	parse_heredoc(t_data *data, char *buf)
+int	parse_heredoc(t_data *data, char *buf)
 {
 	char	*tmp;
 	int		start;
@@ -119,19 +124,20 @@ void	parse_heredoc(t_data *data, char *buf)
 	{
 		start = get_start_limiter(buf, start);
 		if (start == -1)
-			return ;
+			return (1);
 		tmp = get_to_write(&start, buf, data, nb_cmd);
-		if (!tmp)
+		if (tmp == NULL)
 		{
 			ft_lstr_free(data->heredoc);
 			data->heredoc = malloc(sizeof(char *));
 			if (data->heredoc)
 				data->heredoc[0] = NULL;
-			return ;
+			return (0);
 		}
 		data->heredoc = ft_add_str(data->heredoc, tmp);
 		nb_cmd++;
 	}
+	return (1);
 }
 
 char	*get_and_remove_first_heredoc(t_data *data)

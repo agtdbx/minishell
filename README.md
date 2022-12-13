@@ -366,6 +366,23 @@ ls | haha | ls
 env | ls
 	-> pipe error a enlever (Pas obliger)
 
+hahaha
+(full espace)
+	-> $? != 127
+
+<mdr | >lol < mdr > mdr | <mdr
+	->	crée lol mais pas mdr, + 3 messages d'erreurs à mettre
+
+export 1 lol
+	->On met une erreur mais on export lol quand même
+
+clear | env -l
+	-> $? != 125
+
+>tkt <<oui cat
+CTRL C
+	-> ne pas créer tkt + $? != 130
+
 =================================================================
 								EN COURS
 =================================================================
@@ -376,3 +393,5 @@ NICOLAS
 =================================================================
 								A FAIRE
 =================================================================
+
+expr $? + $?

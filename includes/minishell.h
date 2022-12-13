@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/12 19:28:53 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/13 08:47:25 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void		pipe_error(t_data *data, char *buf);
 /* ============================here_doc.c========================== */
 char		*write_in_here_doc(char *limiter, t_data *data, int nb_cmd);
 int			get_start_limiter(char *buf, int start);
-void		parse_heredoc(t_data *data, char *buf);
+int			parse_heredoc(t_data *data, char *buf);
 char		*get_and_remove_first_heredoc(t_data *data);
 int			here_doc(t_data *data, t_cmd *cmd);
 
