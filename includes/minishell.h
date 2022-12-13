@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/13 08:47:25 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/13 09:54:58 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,10 @@ int			here_doc(t_data *data, t_cmd *cmd);
 
 /* =========================here_doc_utils.c======================= */
 char		*get_to_write(int *start, char *buf, t_data *data, int nb_cmd);
+char		*free_and_do_heredoc(t_data *data, char *limiter, char *to_write);
+void		in_fork_heredoc(t_data *data, char *limiter, char *to_write,
+				int nb_cmd);
+int			fork_heredoc(char *limiter, t_data *data, int nb_cmd);
 
 /* ==============================error.c=========================== */
 int			test_input_bad_redirection(char *str, int *i, int j);
@@ -188,6 +192,7 @@ int			init_pids(t_data *data, t_cmd *cmds, int **pipes);
 void		pipe_gestion(t_cmd *cmds, int i, int *pipe1, int *pipe2);
 void		close_fds(t_cmd *cmd, int **pipes);
 void		change_g_status(t_cmd *cmd);
+void		execution_error(char *str);
 
 /*============================bultins.c============================*/
 char		*ft_pwd(void);
