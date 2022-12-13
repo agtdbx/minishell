@@ -6,7 +6,7 @@
 /*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:56:15 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/13 12:49:12 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/13 13:04:34 by aderouba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,11 +209,11 @@ void		change_pwd_variable(t_list *env, char *home, t_cmd *cmd, char *tmp);
 int			is_sort(t_list *elem1, t_list *elem2);
 void		sort_lst(t_list *lst);
 void		print_export(t_list *env);
-void		export_builtin(t_data *data, t_cmd *cmd, int i_error);
+void		export_builtin(t_data *data, t_cmd *cmd);
 
 /*==========================export_utils.c=========================*/
 int			bad_name(char *str);
-int			export_error(t_cmd *cmd);
+int			export_error(char *arg);
 void		if_char_is_plus(char *str, int i, t_data *data);
 void		if_char_is_egal(char *str, int i, t_data *data);
 int			check_arg_export(t_data *data, char *str);

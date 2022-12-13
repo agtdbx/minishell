@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 11:14:56 by ngrenoux          #+#    #+#             */
-/*   Updated: 2022/12/09 20:33:58 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/13 12:24:42 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,30 +29,30 @@ int	bad_name(char *str)
 	return (0);
 }
 
-int	export_error(t_cmd *cmd)
+int	export_error(char *arg)
 {
 	int	i;
 
-	i = 1;
-	while (cmd->arg[i])
+	i = 0;
+	while (arg[i])
 	{
-		if (cmd->arg[i][0] == '-' && i == 1)
+		if (arg[0] == '-')
 		{
 			g_exit_status = 2;
 			ft_printf_fd("Error: export: %s: invalid option\n",
-				2, cmd->arg[i]);
-			return (i);
+				2, arg);
+			return (1);
 		}
-		else if (bad_name(cmd->arg[i]))
+		else if (bad_name(arg))
 		{
 			g_exit_status = 1;
 			ft_printf_fd("Error: export: `%s\': not a valid identifier\n",
-				2, cmd->arg[i]);
-			return (i);
+				2, arg);
+			return (1);
 		}
 		i++;
 	}
-	return (i);
+	return (0);
 }
 
 void	if_char_is_plus(char *str, int i, t_data *data)

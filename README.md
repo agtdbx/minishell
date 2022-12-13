@@ -400,7 +400,7 @@ ls
 	-> command prompt
 
 NICOLAS
-
+export meme en cas d'erreur, export la variable
 =================================================================
 								A FAIRE
 =================================================================

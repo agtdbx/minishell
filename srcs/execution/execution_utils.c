@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aderouba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ngrenoux <ngrenoux@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 10:01:43 by aderouba          #+#    #+#             */
-/*   Updated: 2022/12/11 18:57:23 by aderouba         ###   ########.fr       */
+/*   Updated: 2022/12/13 12:22:44 by ngrenoux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	execute_builtins(t_data *data, t_cmd *cmd)
 	else if (cmd->name && !ft_strcmp(cmd->name, "env"))
 		env_builtin(data->env);
 	else if (cmd->name && !ft_strcmp(cmd->name, "export"))
-		export_builtin(data, cmd, export_error(cmd));
+		export_builtin(data, cmd);
 	else if (cmd->name && !ft_strcmp(cmd->name, "unset")
 		&& !unset_error(cmd))
 		unset_builtin(data, cmd);
@@ -95,7 +95,7 @@ int	modify_env(t_data *data, t_cmd *cmd)
 	if (ft_strcmp(cmd->name, "export") == 0 && cmd->arg[0] != NULL
 		&& cmd->arg[1] != NULL)
 	{
-		export_builtin(data, cmd, export_error(cmd));
+		export_builtin(data, cmd);
 		return (1);
 	}
 	if (cmd->name && !ft_strcmp(cmd->name, "exit"))
